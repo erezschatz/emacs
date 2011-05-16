@@ -1,0 +1,76 @@
+* Persistence DB Test Scenarios
+** Replication between nodes
+*** commit entry
+*** check if available on other nodes
+*** how long it took
+** Mass commit
+*** commit huge amount of data and entries
+*** check whether available
+*** how long it took
+** Conflict handling
+*** Enter two conflicting entries
+*** if there's major difference between entry times
+**** if there's a state of lag
+***** more than 10 minutes time difference between conflict in version of a document
+****** The document with longest rev count wins
+**** If not in a lag
+***** prefer latest
+*** If session documents timestamp are more than configuration.SESSION_LAG_TIME apart
+*** we treat this situation as if we were out of sync for a while, and hence
+**** we need to be passive and make the winning version of doc the doc with the latest timestamp, which in this situation makes sure we win the docs that came from replication.
+** Persistence Test
+* Coding conventions
+** Full, descriptive variable names
+** Casing
+*** Modules, Packages, Class names start with uppercase
+*** variables, method names, attributes, lower case with underscores
+** Spacing and indenting
+*** 4 spaces indendation
+*** in parantheses, put space after (, before ), and after comma
+*** align fat commas
+*** comma after each member in list, hash, etc.
+** 80 character max
+** Use Double qoutes only if interpolation is needed
+*** for everything else, use single quotes
+* DNS Project
+** GOAL: create a cloud of auth servers
+*** PROPOSE: how we make a master dns server that controls dozens of slave dns servers
+*** https://secure.wikimedia.org/wikipedia/en/wiki/Domain_Name_System#Authoritative_name_server
+*** first layer
+**** we need a way to decide which zone works on which server
+**** push updates in real time and such
+*** second layer
+**** make some more abstract logic to the first layer
+**** we give a meaning to each server
+***** put multiple groups into a single group
+***** make primary and secondary servers
+*** third layer
+**** where we put business logic into it
+**** where we can tell which domain can be at which group of servers
+**** what happens on failovers and such
+*** second and third layers are similar
+**** they are different by that we define:
+***** which servers are primary
+***** which ones are secondary
+***** the geo location of each server
+***** etc.
+*** we give a meaning to each IP address
+** DONE begin with configuring BIND for your tests
+*** BIND is the de-facto standard, and you need to know bind
+*** BIND is the most common dns server (like Apache for web)
+*** the zone files of BIND are standard enough that Windows also uses BIND's format
+*** BIND is quite easy and has tons of documentation
+*** DNS server split to auth server and a resolver,
+*** completely two different jobs
+*** most dns daemons split them off completely
+**** bind doesn't
+*** DONE configure multiple domains
+*** DONE set A record MX record so you will see and understand
+*** DONE set up a second bind on a virtual machine
+*** DONE do master secondary sync using axfr
+** DONE after you done with bind basics, go on with pdns
+*** A record
+*** PTR
+*** MX
+*** etc.
+** DONE we will talk about pdns internals and what we need to do in there

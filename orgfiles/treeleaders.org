@@ -1,0 +1,209 @@
+#+SEQ_TODO: IDEA FEATURE ASSIGNED | ADDED
+#+SEQ_TODO: BUG SOLUTION FIXED | MERGED
+#+SEQ_TODO: TODO | DONE
+#+STARTUP: logdone
+#+STARTUP: lognote
+
+* User interface
+** FEATURE homepage [0%]
+*** IDEA title
+*** IDEA small blurb
+*** IDEA sample board
+**** playing treeleaders
+*** IDEA login form
+*** IDEA play games button
+*** IDEA create a variant button
+** FEATURE variant creation wizard [0%]
+*** IDEA from template [/]
+*** IDEA small
+**** los alamos
+*** IDEA medium
+**** chess
+*** IDEA large
+**** centennial
+*** IDEA tile shape
+**** square
+**** hex
+**** triangle
+*** IDEA board shape
+**** rows
+**** columns
+*** pieces
+** FEATURE game page [%]
+** FEATURE user page [0%]
+*** IDEA list of games [0/2]
+**** IDEA list of variants created
+**** IDEA list of games
+***** IDEA played
+***** IDEA playing
+***** IDEA invitaitons
+* Data base [14%]
+** all tables have id and stamp
+** DONE install Postgres
+   CLOSED: [2011-01-26 Wed 14:55]
+** DONE using DBIx::Class
+** FEATURE User
+*** username
+**** not_null
+**** unigue
+*** password
+**** not_null
+*** email
+**** not_null
+**** unique
+*** relations
+**** one-to-one
+***** Profile
+**** has_many
+***** UserGame
+**** many_to_many
+***** Game
+**** has_many
+***** Piece
+**** has_many
+***** Variant
+** FEATURE Profile
+*** first_name
+**** text
+*** last_name
+**** text
+*** relations
+**** one-to-one
+***** User
+** FEATURE UserGame
+*** user_id
+**** integer
+**** not null
+*** game_id
+**** integer
+**** not null
+*** relations
+**** belongs_to
+***** User
+**** belongs_to
+***** Game
+** IDEA invitations
+** FEATURE Variant
+*** name
+**** text
+**** not_null
+*** board_id
+**** integer
+**** not_null
+*** user_id
+**** integer
+**** not_null
+*** IDEA winning conditions
+*** relations
+**** belongs_to
+***** User
+**** has_many
+***** Game
+**** belongs_to
+***** Board
+** FEATURE VariantPiece
+*** variant_id
+*** piece_id
+*** relations
+**** belongs-to
+***** Variant
+**** belongs-to
+***** Piece
+** IDEA Winning condition
+*** checkmate
+*** stalemate
+*** bare king
+*** capture king
+** FEATURE Board
+*** rows
+**** integer
+**** not null
+*** columns
+**** integer
+**** not null
+*** tile_type_id
+**** integer
+**** not_null
+**** foreign_key
+*** number_of_boards
+**** integer
+**** default 1
+*** relations
+**** has_many
+***** Variant
+**** belongs_to
+***** TileType
+** FEATURE Game
+*** name
+**** text
+**** unique
+*** variant_id
+**** integer
+**** not Null
+*** started_at
+**** datetime
+**** set on create
+*** closed_at
+**** datetime
+*** game_notation
+**** text
+**** PGN
+*** relations
+**** belongs_to
+***** Variont
+**** has_many
+***** UserGame
+**** many_to_many
+***** User
+** FEATURE TileType
+*** shape
+**** text
+**** not null
+*** relations
+**** has_many
+***** Board
+** FEATURE Piece
+*** name
+**** text
+**** not_null
+*** IDEA alignment_id
+**** integer
+**** not_null
+*** user_id
+**** integer
+**** not null
+*** moves
+**** capturing
+**** IDEA noncapturing 
+*** relations
+**** has_one
+***** Alignment
+**** belongs_to
+***** User 
+** IDEA Alignment
+*** type
+**** text
+**** not null
+*** relations
+**** has_many
+***** Piece
+* Tools
+** Perl
+*** 5.12.2
+**** compiled to /usr/local
+*** local::lib
+*** Catalyst
+*** DBIx::Class
+*** Template::Toolkit
+*** jQuery
+*** Wx::Perl?
+** Git
+*** TODO host my own
+** bug tracker
+*** RT
+**** RTFM
+** documentation
+*** org-mode wiki-mode or oddmuse
+** is there an all in one solution?
+* API
+** 

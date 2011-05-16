@@ -1,0 +1,11 @@
+* Features [66%]
+** DONE create new tasks
+** DONE create new todo items
+** TODO sync with hiveminder [0/3]
+*** TODO upload new tasks [0/1]
+**** TODO including todos
+*** TODO get hiveminder id
+*** TODO  update existing tasks
+** 
+* Bugs
+** TODO updates create new items
