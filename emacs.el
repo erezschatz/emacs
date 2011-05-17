@@ -169,6 +169,10 @@
 
 (add-hook 'org-after-todo-statistics-hook 'org-summary-todo)
 
+;;auctex
+(require 'auctex.el)
+(require 'preview-latex.el) 
+
 ;;keywiz
 (require 'keywiz)
 
