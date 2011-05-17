@@ -1,0 +1,10 @@
+* App::Checkin
+** Runs as cron
+** Demands checkin to work
+** when checkout asks if no checkin
+** informs if less than 9 hours
+** informs if total less than 9 hours/day
+** commands
+*** checkin
+*** checkout
+*** total
