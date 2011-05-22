@@ -18,7 +18,10 @@
       (color-theme-initialize)
       (color-theme-billw)
       ;;when color-themes change, they reset all definitionss
-      (setq color-theme-is-cumulative nil))
+      (setq color-theme-is-cumulative nil)
+
+      ;;highlight current line
+      (global-hl-line-mode t))
   ;; this is only needed for non GUI
   (setq linum-format "%d "))
 
@@ -27,9 +30,6 @@
 
 ;;set line number
 (global-linum-mode 1)
-
-;;highlight current line
-(global-hl-line-mode 1)
 
 ;;no tool bar, no menu bar, no scrollbar
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
@@ -168,6 +168,10 @@
     (org-todo (if (= n-not-done 0) "DONE" "TODO"))))
 
 (add-hook 'org-after-todo-statistics-hook 'org-summary-todo)
+
+;;auctex
+(load "auctex.el" nil t t)
+(load "preview-latex.el" nil t t) 
 
 ;;keywiz
 (require 'keywiz)
