@@ -84,20 +84,18 @@
 *** www.myspace.com/moptopyeahrock
 ** Ego Death
 ** Yellow Ostrich
-** Animal Collective
-** Panda Bear
 ** The Calm Blue Sea
 ** Gecko Jones
 ** Little Pimienta(?)
-* TODO Downgrade to mp3 [43%]
+* TODO Downgrade to mp3 [63%]
 :PRIORITIES:
 :COOKIE_DATA: todo recursive
 :END:
-** TODO Arcade Fire [1/4]
+** DONE Arcade Fire [4/4]
 *** DONE The Suburbs
-*** TODO Funeral
-*** TODO Neon Bible
-*** TODO Arcade Fire EP
+*** DONE Funeral
+*** DONE Neon Bible
+*** DONE Arcade Fire EP
 ** DONE Band of Horses
 ** DONE Broken Social Scene
 ** DONE Cold War Kids
@@ -113,9 +111,9 @@
 *** TODO In the wake of Poseidon
 ** TODO Dickey Betts
 ** TODO The Waterboys
-** TODO Yes
-*** TODO The Yes Album
-** TODO PJ Harvey
+** DONE Yes
+*** DONE The Yes Album
+** DONE PJ Harvey
 ** TODO Neil Young
 *** DONE Rust never Sleeps
 *** TODO Live Rust
@@ -123,14 +121,14 @@
 ** DONE Tricky - Maxinquaye
 ** DONE The Rolling Stones
 ** DONE The Byrds - Sweetheart the Rodeo
-** TODO Jeff Buckley - Grace
-** TODO Amy Winehouse - Back to Black
+** DONE Jeff Buckley - Grace
+** DONE Amy Winehouse - Back to Black
 ** DONE The White Stripes
-** TODO Sufjan Stevens [6/7]
+** DONE Sufjan Stevens [7/7]
 *** DONE A sun came
 *** DONE Seven Swans
 *** DONE Enjoy Your Rabbit
-*** TODO Michigan
+*** DONE Michigan
 *** DONE Illinoise
 *** DONE All Delighted People
 *** DONE The Age of Adz
@@ -139,23 +137,24 @@
 ** DONE Kings of Leon
 ** DONE The Tallest Man on Earth
 ** TODO IAM
-** TODO David Bowie [3/16]
+** DONE David Bowie [17/17]
 *** DONE Young Americans
 *** DONE Station to Station
 *** DONE Heroes
-*** TODO Low
-*** TODO Lodger
-*** TODO Space Oddity
-*** TODO Scary Monsters
-*** TODO Let's Dance
-*** TODO Aladdin_Sane
-*** TODO Black_Tie_White_Noise
-*** TODO Diamond_Dogs
-*** TODO Reality
-*** TODO The_Rise_and_Fall_of_Ziggy_Stardust_and_the_Spiders_from_Mars
-*** TODO Tin_Machine
-*** TODO Tin_Machine_II
-*** TODO Tonight
+*** DONE Hunky Dory
+*** DONE Low
+*** DONE Lodger
+*** DONE Space Oddity
+*** DONE Scary Monsters
+*** DONE Let's Dance
+*** DONE Aladdin_Sane
+*** DONE Black_Tie_White_Noise
+*** DONE Diamond_Dogs
+*** DONE Reality
+*** DONE The_Rise_and_Fall_of_Ziggy_Stardust_and_the_Spiders_from_Mars
+*** DONE Tin_Machine
+*** DONE Tin_Machine_II
+*** DONE Tonight
 ** DONE Dinosaur Jr. - Where you been
 ** TODO Bruce Springsteen [1/3]
 *** TODO Greetings_From_Asbury_Park,_N.J
@@ -166,8 +165,6 @@
 ** TODO Peter Hammill [0/12]
 *** TODO A Black Box
 *** TODO And Close as This
-*** TODO Chameleon in the Shadows of the Night
-*** TODO Fool's Mate
 *** TODO In a Foreign Town
 *** TODO In_Camera
 *** TODO Nadir's_Big_Chance
@@ -183,13 +180,18 @@
 *** TODO Lonely Hearts Dub Band
 ** TODO Mount Kimble
 *** TODO Crooks and Lovers
-** TODO Joni Mitchell [0/2]
-*** TODO Blue
-*** TODO Clouds
+** DONE Joni Mitchell
+*** Clouds
 ** TODO Fela Kuti
 *** TODO Zombie
 ** TODO Jethro Tull
 *** TODO Thick as a Brick
-** TODO Creedence Clearwater Revival
+** DONE Creedence Clearwater Revival
 *** TODO Green River
 **
+** TODO Fleet Foxes
+*** Sun Giant
+** TODO Sigur Ros [0/3]
+*** TODO Ny Battery
+*** TODO Ba Ba Ti Ki Di Do
+*** TODO Saeglopur
