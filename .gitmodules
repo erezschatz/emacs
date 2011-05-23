@@ -16,3 +16,6 @@
 [submodule "site-lisp/orgmode"]
 	path = site-lisp/orgmode
 	url = git://orgmode.org/org-mode.git
+[submodule "site-lisp/identica-mode"]
+	path = site-lisp/identica-mode
+	url = http://git.savannah.gnu.org/cgit/identica-mode.git

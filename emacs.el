@@ -53,8 +53,9 @@
 ;;turn on paren match highlighting
 (show-paren-mode 1)
 
-;;allow upcase-region
+;;allow upcase/downcase region
 (put 'upcase-region 'disabled nil)
+(put 'downcase-region 'disabled nil)
 
 ;;save all backups in the temp folder
 (setq backup-directory-alist
@@ -130,15 +131,14 @@
 
       ;;right margin
       (require 'fill-column-indicator)
-      ;;(setq fci-style 'rule)
-      (setq fci-style 'shading)
+      (setq fci-style 'rule)
+      ;;(setq fci-style 'shading)
       (setq fci-handle-line-move-visual t)
       ;;(setq fci-shading-face "#3a4a2a")
       ;;(setq fci-rule-color "#637253")
       ;;(setq fci-rule-character ?|)
       (setq-default fill-column 80)
-      (global-set-key (kbd "C-f") 'fci-mode)))
-
+      (global-set-key (kbd "C-c C-f") 'fci-mode)))
 
 ;;full-ack
 (autoload 'ack-same "full-ack" nil t)
