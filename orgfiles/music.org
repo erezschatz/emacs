@@ -87,7 +87,7 @@
 ** The Calm Blue Sea
 ** Gecko Jones
 ** Little Pimienta(?)
-* TODO Downgrade to mp3 [63%]
+* TODO Downgrade to mp3 [61%]
 :PRIORITIES:
 :COOKIE_DATA: todo recursive
 :END:
@@ -195,3 +195,5 @@
 *** TODO Ny Battery
 *** TODO Ba Ba Ti Ki Di Do
 *** TODO Saeglopur
+** TODO Leonard Cohen
+*** Ten New Songs
