@@ -179,10 +179,6 @@
 ;;keywiz
 (require 'keywiz)
 
-;;search word with right-click like acme
-(require 'acme-search)
-(global-set-key [(mouse-3)] 'acme-search-forward)
-
 ;;keyboard remapping
 
 ;;Invoke M-x without the Alt key
@@ -202,6 +198,3 @@
 
 ;;delete trailing whitespaces
 (global-set-key (kbd "C-x C-<backspace>") 'delete-trailing-whitespace)
-
-;;eval expression
-(global-set-key (kbd "C-x C-;") 'eval-expression)
