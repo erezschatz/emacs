@@ -63,6 +63,9 @@
 (setq auto-save-file-name-transforms
       `((".*" ,temporary-file-directory t)))
 
+;;set emerge to ignore whitespace diff
+(setq emerge-diff-options "--ignore-all-space")
+
 ;;c
 (setq c-basic-offset 8)
 
@@ -175,8 +178,6 @@
 
 ;;keywiz
 (require 'keywiz)
-
-;;keyboard mapping
 
 ;;search word with right-click like acme
 (require 'acme-search)

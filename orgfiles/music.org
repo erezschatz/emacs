@@ -195,7 +195,8 @@
 *** TODO Ny Battery
 *** TODO Ba Ba Ti Ki Di Do
 *** TODO Saeglopur
-<<<<<<< HEAD
+** TODO Leonard Cohen
+*** Ten New Songs
 * My Morning Jacket - Circuital
 ** Starts with a slow beat
 ** nice transition to the title song.
@@ -203,7 +204,7 @@
 ** Interesting, after the massive wall of sound, we get a more popish clean
 ** Albeit the backing still has that big-sound value
 ** and now an even quieter song.
-=======
-** TODO Leonard Cohen
-*** Ten New Songs
->>>>>>> fadc3cdb41abc6046fa8ea5604f341694ee487c9
+   =======
+** Kicking it up a notch, so its not an overall quiet album
+** But where the hell is the drama from the first two songs?
+
