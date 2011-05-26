@@ -57,6 +57,9 @@
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
 
+;;adhere to the system set browser
+(setq browse-url-browser-function 'browse-url-generic)
+
 ;;save all backups in the temp folder
 (setq backup-directory-alist
       `((".*" . ,temporary-file-directory)))
@@ -192,9 +195,6 @@
 
 ;;when opening buffer menu, switch to it
 (global-set-key (kbd "\C-x\C-b") 'buffer-menu-other-window)
-
-;;force tab
-(global-set-key (kbd "C-<tab>") 'tab-to-tab-stop)
 
 ;;delete trailing whitespaces
 (global-set-key (kbd "C-x C-<backspace>") 'delete-trailing-whitespace)
