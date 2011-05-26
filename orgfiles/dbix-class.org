@@ -1,0 +1,20 @@
+* DBIx::Class
+** Benefits
+*** Separation of code and sql
+*** unification of business logic
+**** instead of
+***** declaring variables
+***** opening DB connection
+***** preparing SQL query
+***** preparing query variables
+***** executing SQL query
+***** parsing results
+***** using results
+**** we now have
+***** execute DBIC method
+***** using results
+*** compile-time and run-time checks
+*** 
+** Deficits
+*** SQL creation magic
+*** 
