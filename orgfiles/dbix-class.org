@@ -14,7 +14,21 @@
 ***** execute DBIC method
 ***** using results
 *** compile-time and run-time checks
-*** 
+*** platform agnostic
 ** Deficits
 *** SQL creation magic
-*** 
+*** Syntax galore
+*** learning curve
+**** SQL is required knowledge
+*** some SQL is too complex for it
+** basics
+*** schema
+*** Result
+*** ResultSet
+*** joins
+*** views
+*** relations
+*** index
+** cool stuff to show
+*** datetime
+*** use same schema for different files
