@@ -130,21 +130,16 @@
 
 (require 'json)
 
-(if window-system
-    (progn
-      ;;nxhtml mode
-      (load "nxhtml/autostart.el")
-
-      ;;right margin
-      (require 'fill-column-indicator)
-      (setq fci-style 'rule)
-      ;;(setq fci-style 'shading)
-      (setq fci-handle-line-move-visual t)
-      ;;(setq fci-shading-face "#3a4a2a")
-      ;;(setq fci-rule-color "#637253")
-      ;;(setq fci-rule-character ?|)
-      (setq-default fill-column 80)
-      (global-set-key (kbd "C-c C-f") 'fci-mode)))
+;; ;;right margin
+;; (require 'fill-column-indicator)
+;; (setq fci-style 'rule)
+;; ;;(setq fci-style 'shading)
+;; (setq fci-handle-line-move-visual t)
+;; ;;(setq fci-shading-face "#3a4a2a")
+;; ;;(setq fci-rule-color "#637253")
+;; ;;(setq fci-rule-character ?|)
+;; (setq-default fill-column 80)
+;; (global-set-key (kbd "C-c C-f") 'fci-mode)
 
 ;;full-ack
 (autoload 'ack-same "full-ack" nil t)
