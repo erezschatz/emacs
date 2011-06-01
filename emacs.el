@@ -179,6 +179,7 @@
 
 ;;jabber
 
+(require 'jabber-autoloads)
 (setq jabber-username "moonbuzz@gmail.com")
 (setq jabber-password "st4rh34rt")
 (setq jabber-nickname "erez")
