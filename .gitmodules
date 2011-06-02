@@ -20,3 +20,6 @@
 	path = site-lisp/jabber
 	url = git://emacs-jabber.git.sourceforge.net/gitroot/emacs-jabber/emacs-jabber
 
+[submodule "site-lisp/twittering-mode"]
+	path = site-lisp/twittering-mode
+	url = https://github.com/hayamiz/twittering-mode.git
