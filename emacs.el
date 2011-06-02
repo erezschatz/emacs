@@ -187,6 +187,14 @@
 (setq jabber-network-server "talk.google.com")
 (setq jabber-server "gmail.com")
 
+;;microblogging
+
+;;identica
+(require 'identica-mode)
+
+;;twitter
+(require 'twittering-mode)
+
 ;;keyboard remapping
 
 ;;Invoke M-x without the Alt key
