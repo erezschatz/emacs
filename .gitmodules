@@ -7,9 +7,6 @@
 [submodule "site-lisp/magit"]
 	path = site-lisp/magit
 	url = https://github.com/philjackson/magit.git
-[submodule "themes/color-theme-solarized"]
-	path = themes/color-theme-solarized
-	url = https://github.com/sellout/emacs-color-theme-solarized.git
 [submodule "site-lisp/fill-column-indicator"]
 	path = site-lisp/fill-column-indicator
 	url = https://github.com/alpaker/Fill-Column-Indicator.git
@@ -19,3 +16,10 @@
 [submodule "site-lisp/identica-mode"]
 	path = site-lisp/identica-mode
 	url = http://git.savannah.gnu.org/cgit/identica-mode.git
+[submodule "site-lisp/jabber"]
+	path = site-lisp/jabber
+	url = git://emacs-jabber.git.sourceforge.net/gitroot/emacs-jabber/emacs-jabber
+
+[submodule "site-lisp/twittering-mode"]
+	path = site-lisp/twittering-mode
+	url = https://github.com/hayamiz/twittering-mode.git
