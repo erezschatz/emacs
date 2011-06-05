@@ -210,4 +210,4 @@
 (global-set-key (kbd "\C-x\C-b") 'buffer-menu-other-window)
 
 ;;delete trailing whitespaces
-(global-set-key (kbd "C-x C-<backspace>") 'delete-trailing-whitespace)
+(global-set-key (kbd "C-x C-\\") 'delete-trailing-whitespace)
