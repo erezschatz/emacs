@@ -179,13 +179,12 @@
 
 ;;jabber
 
-(require 'jabber-autoloads)
-(setq jabber-username "moonbuzz@gmail.com")
-(setq jabber-password "st4rh34rt")
-(setq jabber-nickname "erez")
-(setq jabber-connection-type (quote ssl))
-(setq jabber-network-server "talk.google.com")
-(setq jabber-server "gmail.com")
+;; (require 'jabber-autoloads)
+;; (setq jabber-username "moonbuzz@gmail.com")
+;; (setq jabber-nickname "erez")
+;; (setq jabber-connection-type (quote ssl))
+;; (setq jabber-network-server "talk.google.com")
+;; (setq jabber-server "gmail.com")
 
 ;;microblogging
 
