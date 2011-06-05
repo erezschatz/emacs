@@ -177,11 +177,10 @@
 ;;keywiz
 (require 'keywiz)
 
-;; ;;jabber
+;;jabber
 
 ;; (require 'jabber-autoloads)
 ;; (setq jabber-username "moonbuzz@gmail.com")
-;; (setq jabber-password "st4rh34rt")
 ;; (setq jabber-nickname "erez")
 ;; (setq jabber-connection-type (quote ssl))
 ;; (setq jabber-network-server "talk.google.com")
