@@ -1,35 +1,14 @@
 (eval-when-compile (require 'cl))
 
-;;X system only
-(if window-system
-    (progn
-      ;;set default font
-      (if (or (eq system-type 'gnu/linux)
-              (eq system-type 'linux))
-          (progn
-            (set-face-attribute 'default nil :font "ProFontWindows-9")
-            (set-face-attribute 'tooltip nil :font "ProFontWindows-9"))
-        (set-face-attribute 'default nil :font "ProFontWindows-9.0"))
-
-      ;;enable color-theme
-      (require 'color-theme)
-
-      ;;set color theme
-      (color-theme-initialize)
-      (color-theme-billw)
-      ;;when color-themes change, they reset all definitionss
-      (setq color-theme-is-cumulative nil)
-
-      ;;highlight current line
-      (global-hl-line-mode t))
-  ;; this is only needed for non GUI
-  (setq linum-format "%d "))
+;;highlight current line
+(global-hl-line-mode t)
 
 ;;disable tabs
 (setq-default indent-tabs-mode nil)
 
 ;;set line number
 (global-linum-mode 1)
+(setq linum-format "%d ")
 
 ;;no tool bar, no menu bar, no scrollbar
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
@@ -130,17 +109,6 @@
 
 (require 'json)
 
-;; ;;right margin
-;; (require 'fill-column-indicator)
-;; (setq fci-style 'rule)
-;; ;;(setq fci-style 'shading)
-;; (setq fci-handle-line-move-visual t)
-;; ;;(setq fci-shading-face "#3a4a2a")
-;; ;;(setq fci-rule-color "#637253")
-;; ;;(setq fci-rule-character ?|)
-;; (setq-default fill-column 80)
-;; (global-set-key (kbd "C-c C-f") 'fci-mode)
-
 ;;full-ack
 (autoload 'ack-same "full-ack" nil t)
 (autoload 'ack "full-ack" nil t)
@@ -163,7 +131,7 @@
 
 ;;automatically change to DONE when all children are done
 
-(defun org-summary-todo (n-done n-not-done)
+(defun org-summary-todo (n-done n-not-done) 
   "Switch entry to DONE when all subentries are done, to TODO otherwise."
   (let (org-log-done org-log-states)   ; turn off logging
     (org-todo (if (= n-not-done 0) "DONE" "TODO"))))
@@ -177,19 +145,52 @@
 ;;keywiz
 (require 'keywiz)
 
+;;gnus
+(require 'gnus)
+(add-to-list 'gnus-secondary-select-methods 
+             '(nnimap "gmail"
+                      (nnimap-address "imap.gmail.com")
+                      (nnimap-server-port 993)
+                      (nnimap-stream ssl)))
+
+(setq message-send-mail-function 'smtpmail-send-it
+      smtpmail-starttls-credentials '(("smtp.gmail.com" 587 nil nil))
+      smtpmail-auth-credentials '(("smtp.gmail.com" 587 "erezs@teleweb.co.il" nil))
+      smtpmail-default-smtp-server "smtp.gmail.com"
+      smtpmail-smtp-server "smtp.gmail.com"
+      smtpmail-smtp-service 587
+      smtpmail-local-domain "teleweb.co.il")
+
+;;erc
+
+(require 'erc)
+;; (erc :server "irc.freenode.net" :port 6667 :nick "erez")
+;; (erc :server "irc.perl.org" :port 6667 :nick "erez")
+;; (erc :server "irc.netgamers.org" :port 6667 :nick "erez")
+
+(setq erc-autojoin-channels-alist
+      '(("freenode.net" "#emacs")
+        ("MAGnet" "#dbix-class" "#moose" "#catalyst" "#dancer" "#perl" "#email")
+        ("netgamers.org" "#battrick")))
+
 ;;jabber
 
-;; (require 'jabber-autoloads)
-;; (setq jabber-username "moonbuzz@gmail.com")
-;; (setq jabber-nickname "erez")
-;; (setq jabber-connection-type (quote ssl))
-;; (setq jabber-network-server "talk.google.com")
-;; (setq jabber-server "gmail.com")
+(require 'jabber-autoloads)
+(setq jabber-username "moonbuzz@gmail.com")
+(setq jabber-nickname "erez")
+(setq jabber-connection-type (quote ssl))
+(setq jabber-network-server "talk.google.com")
+(setq jabber-server "gmail.com")
 
 ;;microblogging
 
 ;;identica
-(require 'identica-mode)
+
+(when (require 'netrc nil t)
+  (autoload 'identica-mode "identica-mode" nil t)
+  (let ((identica (netrc-machine (netrc-parse "~/.netrc") "identi.ca")))
+    (setq identica-password (netrc-get identica "password")
+          identica-username (netrc-get identica "login"))))
 
 ;;twitter
 (require 'twittering-mode)
