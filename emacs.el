@@ -170,8 +170,11 @@
 
 (setq erc-autojoin-channels-alist
       '(("freenode.net" "#emacs")
-        ("MAGnet" "#dbix-class" "#moose" "#catalyst" "#dancer" "#perl" "#email")
+        ("MAGnet" "#dbix-class" "#moose" "#catalyst" "#dancer" "#perl")
         ("netgamers.org" "#battrick")))
+
+;;  set using (global-linum-mode) 
+;;  then using erc-mode-hook to call (linum-mode 0)
 
 ;;jabber
 
