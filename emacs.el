@@ -170,11 +170,12 @@
 
 (setq erc-autojoin-channels-alist
       '(("freenode.net" "#emacs")
-        ("MAGnet" "#dbix-class" "#moose" "#catalyst" "#dancer" "#perl")
+        ("shadowcat" "#dbix-class" "#moose" "#catalyst" "#dancer" "#perl")
         ("netgamers.org" "#battrick")))
 
-;;  set using (global-linum-mode) 
-;;  then using erc-mode-hook to call (linum-mode 0)
+(add-hook 'erc-mode-hook
+          (lambda ()
+            (linum-mode nil)))
 
 ;;jabber
 
@@ -197,6 +198,11 @@
 
 ;;twitter
 (require 'twittering-mode)
+(setq twittering-use-master-password t)
+
+(add-hook 'twittering-mode-hook
+          (lambda ()
+            (linum-mode nil)))
 
 ;;keyboard remapping
 
