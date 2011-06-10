@@ -7,7 +7,6 @@
 (setq-default indent-tabs-mode nil)
 
 ;;set line number
-(global-linum-mode 1)
 (setq linum-format "%d ")
 
 ;;no tool bar, no menu bar, no scrollbar
@@ -72,6 +71,9 @@
   '(progn
      (define-key cperl-mode-map (kbd "RET")
        'reindent-then-newline-and-indent)))
+
+(add-hook 'cperl-mode-hook
+          (lambda() (linum-mode t)))
 
 (global-set-key (kbd "C-h P") 'perldoc)
 
@@ -173,10 +175,6 @@
         ("shadowcat" "#dbix-class" "#moose" "#catalyst" "#dancer" "#perl")
         ("netgamers.org" "#battrick")))
 
-(add-hook 'erc-mode-hook
-          (lambda ()
-            (linum-mode nil)))
-
 ;;jabber
 
 (require 'jabber-autoloads)
@@ -199,10 +197,6 @@
 ;;twitter
 (require 'twittering-mode)
 (setq twittering-use-master-password t)
-
-(add-hook 'twittering-mode-hook
-          (lambda ()
-            (linum-mode nil)))
 
 ;;keyboard remapping
 
