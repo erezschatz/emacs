@@ -75,8 +75,8 @@
 *** etc.
 ** DONE we will talk about pdns internals and what we need to do in there
 * test domain script
-24h-rx.net
 ** Perlbal test
+24h-rx.net
 *** Check resolve,
 **** if fails
 ***** critical alert
@@ -101,7 +101,10 @@
 *** Check MX, if MX found:
 **** connect to port 25, if port 25 fails, alert
 **** Connect to MX, attempt to see if MX accepts $domain for delivery by doing:
-airhorn:~ thorn$ telnet mailbin2.xerogo.net. 25
+     :PROPERTIES:
+     :ORDERED:  t
+     :END:
+]airhorn:~ thorn$ telnet mailbin2.xerogo.net. 25
 Trying 94.76.248.227...
 Connected to mailbin2.xerogo.net.
 Escape character is '^]'.
