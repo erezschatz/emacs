@@ -73,6 +73,9 @@
        'reindent-then-newline-and-indent)
      (linum-mode t)))
 
+(add-hook 'cperl-mode-hook
+          (lambda() (linum-mode t)))
+
 (global-set-key (kbd "C-h P") 'perldoc)
 
 ;;load cperl-mode for test files
