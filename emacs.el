@@ -70,8 +70,7 @@
 (eval-after-load 'cperl-mode
   '(progn
      (define-key cperl-mode-map (kbd "RET")
-       'reindent-then-newline-and-indent)
-     (linum-mode t)))
+       'reindent-then-newline-and-indent)))
 
 (add-hook 'cperl-mode-hook
           (lambda() (linum-mode t)))
