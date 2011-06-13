@@ -2,6 +2,7 @@
 
 ;;highlight current line
 (global-hl-line-mode t)
+;;(setq hl-line-face (t (:background "yellow" :foreground "black")))
 
 ;;disable tabs
 (setq-default indent-tabs-mode nil)
