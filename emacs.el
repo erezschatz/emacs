@@ -172,7 +172,7 @@
 ;; (erc :server "irc.netgamers.org" :port 6667 :nick "erez")
 
 (setq erc-autojoin-channels-alist
-      '(("freenode.net" "#emacs")
+      '(("freenode.net" "#emacs" "#fedora")
         ("shadowcat" "#dbix-class" "#moose" "#catalyst" "#dancer" "#perl")
         ("netgamers.org" "#battrick")))
 
@@ -215,3 +215,19 @@
 
 ;;delete trailing whitespaces
 (global-set-key (kbd "C-x C-\\") 'delete-trailing-whitespace)
+
+;;bind F5 to revert-buffer
+(global-set-key [f5] '(lambda () (interactive) (revert-buffer nil t nil)))
+
+(custom-set-variables
+  ;; custom-set-variables was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+ )
+(custom-set-faces
+  ;; custom-set-faces was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+ '(hl-line ((t (:inverse-video t)))))

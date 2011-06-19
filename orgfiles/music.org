@@ -87,7 +87,7 @@
 ** The Calm Blue Sea
 ** Gecko Jones
 ** Little Pimienta(?)
-* TODO Downgrade to mp3 [61%]
+* TODO Downgrade to mp3 [69%]
 :PRIORITIES:
 :COOKIE_DATA: todo recursive
 :END:
@@ -105,10 +105,10 @@
 ** TODO The Who [1/2]
 *** DONE Who's Next
 *** TODO Who are You
-** TODO King Crimson [1/3]
+** DONE King Crimson [3/3]
 *** DONE In the court of the crimson king
-*** TODO Lizard
-*** TODO In the wake of Poseidon
+*** DONE Lizard
+*** DONE In the wake of Poseidon
 ** TODO Dickey Betts
 ** TODO The Waterboys
 ** DONE Yes
@@ -184,8 +184,8 @@
 *** Clouds
 ** TODO Fela Kuti
 *** TODO Zombie
-** TODO Jethro Tull
-*** TODO Thick as a Brick
+** DONE Jethro Tull
+*** Thick as a Brick
 ** DONE Creedence Clearwater Revival
 *** TODO Green River
 **
@@ -195,16 +195,10 @@
 *** TODO Ny Battery
 *** TODO Ba Ba Ti Ki Di Do
 *** TODO Saeglopur
-** TODO Leonard Cohen
+** DONE Leonard Cohen
 *** Ten New Songs
-* My Morning Jacket - Circuital
-** Starts with a slow beat
-** nice transition to the title song.
-** Good buildup there
-** Interesting, after the massive wall of sound, we get a more popish clean
-** Albeit the backing still has that big-sound value
-** and now an even quieter song.
-   =======
-** Kicking it up a notch, so its not an overall quiet album
-** But where the hell is the drama from the first two songs?
+* thoughts
+** Bon Iver - Bon Iver
+** Austra 
+
 
