@@ -19,3 +19,6 @@
 [submodule "site-lisp/twittering-mode"]
 	path = site-lisp/twittering-mode
 	url = https://github.com/hayamiz/twittering-mode.git
+[submodule "site-lisp/orgmode"]
+	path = site-lisp/orgmode
+	url = git://orgmode.org/org-mode.git
