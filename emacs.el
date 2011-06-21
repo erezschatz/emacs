@@ -134,7 +134,7 @@
 
 ;;automatically change to DONE when all children are done
 
-(defun org-summary-todo (n-done n-not-done) 
+(defun org-summary-todo (n-done n-not-done)
   "Switch entry to DONE when all subentries are done, to TODO otherwise."
   (let (org-log-done org-log-states)   ; turn off logging
     (org-todo (if (= n-not-done 0) "DONE" "TODO"))))
@@ -143,26 +143,10 @@
 
 ;;auctex
 (load "auctex.el" nil t t)
-(load "preview-latex.el" nil t t) 
+(load "preview-latex.el" nil t t)
 
 ;;keywiz
 (require 'keywiz)
-
-;;gnus
-(require 'gnus)
-(add-to-list 'gnus-secondary-select-methods 
-             '(nnimap "gmail"
-                      (nnimap-address "imap.gmail.com")
-                      (nnimap-server-port 993)
-                      (nnimap-stream ssl)))
-
-(setq message-send-mail-function 'smtpmail-send-it
-      smtpmail-starttls-credentials '(("smtp.gmail.com" 587 nil nil))
-      smtpmail-auth-credentials '(("smtp.gmail.com" 587 "erezs@teleweb.co.il" nil))
-      smtpmail-default-smtp-server "smtp.gmail.com"
-      smtpmail-smtp-server "smtp.gmail.com"
-      smtpmail-smtp-service 587
-      smtpmail-local-domain "teleweb.co.il")
 
 ;;erc
 
@@ -214,7 +198,7 @@
 (global-set-key (kbd "\C-x\C-b") 'buffer-menu-other-window)
 
 ;;delete trailing whitespaces
-(global-set-key (kbd "C-x C-\\") 'delete-trailing-whitespace)
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 ;;bind F5 to revert-buffer
 (global-set-key [f5] '(lambda () (interactive) (revert-buffer nil t nil)))
