@@ -2,7 +2,6 @@
 
 ;;highlight current line
 (global-hl-line-mode t)
-;;(setq hl-line-face (t (:background "yellow" :foreground "black")))
 
 ;;disable tabs
 (setq-default indent-tabs-mode nil)
@@ -182,6 +181,11 @@
 ;;twitter
 (require 'twittering-mode)
 (setq twittering-use-master-password t)
+
+;;fill-column-indicator
+(require 'fill-column-indicator)
+(setq-default fill-column 80)
+(global-set-key "\C-xf" 'fci-mode)
 
 ;;keyboard remapping
 
