@@ -2,7 +2,6 @@
 
 ;;highlight current line
 (global-hl-line-mode t)
-;;(setq hl-line-face (t (:background "yellow" :foreground "black")))
 
 ;;disable tabs
 (setq-default indent-tabs-mode nil)
@@ -183,6 +182,11 @@
 (require 'twittering-mode)
 (setq twittering-use-master-password t)
 
+;;fill-column-indicator
+(require 'fill-column-indicator)
+(setq-default fill-column 80)
+(global-set-key "\C-xf" 'fci-mode)
+
 ;;keyboard remapping
 
 ;;Invoke M-x without the Alt key
@@ -200,8 +204,8 @@
 ;;delete trailing whitespaces
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
-;;bind F5 to revert-buffer
-(global-set-key [f5] '(lambda () (interactive) (revert-buffer nil t nil)))
+;;automatically revert buffer
+(global-auto-revert-mode t)
 
 (custom-set-variables
   ;; custom-set-variables was added by Custom.
