@@ -150,13 +150,11 @@
 ;;erc
 
 (require 'erc)
-;; (erc :server "irc.freenode.net" :port 6667 :nick "erez")
-;; (erc :server "irc.perl.org" :port 6667 :nick "erez")
-;; (erc :server "irc.netgamers.org" :port 6667 :nick "erez")
 
 (setq erc-autojoin-channels-alist
       '(("freenode.net" "#emacs" "#fedora")
         ("shadowcat" "#dbix-class" "#moose" "#catalyst" "#dancer" "#perl")
+        ("llarian" "#dbix-class" "#moose" "#catalyst" "#dancer" "#perl")
         ("netgamers.org" "#battrick")))
 
 ;;jabber
