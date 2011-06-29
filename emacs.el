@@ -99,11 +99,13 @@
 
 ;;load tt mode
 (require 'tt-mode)
-(add-to-list 'auto-mode-alist'("\\.tt2\\'" . tt-mode))
+(add-to-list 'auto-mode-alist'("\\.tt\\'" . tt-mode))
 
 ;;perltidy
 (require 'perltidy)
 
+;;php
+(require 'php-mode)
 ;;javascript
 (autoload #'javascript-mode "javascript" "Start javascript-mode" t)
 (add-to-list 'auto-mode-alist '("\\.js$" . javascript-mode))
