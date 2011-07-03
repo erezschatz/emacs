@@ -182,10 +182,16 @@
 (require 'twittering-mode)
 (setq twittering-use-master-password t)
 
+;;helper modules
+
 ;;fill-column-indicator
 (require 'fill-column-indicator)
 (setq-default fill-column 80)
 (global-set-key "\C-xf" 'fci-mode)
+
+;;Distinguish buffers of the same filename
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'post-forward-angle-brackets)
 
 ;;keyboard remapping
 
