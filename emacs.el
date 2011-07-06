@@ -113,6 +113,10 @@
 
 (require 'json)
 
+;;auctex
+(load "auctex.el" nil t t)
+(load "preview-latex.el" nil t t)
+
 ;;full-ack
 (autoload 'ack-same "full-ack" nil t)
 (autoload 'ack "full-ack" nil t)
@@ -142,14 +146,14 @@
 
 (add-hook 'org-after-todo-statistics-hook 'org-summary-todo)
 
-;;auctex
-(load "auctex.el" nil t t)
-(load "preview-latex.el" nil t t)
+;;calendar
+(require 'calfw)
+(require 'calfw-ical)
 
 ;;keywiz
 (require 'keywiz)
 
-;;erc
+;;IRC
 
 (require 'erc)
 

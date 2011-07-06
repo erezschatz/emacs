@@ -23,3 +23,6 @@
 	path = site-lisp/orgmode
 	url = git://orgmode.org/org-mode.git
 
+[submodule "site-lisp/calfw"]
+	path = site-lisp/calfw
+	url = https://github.com/kiwanami/emacs-calfw.git
