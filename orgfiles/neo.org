@@ -1,0 +1,50 @@
+* DONE 0.003_02 [100%]
+** DONE config [2/2]
+*** DONE rename edit-add
+*** DONE rename delete with -d flag
+* DONE 0.003_03 [100%]
+** DONE change usesub to findmodule
+* DONE 0.003_04 [100%]
+** DONE Yaron Bind update
+** DONE fix Neo::Renderer::render_template api
+* TODO 0.004 [0%]
+** TODO Refactor App.pm and Neo.pm [1/2]
+*** DONE separate logic and interface
+*** TODO move config parsing to Neo.pm
+*** will be used when Web is introduced
+** TODO improve output
+*** TODO add progress output [0/3]
+**** TODO What is going to be done
+**** TODO What is being done
+**** TODO what has been done
+*** TODO add output on usage [0/2]
+**** TODO warnings
+**** TODO what input is expected
+* TODO 0.005 [0%]
+** TODO tests
+** TODO path configurability
+** TODO documentation
+** TODO fix the passing of schemas around
+** TODO config a list of ips/domains
+* merge branches
+** git checkout master
+*** make sure you're in master
+** git fetch origin
+*** retrieves all new branches
+** git checkout <branch name>
+*** move to new branch
+** git lp
+*** see checkin notes
+** git lg
+*** see actual code
+** git checkout master
+*** go back to master
+** git merge --no-ff <branch name>
+*** merge without fast forwarding
+*** resolve whatever conflicts
+** git br -d <branch name>
+*** delete local branch
+** git push origin :<branch name>
+*** delete remote branch
+** git push
+
