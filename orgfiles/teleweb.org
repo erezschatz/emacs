@@ -84,15 +84,15 @@
 *** connect to each of the nameservers
 *** Check perlbal configuration
 *** parse backend
-**** if you got more than one backend, 
+**** if you got more than one backend,
 ***** critical alert
-**** If a pair of nameservers, who represent the same domain, each direct to a different backend, 
+**** If a pair of nameservers, who represent the same domain, each direct to a different backend,
 ***** critical alert
 *** ping backend
 **** if ping is higher than 40ms
 ***** alert
 *** If perlbal is not running
-**** alert 
+**** alert
 *** check if the web servers run apache instead of perlbal
 **** if apache
 ***** return to user that the servers run apache
@@ -116,4 +116,4 @@ MAIL FROM:postmaster@xerogo.net
 RCPT TO:postmaster@xerogo.net
 250 Accepted
 RCPT TO:postmaster@meh.com
-550 Relay not permitted                                
+550 Relay not permitted
