@@ -158,7 +158,7 @@
 (require 'erc)
 
 (setq erc-autojoin-channels-alist
-      '(("freenode.net" "#emacs" "#fedora")
+      '(("freenode.net" "#emacs" "#fedora" "#plan9")
         ("shadowcat" "#dbix-class" "#moose" "#catalyst" "#dancer" "#perl")
         ("llarian" "#dbix-class" "#moose" "#catalyst" "#dancer" "#perl")
         ("netgamers.org" "#battrick")))

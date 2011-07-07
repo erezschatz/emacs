@@ -47,4 +47,3 @@
 ** git push origin :<branch name>
 *** delete remote branch
 ** git push
-
