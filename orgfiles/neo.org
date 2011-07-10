@@ -7,25 +7,25 @@
 * DONE 0.003_04 [100%]
 ** DONE Yaron Bind update
 ** DONE fix Neo::Renderer::render_template api
-* TODO 0.004 [0%]
-** TODO Refactor App.pm and Neo.pm [1/2]
+* DONE 0.004 [100%]
+** DONE Refactor App.pm and Neo.pm
 *** DONE separate logic and interface
-*** TODO move config parsing to Neo.pm
 *** will be used when Web is introduced
-** TODO improve output
-*** TODO add progress output [0/3]
-**** TODO What is going to be done
-**** TODO What is being done
-**** TODO what has been done
-*** TODO add output on usage [0/2]
-**** TODO warnings
-**** TODO what input is expected
+** DONE improve output
+*** DONE add progress output [3/3]
+**** DONE What is going to be done
+**** DONE What is being done
+**** DONE what has been done
+*** DONE add output on usage [1/1]
+**** DONE warnings
 * TODO 0.005 [0%]
 ** TODO tests
 ** TODO path configurability
 ** TODO documentation
 ** TODO fix the passing of schemas around
 ** TODO config a list of ips/domains
+** TODO improve output
+**** TODO what input is expected
 * merge branches
 ** git checkout master
 *** make sure you're in master
