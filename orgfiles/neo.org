@@ -18,11 +18,12 @@
 **** DONE what has been done
 *** DONE add output on usage [1/1]
 **** DONE warnings
-* TODO 0.005 [0%]
+* TODO 0.005 [25%]
+** DONE refactor out DB stuff in adapters
 ** TODO tests
 ** TODO path configurability
 ** TODO documentation
-** TODO fix the passing of schemas around
+* TODO 0.006 [%]
 ** TODO config a list of ips/domains
 ** TODO improve output
 **** TODO what input is expected
