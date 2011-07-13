@@ -26,3 +26,6 @@
 [submodule "site-lisp/calfw"]
 	path = site-lisp/calfw
 	url = https://github.com/kiwanami/emacs-calfw.git
+[submodule "site-lisp/yaml"]
+	path = site-lisp/yaml
+	url = https://github.com/yoshiki/yaml-mode.git
