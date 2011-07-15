@@ -18,14 +18,17 @@
 **** DONE what has been done
 *** DONE add output on usage [1/1]
 **** DONE warnings
-* TODO 0.005 [25%]
+* TODO 0.005 [50%]
 ** DONE refactor out DB stuff in adapters
 ** TODO tests
-** TODO path configurability
-** TODO documentation
-* TODO 0.006 [%]
+** DONE path configurability
+** TODO documentation [0/2]
+*** TODO manual
+*** TODO API
+* TODO 0.006 [0%]
 ** TODO config a list of ips/domains
 ** TODO improve output
+** TODO generate config file on first run
 **** TODO what input is expected
 * merge branches
 ** git checkout master
