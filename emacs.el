@@ -161,7 +161,7 @@
       '(("freenode.net" "#emacs" "#fedora" "#plan9")
         ("shadowcat" "#dbix-class" "#moose" "#catalyst" "#dancer" "#perl")
         ("llarian" "#dbix-class" "#moose" "#catalyst" "#dancer" "#perl")
-        ("netgamers.org" "#battrick")))
+        ("netgamers.net" "#battrick")))
 
 ;;jabber
 
