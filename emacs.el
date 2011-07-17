@@ -104,6 +104,10 @@
 ;;perltidy
 (require 'perltidy)
 
+;; yaml
+(require 'yaml-mode)
+(add-to-list 'auto-mode-alist '("\\.ya?ml$" . yaml-mode))
+
 ;;php
 (require 'php-mode)
 ;;javascript
