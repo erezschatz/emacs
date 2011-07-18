@@ -73,7 +73,10 @@
        'reindent-then-newline-and-indent)))
 
 (add-hook 'cperl-mode-hook
-          (lambda() (linum-mode t)))
+          (lambda()
+            (progn
+              (linum-mode t)
+              (flymake-mode t))))
 
 (global-set-key (kbd "C-h P") 'perldoc)
 
@@ -213,7 +216,7 @@
 (global-set-key "\C-c\C-k" 'kill-region)
 
 ;;when opening buffer menu, switch to it
-(global-set-key (kbd "\C-x\C-b") 'buffer-menu-other-window)
+(global-set-key "\C-x\C-b" 'buffer-menu-other-window)
 
 ;;delete trailing whitespaces
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
