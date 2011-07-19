@@ -1,11 +1,11 @@
 #+SEQ_TODO: IDEA WRITE | POSTED
 * WRITE use vs make
-SawyerX' post regarding 
+SawyerX' post regarding
 <a href="http://blogs.perl.org/users/sawyer_x/2011/01/why-modulebuild-is-great.html">Module::Build compared to ExtUtils::MakeMaker</a>
-where he compares them to Ubuntu and Slackware, respectively, made me 
+where he compares them to Ubuntu and Slackware, respectively, made me
 think of an age-old debate (occasionally bordering on holy war)
 between "use" and "make", which I'll try to summarise here.
- 
+
 ** what is use
 *** buildng on existing packages
 **** modules
@@ -33,7 +33,7 @@ between "use" and "make", which I'll try to summarise here.
 **** not as tested as other
 ** CPAN
 ** OS packaged
-** Deprecation policy 
+** Deprecation policy
 * IDEA why we don't really do it for free
 * IDEA creating a task manager stage the second or: a crude CRUD
 * WRITE LAMP
@@ -41,7 +41,8 @@ between "use" and "make", which I'll try to summarise here.
 ** Linux, Apache, MySQL, P
 *** Perl, Python, PHP
 **** Ruby?
-** What's his name
+** Jeff Waugh
+http://bethesignal.org/blog/2006/03/16/what-does-lamp-stand-for/
 *** Linux. Apache, Many programming languages, some of them start with P, PostgreSQL
 ** Linux Apache Modern::Perl Postgres
 *** Even better
@@ -55,14 +56,9 @@ between "use" and "make", which I'll try to summarise here.
 **** read line
 *** the story technique
 **** read the code
-The strongest feature of Perl is that it allows the programmer to write 
+The strongest feature of Perl is that it allows the programmer to write
 what he means instead of having to translate it to the programming language
 
-* WRITE Cry NEVER and let slip the flames of war
-** what my ideas of moderation are:
-*** no spamming
-*** no OT
-*** no chastising
 * IDEA Should a language be implemented in itself?
 ** Go
 ** Perl
