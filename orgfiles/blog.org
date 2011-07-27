@@ -36,7 +36,7 @@ between "use" and "make", which I'll try to summarise here.
 ** Deprecation policy
 * IDEA why we don't really do it for free
 * IDEA creating a task manager stage the second or: a crude CRUD
-* WRITE LAMP
+* POSTED LAMP
 ** What is LAMP
 ** Linux, Apache, MySQL, P
 *** Perl, Python, PHP
@@ -63,8 +63,16 @@ what he means instead of having to translate it to the programming language
 ** Go
 ** Perl
 ** C instead of Assembly
-* IDEA Development-driven-development
+* POSTED Development-driven-development
 ** TDD
 ** bug-driven-development
 ** enough!
 ** everything is practice
+* IDEA Gentleman's game
+** what is "gentleman"
+** to win in any condition
+** bodyline
+** underhand
+** bouncers and pace
+** draw a match to win the series
+

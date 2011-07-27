@@ -30,6 +30,8 @@
 ** TODO improve output
 ** TODO generate config file on first run
 **** TODO what input is expected
+** TODO optimise database calls
+*** fetch as much information on startup
 * merge branches
 ** git checkout master
 *** make sure you're in master
