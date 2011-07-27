@@ -1,5 +1,7 @@
 (eval-when-compile (require 'cl))
 
+(server-start)
+
 ;;highlight current line
 (global-hl-line-mode t)
 
