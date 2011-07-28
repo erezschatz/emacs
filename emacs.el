@@ -187,6 +187,7 @@
 ;;identica
 (require 'identica-mode)
 (setq identica-username "erez")
+
 (global-set-key "\C-cip" 'identica-update-status-interactive)
 
 ;;twitter
