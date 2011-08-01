@@ -99,12 +99,21 @@
          (lambda (a b) (concatenate 'string a ":" b))
          exec-path))
 
+(defun flymake-perl-init ()
+  (let* ((temp-file   (flymake-init-create-temp-buffer-copy
+                       'flymake-create-temp-inplace))
+	 (local-file  (file-relative-name
+                       temp-file
+                       (file-name-directory buffer-file-name))))
+    (list "perl" (list "-wc -Ilib " local-file))))
+
+
 ;;make cperl-mode always highlight scalar variables
 (setq cperl-highlight-variables-indiscriminately t)
 
 ;;load tt mode
 (require 'tt-mode)
-(add-to-list 'auto-mode-alist'("\\.tt\\'" . tt-mode))
+(add-to-list 'auto-mode-alist'("\\.tt[0-9]?\\'" . tt-mode))
 
 ;;perltidy
 (require 'perltidy)
@@ -117,8 +126,7 @@
 (require 'php-mode)
 ;;javascript
 (autoload #'javascript-mode "javascript" "Start javascript-mode" t)
-(add-to-list 'auto-mode-alist '("\\.js$" . javascript-mode))
-(add-to-list 'auto-mode-alist '("\\.json$" . javascript-mode))
+(add-to-list 'auto-mode-alist '("\\.js(on)?$" . javascript-mode))
 
 (require 'json)
 
@@ -168,9 +176,9 @@
 
 (setq erc-autojoin-channels-alist
       '(("freenode.net" "#emacs" "#fedora" "#plan9")
-        ("shadowcat" "#dbix-class" "#moose" "#catalyst" "#dancer" "#perl")
-        ("llarian" "#dbix-class" "#moose" "#catalyst" "#dancer" "#perl")
-        ("eggebuh" "#dbix-class" "#moose" "#catalyst" "#dancer" "#perl")
+        ("shadowcat" "#dbix-class" "#moose" "#catalyst" "#perl")
+        ("llarian" "#dbix-class" "#moose" "#catalyst" "#perl")
+        ("eggebuh" "#dbix-class" "#moose" "#catalyst" "#perl")
         ("netgamers.net" "#battrick")))
 
 ;;jabber
