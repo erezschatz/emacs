@@ -175,7 +175,7 @@
 (require 'erc)
 
 (setq erc-autojoin-channels-alist
-      '(("freenode.net" "#emacs" "#fedora" "#plan9")
+      '(("freenode.net" "#emacs")
         ("shadowcat" "#dbix-class" "#moose" "#catalyst" "#perl")
         ("llarian" "#dbix-class" "#moose" "#catalyst" "#perl")
         ("eggebuh" "#dbix-class" "#moose" "#catalyst" "#perl")
