@@ -62,20 +62,51 @@
 ** actions
 *** view
 **** ips assigned to given server
+***** /view/$server/
+***** Neo::ips_by_server($server)
+***** returns list of IP addresses
 **** domains assigned to given IP
+***** /view/$ip/
+***** Neo::domains_by_ip($ip)
+***** return list of domain names
+**** variables assigned to IP
+***** /config/$ip/
+***** Neo::config($ip)
+***** returns list of key-value paits
+**** variables assigned to domain
+***** /config/$domain
+***** Neo::config($domain)
 *** assign
 **** domain to IP
+***** /assign/$ip/$domain/$domain...
+***** Neo::assign($ip, @domains)
+***** return true on success, dies on failure
 **** variable to domain
+***** /config/$domain/?var=value&var=value&...
+***** Neo::config($domain, @vars_values)
+***** return true on success, dies on failure
 **** variable to IP
+***** /config/$ip/?var=value&var=value&...
+***** Neo::config($ip, @vars_values)
+***** return true on success, dies on failure
 *** unassign
 **** domain from IP
+***** /unassign/$ip/$domain/$domain...
+***** Neo::unassign($ip, @domains)
+***** return true on success, dies on failure
 **** variable from domain
+***** /config/$domain/delete/var/var.....
+***** Neo::config($domain, @vars, $delete)
+***** return true on success, dies on failure
 **** variable from IP
+***** /config/$ip/delete/var/var.....
+***** Neo::config($ip, @vars, $delete)
+***** return true on success, dies on failure
 *** generate
 **** server config file
-***** Perlbal
-***** Exim
-***** PowerDNS
-***** BIND
-***** others
-
+***** all
+****** Neo::create($server|$ip, $paths)
+****** /create/$server|$ip/
+***** specific
+****** Neo::create($server|$ip, $paths, @adapters)
+****** /create/$server|$ip/perlbal/exim...
