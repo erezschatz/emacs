@@ -49,6 +49,11 @@
 ;;set emerge to ignore whitespace diff
 (setq emerge-diff-options "--ignore-all-space")
 
+;;Run ‘save-buffers-kill-emacs’ without process-killing query
+(defadvice save-buffers-kill-emacs (around no-query-kill-emacs activate)
+  "Prevent Active processes exist query when quit."
+  (flet ((process-list ())) ad-do-it))
+
 ;;c
 (setq c-basic-offset 8)
 
@@ -176,9 +181,9 @@
 
 (setq erc-autojoin-channels-alist
       '(("freenode.net" "#emacs")
-        ("shadowcat" "#dbix-class" "#moose" "#catalyst" "#perl")
-        ("llarian" "#dbix-class" "#moose" "#catalyst" "#perl")
-        ("eggebuh" "#dbix-class" "#moose" "#catalyst" "#perl")
+        ("shadowcat" "#dbix-class" "#moose" "#catalyst" "#perl" "#dancer")
+        ("llarian" "#dbix-class" "#moose" "#catalyst" "#perl" "#dancer")
+        ("eggebuh" "#dbix-class" "#moose" "#catalyst" "#perl" "#dancer")
         ("netgamers.net" "#battrick")))
 
 ;;jabber
