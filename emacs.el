@@ -53,7 +53,6 @@
 (defadvice save-buffers-kill-emacs (around no-query-kill-emacs activate)
   "Prevent Active processes exist query when quit."
   (flet ((process-list ())) ad-do-it))
-
 ;;c
 (setq c-basic-offset 8)
 
