@@ -1,5 +1,4 @@
 /.cvsignore/1.2/Thu Jul 28 06:39:03 2011//
-/ChangeLog/1.260/Wed Aug  3 07:19:19 2011//
 /mew-shimbun.el/1.58/Thu Jul 28 06:39:03 2011//
 /nnshimbun.el/1.72/Thu Jul 28 06:39:03 2011//
 /sb-2ch.el/1.17/Thu Jul 28 06:39:03 2011//
@@ -45,7 +44,6 @@
 /sb-ibm-dev.el/1.30/Thu Jul 28 06:39:03 2011//
 /sb-impress.el/1.40/Thu Jul 28 06:39:03 2011//
 /sb-infoshop.el/1.5/Thu Jul 28 06:39:03 2011//
-/sb-itmedia.el/1.48/Wed Aug  3 07:19:20 2011//
 /sb-japantimes.el/1.10/Thu Jul 28 06:39:03 2011//
 /sb-javaconf.el/1.10/Thu Jul 28 06:39:03 2011//
 /sb-jpilot.el/1.9/Thu Jul 28 06:39:03 2011//
@@ -132,4 +130,6 @@
 /sb-zdnet-jp.el/1.9/Thu Jul 28 06:39:03 2011//
 /sb-zeit-de.el/1.17/Thu Jul 28 06:39:03 2011//
 /shimbun.el/1.214/Thu Jul 28 06:39:03 2011//
+/ChangeLog/1.260/Wed Aug  3 07:20:50 2011//
+/sb-itmedia.el/1.48/Wed Aug  3 07:20:50 2011//
 D
