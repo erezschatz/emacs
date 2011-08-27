@@ -126,8 +126,6 @@
 (require 'yaml-mode)
 (add-to-list 'auto-mode-alist '("\\.ya?ml$" . yaml-mode))
 
-;;php
-(require 'php-mode)
 ;;javascript
 (autoload #'javascript-mode "javascript" "Start javascript-mode" t)
 (add-to-list 'auto-mode-alist '("\\.js(on)?$" . javascript-mode))
