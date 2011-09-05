@@ -75,4 +75,26 @@ what he means instead of having to translate it to the programming language
 ** underhand
 ** bouncers and pace
 ** draw a match to win the series
-
+* WRITE Perlmongers git
+** SawyerX
+** Started with a nice chat about wireless
+*** Since we didn't have any
+** started 4 minutes early
+*** because we're anarchists
+** started with the basics
+*** Why we use vcs, etc.
+*** I don't like that, but hey
+** crude ways of saving work
+*** in the olden days, they used to print them
+** the difference between centralised and distributed
+*** centralised has nice simple graph
+*** distributed have a complex, convuluted graphs
+** What is the different between VCS and SCM?
+*** and then the questions arise
+**** and I got lost
+** using Git for writing assignments
+*** open format baby
+** and then the lecture started in earnest
+** git merge --no-ff
+*** very useful for nice branching report
+** break
