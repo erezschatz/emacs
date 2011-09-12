@@ -1,0 +1,37 @@
+* 0.01
+** login to page
+*** or just fetch it
+** fetch information
+*** Pavillion
+*** Squad
+*** Fixtures
+*** Club Info
+*** Finances
+*** Nets
+*** Ground
+** update
+** present in a nice way
+* 0.02
+** implement rules
+*** http://battrick.org/nl/rules.asp?item=0
+* 0.03
+** implement helpers
+*** Newbie Guides
+**** http://www.planetcricket.net/forums/showthread.php?t=22497
+**** http://z13.invisionfree.com/JumpersForWickets/index.php?act=SC&c=3
+*** help sites
+**** http://www.keggut.com/bthf/
+*** Training/Pop times
+**** Training Speeds
+***** http://users.bigpond.net.au/keggut/bthf/index.html
+***** http://z13.invisionfree.com/JumpersForWickets/index.php?showtopic=2016
+**** tracking players training
+***** http://www.mazarin-software.com/
+***** http://virtualdesigns.co.uk/battrick
+***** http://www.doof92.f2s.com/BattrickTraining.htm
+**** predicting pop times
+***** http://garyjones.co.uk/battrick/talent-finder/
+*** Stadium
+**** http://garyjones.co.uk/bat/stadium
+*** Fixture List
+**** http://z13.invisionfree.com/JumpersForWickets/index.php?showtopic=809
