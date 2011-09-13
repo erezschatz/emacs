@@ -177,6 +177,10 @@
 ;;keywiz
 (require 'keywiz)
 
+;;typing game
+
+(autoload 'typing-of-emacs "The Typing Of Emacs, a game." t)
+
 ;;IRC
 
 (require 'erc)
@@ -219,12 +223,6 @@
 ;;Distinguish buffers of the same filename
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'post-forward-angle-brackets)
-
-;;paredit
-
-(autoload 'enable-paredit-mode "paredit"
-  "Turn on pseudo-structural editing of Lisp code."
-  t)
 
 ;;keyboard remapping
 
