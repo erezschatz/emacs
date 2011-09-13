@@ -122,6 +122,11 @@
 ;;perltidy
 (require 'perltidy)
 
+;;pod-mode
+(require 'pod-mode)
+(add-to-list 'auto-mode-alist '("\\.pod$" . pod-mode))
+(add-hook pod-mode-hook 'font-lock-mode)
+
 ;; yaml
 (require 'yaml-mode)
 (add-to-list 'auto-mode-alist '("\\.ya?ml$" . yaml-mode))
@@ -214,6 +219,12 @@
 ;;Distinguish buffers of the same filename
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'post-forward-angle-brackets)
+
+;;paredit
+
+(autoload 'enable-paredit-mode "paredit"
+  "Turn on pseudo-structural editing of Lisp code."
+  t)
 
 ;;keyboard remapping
 

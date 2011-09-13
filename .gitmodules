@@ -35,3 +35,6 @@
 [submodule "site-lisp/pod-mode"]
 	path = site-lisp/pod-mode
 	url = https://github.com/renormalist/emacs-pod-mode.git
+[submodule "site-lisp/pod-cperl-mode"]
+	path = site-lisp/pod-cperl-mode
+	url = https://github.com/renormalist/emacs-pod-cperl-mode.git
