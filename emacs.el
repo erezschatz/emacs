@@ -125,7 +125,7 @@
 ;;pod-mode
 (require 'pod-mode)
 (add-to-list 'auto-mode-alist '("\\.pod$" . pod-mode))
-(add-hook pod-mode-hook 'font-lock-mode)
+(add-hook 'pod-mode-hook 'font-lock-mode)
 
 ;; yaml
 (require 'yaml-mode)
