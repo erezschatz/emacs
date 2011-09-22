@@ -1,3 +1,85 @@
+2011-09-08  Katsumi Yamaoka  <yamaoka@jpl.org>
+
+	* w3m-lnum.el (w3m-lnum-face): Remove face alias.
+	(w3m-lnum-quick-browsing): Add custom type.
+	(w3m-lnum-remove-overlays, w3m-lnum-set-numbering)
+	(w3m-lnum-highlight-anchor, w3m-lnum-get-match-info): Fix overlay end
+	range, too.
+
+2011-09-07  Andrey Kotlarski  <m00naticus@gmail.com>
+
+	* w3m.el: Use `w3m-lnum' as naming prefix for commands and
+	maps from `w3m-lnum.el'.
+
+	* w3m-lnum.el: Use `w3m-lnum' as naming prefix everywhere instead of
+	`w3m-linknum' or `w3m-link-numbering'.
+	(w3m-lnum-set-numbering, w3m-lnum): Optionally don't clean previous
+	numbering.
+	(w3m-lnum-read-interactive): Don't clean previous numbering with
+	`w3m-lnum' in cases when there is no such.
+	(w3m-lnum-remove-overlays, w3m-lnum-set-numbering): Fix overlay start
+	range to make it work for XEmacs.
+	(w3m-lnum-get-action): Don't invoke `w3m-lnum-read-interactive' with 0
+	numbered items.
+
+	* w3m-util.el (w3m-goto-next-defun): New macro.
+	(w3m-goto-next-anchor-or-image, w3m-substitute-key-definitions): Move
+	from w3m-lnum.el
+
+2011-09-04  Katsumi Yamaoka  <yamaoka@jpl.org>
+
+	* w3m-lnum.el (w3m-link-numbering, w3m-linknum-minibuffer-prompt)
+	(w3m-linknum-match): Use old defface style for XEmacs.
+	(w3m-link-set-numbering): Replace string-match-p w/ w3m-string-match-p.
+	(w3m-highlight-numbered-anchor, w3m-get-match-info): Fix range passed
+	to overlays-in to make it work for XEmacs.
+
+2011-09-04  Andrey Kotlarski  <m00naticus@gmail.com>
+
+	* w3m-lnum.el: Update copyright years. Don't require `cl'.
+	(w3m-linknum-match): Make numbering face visible for some
+	consoles.
+	(w3m-link-numbering-quick-browsing)
+	(w3m-link-numbering-context-alist): New custom variables.
+	(w3m-linknum-remove-overlays): Delete overlays only within the
+	visible window part.
+	(w3m-link-set-overlay): Don't use `incf'.
+	(w3m-link-set-numbering): Number additional context items as
+	specified by `w3m-link-numbering-context-alist'. Return index of
+	the last matched item.
+	(w3m-goto-next-image2): Fix doc typo.
+	(w3m-goto-next-anchor-or-image, w3m-link-numbering): Cosmetic
+	indent.
+	(w3m-linknum-prompt-str): Don't show 0 when this is being current
+	default for selection.
+	(w3m-read-int-interactive): Up and down scrolling preserves text
+	filter and cleans previous numbering. Allow <enter> shortcutting
+	options as specified by `w3m-link-numbering-quick-browsing'. Don't
+	let the text filter grow when no items match.
+	(w3m-with-linknum): Make `last-index' variable visible within body
+	and set as the last index currently used for numbering.
+	(w3m-get-match-info): New macro.
+	(w3m-get-anchor-info): Use `w3m-get-match-info'.
+	(w3m-go-to-linknum, w3m-linknum-get-action): Call
+	`w3m-get-anchor-info' with a selection number.
+	(w3m-linknum-follow, w3m-linknum-view-image)
+	(w3m-linknum-save-image, w3m-linknum-print-this-url): Don't use cl
+	functions.
+	(w3m-linknum-zoom-image): Cosmetic doc string change.
+	(w3m-linknum-bookmark-add-this-url): Use 1+.
+
+2011-09-03  Dan Jacobson  <jidanni@jidanni.org>
+
+	* w3m.el (w3m-lynx-like-map, w3m-info-like-map): Bind the `C-t t' key
+	to w3m-create-empty-session.
+
+2011-09-02  Katsumi Yamaoka  <yamaoka@jpl.org>
+
+	* w3m.el (w3m-create-empty-session): New user command.
+	(w3m-new-session-url): Default to about:blank.
+	(w3m-input-url): Don't use about:* as initial value.
+	(w3m-goto-url-new-session): Use w3m-new-session-url as the default.
+
 2011-07-20  Katsumi Yamaoka  <yamaoka@jpl.org>
 
 	* w3m-ems.el (w3m-toolbar-define-keys): No need to take care of

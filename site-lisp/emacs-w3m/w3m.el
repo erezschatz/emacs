@@ -156,18 +156,18 @@
   (autoload 'report-emacs-w3m-bug "w3m-bug" nil t)
   (autoload 'w3m-replace-symbol "w3m-symbol" nil t)
   (autoload 'w3m-mail "w3m-mail" nil t)
-  (autoload 'w3m-link-numbering-mode "w3m-lnum" nil t)
-  (autoload 'w3m-linknum-follow "w3m-lnum" nil t)
-  (autoload 'w3m-go-to-linknum "w3m-lnum" nil t)
-  (autoload 'w3m-linknum-toggle-inline-image "w3m-lnum" nil t)
-  (autoload 'w3m-linknum-view-image "w3m-lnum" nil t)
-  (autoload 'w3m-linknum-external-view-this-url "w3m-lnum" nil t)
-  (autoload 'w3m-linknum-edit-this-url "w3m-lnum" nil t)
-  (autoload 'w3m-linknum-print-this-url "w3m-lnum" nil t)
-  (autoload 'w3m-linknum-download-this-url "w3m-lnum" nil t)
-  (autoload 'w3m-linknum-bookmark-add-this-url "w3m-lnum" nil t)
-  (autoload 'w3m-linknum-zoom-in-image "w3m-lnum" nil t)
-  (autoload 'w3m-linknum-zoom-out-image "w3m-lnum" nil t)
+  (autoload 'w3m-lnum-mode "w3m-lnum" nil t)
+  (autoload 'w3m-lnum-follow "w3m-lnum" nil t)
+  (autoload 'w3m-lnum-goto "w3m-lnum" nil t)
+  (autoload 'w3m-lnum-toggle-inline-image "w3m-lnum" nil t)
+  (autoload 'w3m-lnum-view-image "w3m-lnum" nil t)
+  (autoload 'w3m-lnum-external-view-this-url "w3m-lnum" nil t)
+  (autoload 'w3m-lnum-edit-this-url "w3m-lnum" nil t)
+  (autoload 'w3m-lnum-print-this-url "w3m-lnum" nil t)
+  (autoload 'w3m-lnum-download-this-url "w3m-lnum" nil t)
+  (autoload 'w3m-lnum-bookmark-add-this-url "w3m-lnum" nil t)
+  (autoload 'w3m-lnum-zoom-in-image "w3m-lnum" nil t)
+  (autoload 'w3m-lnum-zoom-out-image "w3m-lnum" nil t)
   (autoload 'w3m-session-select "w3m-session"
     "Select session from session list." t)
   (autoload 'w3m-session-save "w3m-session"
@@ -208,7 +208,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1528 $"))
+    (let ((rev "$Revision: 1.1532 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1136))
 	   (format "1.4.%d" (+ rev 50)))))
@@ -1614,7 +1614,7 @@ text.  See also `w3m-use-tab'."
   :group 'w3m
   :type 'boolean)
 
-(defcustom w3m-new-session-url "about://bookmark/"
+(defcustom w3m-new-session-url "about:blank"
   "*Default url to be opened in a tab or a session which is created newly."
   :group 'w3m
   :type '(radio
@@ -4586,10 +4586,12 @@ if it has no scheme part."
   (let (url)
     (w3m-arrived-setup)
     (cond ((null initial)
-	   (when (and (setq initial (w3m-active-region-or-url-at-point t))
-		      (not (string-match "[^\000-\177]" initial)))
-	     (setq initial (w3m-url-decode-string initial
-						  w3m-current-coding-system))))
+	   (when (setq initial (w3m-active-region-or-url-at-point t))
+	     (if (string-match "\\`about:" initial)
+		 (setq initial nil)
+	       (unless (string-match "[^\000-\177]" initial)
+		 (setq initial (w3m-url-decode-string
+				initial w3m-current-coding-system))))))
 	  ((string= initial "")
 	   (setq initial nil)))
     (when initial
@@ -4624,17 +4626,22 @@ if it has no scheme part."
 					 (substring prompt 0
 						    (match-beginning 0))))
 				 (concat prompt " (default "
-					 (if (equal default w3m-home-page)
-					     "HOME"
-					   default)
+					 (cond ((equal default "about:blank")
+						"BLANK")
+					       ((equal default w3m-home-page)
+						"HOME")
+					       (t default))
 					 "): "))
 			     prompt)
 			 (if default
 			     (format "URL %s(default %s): "
 				     (if feeling-lucky "or Keyword " "")
 				     (if (stringp default)
-					 (if (eq default w3m-home-page)
-					     "HOME" default)
+					 (cond ((string= default "about:blank")
+						"BLANK")
+					       ((string= default w3m-home-page)
+						"HOME")
+					       (t default))
 				       (prin1-to-string default)))
 			   (if feeling-lucky "URL or Keyword: " "URL: ")))
 		       'w3m-url-completion nil nil initial
@@ -7816,7 +7823,6 @@ for users.  See Info node `(elisp)Key Binding Conventions'.")
     (define-key map "\C-c" 'w3m-submit-form)
     (define-key map "\C-k" 'w3m-process-stop)
     (define-key map "\C-m" 'w3m-move-unseen-buffer)
-    (define-key map "\C-l" 'w3m-go-to-linknum)
     (setq w3m-ctl-c-map map)))
 
 (defvar w3m-redisplay-map nil
@@ -7828,22 +7834,22 @@ for users.  See Info node `(elisp)Key Binding Conventions'.")
     (define-key map "C" 'w3m-redisplay-and-reset)
     (setq w3m-redisplay-map map)))
 
-(defvar w3m-linknum-map nil
+(defvar w3m-lnum-map nil
   "Sub-keymap used for the `L'-prefixed link numbering commands.")
-(unless w3m-linknum-map
+(unless w3m-lnum-map
   (let ((map (make-sparse-keymap)))
-    (define-key map "F" 'w3m-go-to-linknum)
-    (define-key map "I" 'w3m-linknum-view-image)
-    (define-key map "\M-i" 'w3m-linknum-save-image)
-    (define-key map "d" 'w3m-linknum-download-this-url)
-    (define-key map "e" 'w3m-linknum-edit-this-url)
-    (define-key map "f" 'w3m-linknum-follow)
-    (define-key map "t" 'w3m-linknum-toggle-inline-image)
-    (define-key map "u" 'w3m-linknum-print-this-url)
-    (define-key map "b" 'w3m-linknum-bookmark-add-this-url)
-    (define-key map "]" 'w3m-linknum-zoom-in-image)
-    (define-key map "[" 'w3m-linknum-zoom-out-image)
-    (setq w3m-linknum-map map)))
+    (define-key map "F" 'w3m-lnum-goto)
+    (define-key map "I" 'w3m-lnum-view-image)
+    (define-key map "\M-i" 'w3m-lnum-save-image)
+    (define-key map "d" 'w3m-lnum-download-this-url)
+    (define-key map "e" 'w3m-lnum-edit-this-url)
+    (define-key map "f" 'w3m-lnum-follow)
+    (define-key map "t" 'w3m-lnum-toggle-inline-image)
+    (define-key map "u" 'w3m-lnum-print-this-url)
+    (define-key map "b" 'w3m-lnum-bookmark-add-this-url)
+    (define-key map "]" 'w3m-lnum-zoom-in-image)
+    (define-key map "[" 'w3m-lnum-zoom-out-image)
+    (setq w3m-lnum-map map)))
 
 (defvar w3m-lynx-like-map nil
   "Lynx-like keymap used in emacs-w3m buffers.")
@@ -7909,6 +7915,7 @@ for users.  See Info node `(elisp)Key Binding Conventions'.")
     (define-key map "M" 'w3m-view-url-with-external-browser)
     (define-key map "G" 'w3m-goto-url-new-session)
     (define-key map "g" 'w3m-goto-url)
+    (define-key map "\C-tt" 'w3m-create-empty-session)
     (define-key map "T" 'w3m-toggle-inline-images)
     (define-key map "\M-T" 'w3m-turnoff-inline-images)
     (define-key map "t" 'w3m-toggle-inline-image)
@@ -7956,7 +7963,7 @@ for users.  See Info node `(elisp)Key Binding Conventions'.")
     (define-key map "|" 'w3m-pipe-source)
     (define-key map "\C-c" w3m-ctl-c-map)
     (define-key map "C" w3m-redisplay-map)
-    (define-key map "L" w3m-linknum-map)
+    (define-key map "L" w3m-lnum-map)
     (setq w3m-lynx-like-map map)))
 
 (defvar w3m-info-like-map nil
@@ -8014,6 +8021,7 @@ for users.  See Info node `(elisp)Key Binding Conventions'.")
     (define-key map "f" 'undefined) ;; reserved.
     (define-key map "g" 'w3m-goto-url)
     (define-key map "G" 'w3m-goto-url-new-session)
+    (define-key map "\C-tt" 'w3m-create-empty-session)
     (define-key map "h" 'describe-mode)
     (define-key map "H" 'w3m-gohome)
     (define-key map "i" (if (w3m-display-graphic-p)
@@ -8073,7 +8081,7 @@ for users.  See Info node `(elisp)Key Binding Conventions'.")
     (define-key map "|" 'w3m-pipe-source)
     (define-key map "\C-c" w3m-ctl-c-map)
     (define-key map "C" w3m-redisplay-map)
-    (define-key map "L" w3m-linknum-map)
+    (define-key map "L" w3m-lnum-map)
     (setq w3m-info-like-map map)))
 
 (defun w3m-alive-p (&optional visible)
@@ -8413,7 +8421,6 @@ or a list which consists of the following elements:
 
 \\[w3m-next-anchor]	Move the point to the next anchor.
 \\[w3m-previous-anchor]	Move the point to the previous anchor.
-\\[w3m-go-to-linknum] Move the point to the numbered anchor.
 \\[w3m-next-form]	Move the point to the next form.
 \\[w3m-previous-form]	Move the point to the previous form.
 \\[w3m-next-image]	Move the point to the next image.
@@ -9520,7 +9527,7 @@ If you invoke this command in the emacs-w3m buffer, the new session
 will be created by copying the current session.  Otherwise, the new
 session will start afresh."
   (interactive
-   (list (w3m-input-url nil nil	nil nil 'feeling-lucky)
+   (list (w3m-input-url nil nil w3m-new-session-url nil 'feeling-lucky)
 	 current-prefix-arg
 	 (w3m-static-if (fboundp 'universal-coding-system-argument)
 	     coding-system-for-read)
@@ -9569,6 +9576,12 @@ session will start afresh."
   (unless w3m-home-page
     (error "You have to specify the value of `w3m-home-page'"))
   (w3m-goto-url w3m-home-page))
+
+;;;###autoload
+(defun w3m-create-empty-session ()
+  "Create an empty page as a new session and visit it."
+  (interactive)
+  (w3m-goto-url-new-session "about:blank"))
 
 (defun w3m-reload-this-page (&optional arg no-popup)
   "Reload the current page, disregarding the cached contents.
