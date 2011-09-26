@@ -153,6 +153,9 @@
 (require 'magit)
 (require 'git-blame)
 
+;;tramp - Transparent Remote (file) Access, Multiple Protocol
+(require 'tramp)
+
 ;;org-mode
 (require 'org-install)
 (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
