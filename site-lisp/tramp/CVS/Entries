@@ -12,4 +12,8 @@
 /configure.ac/2.93/Wed Aug  3 19:26:53 2011//
 /package-info.in/2.2/Sun Oct 17 16:33:30 2004//
 /test.makefile/2.1/Mon Jul 14 21:38:14 2003//
-D
+D/contrib////
+D/lisp////
+D/test////
+D/texi////
+D/tramp2////
