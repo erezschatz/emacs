@@ -1606,24 +1606,28 @@ This is intended to be used as a minibuffer `post-command-hook' for
 `file-name-shadow-mode'; the minibuffer should have already
 been set up by `rfn-eshadow-setup-minibuffer'."
   ;; In remote files name, there is a shadowing just for the local part.
-  (let ((end (or (tramp-compat-funcall
-		  'overlay-end (symbol-value 'rfn-eshadow-overlay))
-		 (tramp-compat-funcall 'minibuffer-prompt-end))))
-    (when
-	(file-remote-p
-	 (tramp-compat-funcall 'buffer-substring-no-properties end (point-max)))
-      (save-excursion
-	(save-restriction
-	  (narrow-to-region
-	   (1+ (or (string-match
-		    tramp-rfn-eshadow-update-overlay-regexp (buffer-string) end)
-		   end))
-	   (point-max))
-	  (let ((rfn-eshadow-overlay tramp-rfn-eshadow-overlay)
-		(rfn-eshadow-update-overlay-hook nil))
-	    (tramp-compat-funcall
-	     'move-overlay rfn-eshadow-overlay (point-max) (point-max))
-	    (tramp-compat-funcall 'rfn-eshadow-update-overlay)))))))
+  (ignore-errors
+    (let ((end (or (tramp-compat-funcall
+		    'overlay-end (symbol-value 'rfn-eshadow-overlay))
+		   (tramp-compat-funcall 'minibuffer-prompt-end))))
+      (when
+	  (file-remote-p
+	   (tramp-compat-funcall
+	    'buffer-substring-no-properties end (point-max)))
+	(save-excursion
+	  (save-restriction
+	    (narrow-to-region
+	     (1+ (or (string-match
+		      tramp-rfn-eshadow-update-overlay-regexp
+		      (buffer-string) end)
+		     end))
+	     (point-max))
+	    (let ((rfn-eshadow-overlay tramp-rfn-eshadow-overlay)
+		  (rfn-eshadow-update-overlay-hook nil)
+		  file-name-handler-alist)
+	      (tramp-compat-funcall
+	       'move-overlay rfn-eshadow-overlay (point-max) (point-max))
+	      (tramp-compat-funcall 'rfn-eshadow-update-overlay))))))))
 
 (when (boundp 'rfn-eshadow-update-overlay-hook)
   (add-hook 'rfn-eshadow-update-overlay-hook
@@ -1886,7 +1890,7 @@ Falls back to normal file name handler if no Tramp file name handler exists."
 		      (apply foreign operation args))
 
 		  ;; Trace that somebody has interrupted the operation.
-		  (quit
+		  ((debug quit)
 		   (let (tramp-message-show-message)
 		     (tramp-message
 		      v 1 "Interrupt received in operation %s"
@@ -1898,6 +1902,9 @@ Falls back to normal file name handler if no Tramp file name handler exists."
 		  ;; operations shall return at least a default value
 		  ;; in order to give the user a chance to correct the
 		  ;; file name in the minibuffer.
+		  ;; We cannot use 'debug as error handler.  In order
+		  ;; to get a full backtrace, one could apply
+		  ;;   (setq debug-on-error t debug-on-signal t)
 		  (error
 		   (cond
 		    ((and completion (zerop (length localname))
@@ -3850,9 +3857,9 @@ Only works for Bourne-like shells."
 ;; * Run emerge on two remote files.  Bug is described here:
 ;;   <http://www.mail-archive.com/tramp-devel@nongnu.org/msg01041.html>.
 ;;   (Bug#6850)
-
-;; Functions for file-name-handler-alist:
-;; diff-latest-backup-file -- in diff.el
+;; * It would be very useful if it were possible to load or save a
+;;   buffer using Tramp in a non-blocking way so that use of Emacs on
+;;   other buffers could continue.  (Bug#9617)
 
 ;;; tramp.el ends here
 

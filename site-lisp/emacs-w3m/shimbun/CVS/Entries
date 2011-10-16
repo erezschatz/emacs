@@ -70,7 +70,6 @@
 /sb-namazu.el/1.19/Thu Jul 28 06:39:03 2011//
 /sb-netbsd.el/1.12/Thu Jul 28 06:39:03 2011//
 /sb-nikkansports.el/1.22/Thu Jul 28 06:39:03 2011//
-/sb-nikkei.el/1.82/Thu Jul 28 06:39:03 2011//
 /sb-nytimes.el/1.18/Thu Jul 28 06:39:03 2011//
 /sb-opentechpress-jp.el/1.11/Thu Jul 28 06:39:03 2011//
 /sb-orca.el/1.6/Thu Jul 28 06:39:03 2011//
@@ -119,17 +118,18 @@
 /sb-wired-jp.el/1.12/Thu Jul 28 06:39:03 2011//
 /sb-x51.el/1.23/Thu Jul 28 06:39:03 2011//
 /sb-xemacs.el/1.19/Thu Jul 28 06:39:03 2011//
-/sb-yahoo-auctions.el/1.13/Thu Jul 28 06:39:03 2011//
 /sb-yahoo-sports.el/1.6/Thu Jul 28 06:39:03 2011//
 /sb-yahoo.el/1.41/Thu Jul 28 06:39:03 2011//
 /sb-yomiuri-html.el/1.15/Thu Jul 28 06:39:03 2011//
 /sb-yomiuri.el/1.60/Thu Jul 28 06:39:03 2011//
 /sb-zdnet-jp.el/1.9/Thu Jul 28 06:39:03 2011//
 /sb-zeit-de.el/1.17/Thu Jul 28 06:39:03 2011//
-/shimbun.el/1.214/Thu Jul 28 06:39:03 2011//
-/sb-itmedia.el/1.48/Wed Aug  3 07:20:50 2011//
-/ChangeLog/1.266/Thu Sep 22 09:53:44 2011//
 /sb-kantei.el/1.54/Thu Sep 22 09:53:45 2011//
-/sb-mainichi.el/1.66/Thu Sep 22 09:53:45 2011//
-/sb-sankei.el/1.52/Thu Sep 22 09:53:45 2011//
+/ChangeLog/1.272/Sun Oct 16 10:21:30 2011//
+/sb-itmedia.el/1.49/Sun Oct 16 10:21:30 2011//
+/sb-mainichi.el/1.67/Sun Oct 16 10:21:30 2011//
+/sb-nikkei.el/1.83/Sun Oct 16 10:21:30 2011//
+/sb-sankei.el/1.53/Sun Oct 16 10:21:30 2011//
+/sb-yahoo-auctions.el/1.15/Sun Oct 16 10:21:30 2011//
+/shimbun.el/1.216/Sun Oct 16 10:21:30 2011//
 D

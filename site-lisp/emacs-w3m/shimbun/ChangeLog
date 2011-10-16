@@ -1,3 +1,35 @@
+2011-10-14  Katsumi Yamaoka  <yamaoka@jpl.org>
+
+	* sb-yahoo-auctions.el (shimbun-index-url): Revert last change.
+
+2011-10-13  Katsumi Yamaoka  <yamaoka@jpl.org>
+
+	* sb-nikkei.el (shimbun-nikkei-url-coding-system): Abolish.
+
+	* sb-yahoo-auctions.el (shimbun-index-url): Don't specify coding system
+	for encoding url.
+
+	* shimbun.el (url-coding-system): Abolish shimbun class.
+	(shimbun-retrieve-url): Remove url-coding-system argument.
+	(shimbun-fetch-url): Don't specify coding system for url to retrieve.
+	(shimbun-attributes): Remove url-coding-system shimbun class.
+
+2011-10-11  Katsumi Yamaoka  <yamaoka@jpl.org>
+
+	* sb-itmedia.el (shimbun-clear-contents): Improve way to extract body.
+
+2011-10-10  Katsumi Yamaoka  <yamaoka@jpl.org>
+
+	* sb-mainichi.el (shimbun-mainichi-group-table): Add jidainokaze group.
+
+2011-10-03  Katsumi Yamaoka  <yamaoka@jpl.org>
+
+	* shimbun.el (shimbun-japanese-hankaku-region-1): Fix regexp.
+
+	* sb-sankei.el (shimbun-sankei-group-table): Add west groups.
+	(shimbun-server-name): New wrapper.
+	(shimbun-sankei-get-headers): Use it.
+
 2011-09-14  Katsumi Yamaoka  <yamaoka@jpl.org>
 
 	* sb-kantei.el: Add the English version of Noda's blog.
@@ -8,7 +40,7 @@
 	(shimbun-kantei-groups, shimbun-kantei-x-face-alist, shimbun-index-url)
 	(shimbun-from-address, shimbun-make-contents): Update.
 
-(2011-09-01  Katsumi Yamaoka  <yamaoka@jpl.org>
+2011-09-01  Katsumi Yamaoka  <yamaoka@jpl.org>
 
 	* sb-mainichi.el (shimbun-mainichi-group-table): Add fuchisou group.
 
