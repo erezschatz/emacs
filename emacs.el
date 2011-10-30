@@ -173,16 +173,15 @@
 
 (add-hook 'org-after-todo-statistics-hook 'org-summary-todo)
 
+;;org2blog
+(require 'org2blog-autoloads)
+
 ;;calendar
 (require 'calfw)
 (require 'calfw-ical)
 
 ;;keywiz
 (require 'keywiz)
-
-;;typing game
-
-(autoload 'typing-of-emacs "The Typing Of Emacs, a game." t)
 
 ;;IRC
 
@@ -195,26 +194,6 @@
         ("eggebuh" "#dbix-class" "#moose" "#catalyst" "#perl" "#dancer")
         ("netgamers.net" "#battrick")))
 
-;;jabber
-
-(require 'jabber-autoloads)
-(setq jabber-username "moonbuzz@gmail.com")
-(setq jabber-nickname "erez")
-(setq jabber-connection-type (quote ssl))
-(setq jabber-network-server "talk.google.com")
-(setq jabber-server "gmail.com")
-
-;;microblogging
-
-;;identica
-(require 'identica-mode)
-(setq identica-username "erez")
-(setq identica-soft-wrap-status 1)
-(global-set-key "\C-cip" 'identica-update-status-interactive)
-
-;;twitter
-(require 'twittering-mode)
-(setq twittering-use-master-password t)
 
 ;;helper modules
 
