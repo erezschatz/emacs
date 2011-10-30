@@ -38,3 +38,6 @@
 [submodule "site-lisp/pod-cperl-mode"]
 	path = site-lisp/pod-cperl-mode
 	url = https://github.com/renormalist/emacs-pod-cperl-mode.git
+[submodule "site-lisp/org2blog"]
+	path = site-lisp/org2blog
+	url = https://github.com/punchagan/org2blog.git
