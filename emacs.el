@@ -138,8 +138,8 @@
 (require 'json)
 
 ;;auctex
-(load "auctex.el" nil t t)
-(load "preview-latex.el" nil t t)
+;;(load "auctex.el" nil t t)
+;;(load "preview-latex.el" nil t t)
 
 ;;full-ack
 (autoload 'ack-same "full-ack" nil t)
@@ -152,6 +152,10 @@
 ;;git
 (require 'magit)
 (require 'git-blame)
+
+;;fossil
+(autoload 'vc-fossil-registered "vc-fossil")
+(add-to-list 'vc-handled-backends 'Fossil)
 
 ;;tramp - Transparent Remote (file) Access, Multiple Protocol
 (require 'tramp)
@@ -172,13 +176,6 @@
     (org-todo (if (= n-not-done 0) "DONE" "TODO"))))
 
 (add-hook 'org-after-todo-statistics-hook 'org-summary-todo)
-
-;;org2blog
-(require 'org2blog-autoloads)
-
-;;calendar
-(require 'calfw)
-(require 'calfw-ical)
 
 ;;keywiz
 (require 'keywiz)
@@ -231,10 +228,9 @@
   ;; If you edit it by hand, you could mess it up, so be careful.
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
- '(browse-url-browser-function (quote browse-url-w3)))
 (custom-set-faces
   ;; custom-set-faces was added by Custom.
   ;; If you edit it by hand, you could mess it up, so be careful.
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
- '(hl-line ((t (:inverse-video t)))))
+ '(hl-line ((t (:inverse-video t))))))
