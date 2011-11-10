@@ -177,6 +177,10 @@
 
 (add-hook 'org-after-todo-statistics-hook 'org-summary-todo)
 
+(setq org-mobile-directory "~/Dropbox/orgfiles")
+(setq org-directory "~/emacs/orgfiles")
+(setq org-mobile-inbox-for-pull "~/Dropbox/orgfiles")
+
 ;;keywiz
 (require 'keywiz)
 
