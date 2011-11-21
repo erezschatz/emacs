@@ -1,6 +1,5 @@
 /.cvsignore/2.5/Wed Sep  8 13:48:40 2010//
 /Makefile.in/2.45/Sun Feb 13 11:58:27 2011//
-/tramp-cmds.el/2.28/Thu Jul 14 09:19:02 2011//
 /tramp-compat.el/2.43/Wed Sep  7 11:41:52 2011//
 /tramp-efs.el/2.28/Sat Jun  4 13:45:49 2011//
 /tramp-ftp.el/2.54/Sat Jun  4 13:45:49 2011//
@@ -11,8 +10,9 @@
 /tramp-uu.el/2.26/Wed Jan 26 09:43:34 2011//
 /tramp-vc.el/2.45/Tue May 24 06:03:14 2011//
 /trampver.el.in/2.24/Wed Jan 26 09:43:34 2011//
-/tramp-sh.el/2.43/Sun Oct  2 08:09:34 2011//
-/ChangeLog/2.1008/Tue Oct 25 09:12:48 2011//
 /tramp-cache.el/2.71/Tue Oct 25 09:12:48 2011//
-/tramp.el/2.852/Tue Oct 25 09:12:48 2011//
+/ChangeLog/2.1012/Sun Nov 13 10:48:09 2011//
+/tramp-cmds.el/2.29/Sun Nov 13 10:48:09 2011//
+/tramp-sh.el/2.45/Sun Nov 13 10:48:09 2011//
+/tramp.el/2.855/Sun Nov 13 10:48:10 2011//
 D

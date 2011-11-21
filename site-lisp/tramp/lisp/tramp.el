@@ -1506,6 +1506,19 @@ letter into the file name.  This function removes it."
 
     'identity))
 
+(defun tramp-cleanup (vec)
+  "Cleanup connection VEC, but keep the debug buffer."
+  (with-current-buffer (tramp-get-debug-buffer vec)
+    ;; Keep the debug buffer.
+    (rename-buffer
+     (generate-new-buffer-name tramp-temp-buffer-name) 'unique)
+    (tramp-cleanup-connection vec)
+    (if (= (point-min) (point-max))
+	(kill-buffer nil)
+      (rename-buffer (tramp-debug-buffer-name vec) 'unique))
+    ;; We call `tramp-get-buffer' in order to keep the debug buffer.
+    (tramp-get-buffer vec)))
+
 ;;; Config Manipulation Functions:
 
 ;;;###tramp-autoload
@@ -1514,9 +1527,7 @@ letter into the file name.  This function removes it."
 FUNCTION-LIST is a list of entries of the form (FUNCTION FILE).
 The FUNCTION is intended to parse FILE according its syntax.
 It might be a predefined FUNCTION, or a user defined FUNCTION.
-Predefined FUNCTIONs are `tramp-parse-rhosts', `tramp-parse-shosts',
-`tramp-parse-sconfig', `tramp-parse-hosts', `tramp-parse-passwd',
-and `tramp-parse-netrc'.
+For the list of predefined FUNCTIONs see `tramp-completion-function-alist'.
 
 Example:
 
@@ -1877,7 +1888,8 @@ Falls back to normal file name handler if no Tramp file name handler exists."
 	    ;; Call the backend function.
 	    (if foreign
 		(condition-case err
-		    (let ((sf (symbol-function foreign)))
+		    (let ((sf (symbol-function foreign))
+			  result)
 		      ;; Some packages set the default directory to a
 		      ;; remote path, before respective Tramp packages
 		      ;; are already loaded.  This results in
@@ -1887,7 +1899,22 @@ Falls back to normal file name handler if no Tramp file name handler exists."
 			(let ((default-directory
 				(tramp-compat-temporary-file-directory)))
 			  (load (cadr sf) 'noerror 'nomessage)))
-		      (apply foreign operation args))
+		      ;; If Tramp detects that it shouldn't continue
+		      ;; to work, it throws the `suppress' event.  We
+		      ;; try the default handler then.
+		      ;; This could happen for example, when Tramp
+		      ;; tries to open the same connection twice in a
+		      ;; short time frame.
+		      (setq result
+			    (catch 'suppress (apply foreign operation args)))
+		      (if (eq result 'suppress)
+			  (let (tramp-message-show-message)
+			    (tramp-message
+			     v 1 "Suppress received in operation %s"
+			     (append (list operation) args))
+			    (tramp-cleanup v)
+			    (tramp-run-real-handler operation args))
+			result))
 
 		  ;; Trace that somebody has interrupted the operation.
 		  ((debug quit)
@@ -1902,7 +1929,7 @@ Falls back to normal file name handler if no Tramp file name handler exists."
 		  ;; operations shall return at least a default value
 		  ;; in order to give the user a chance to correct the
 		  ;; file name in the minibuffer.
-		  ;; We cannot use 'debug as error handler.  In order
+		  ;; We cannot use `debug' as error handler.  In order
 		  ;; to get a full backtrace, one could apply
 		  ;;   (setq debug-on-error t debug-on-signal t)
 		  (error
@@ -2393,21 +2420,36 @@ PARTIAL-USER must match USER, PARTIAL-HOST must match HOST."
   (unless (zerop (+ (length user) (length host)))
     (tramp-completion-make-tramp-file-name method user host nil)))
 
-;;;###tramp-autoload
-(defun tramp-parse-rhosts (filename)
+;; Generic function.
+(defun tramp-parse-group (regexp match-level skip-regexp)
+   "Return a (user host) tuple allowed to access.
+User is always nil."
+   (let (result)
+     (when (re-search-forward regexp (point-at-eol) t)
+       (setq result (list nil (match-string match-level))))
+     (or
+      (> (skip-chars-forward skip-regexp) 0)
+      (forward-line 1))
+     result))
+
+;; Generic function.
+(defun tramp-parse-file (filename function)
   "Return a list of (user host) tuples allowed to access.
-Either user or host may be nil."
+User is always nil."
   ;; On Windows, there are problems in completion when
   ;; `default-directory' is remote.
-  (let ((default-directory (tramp-compat-temporary-file-directory))
-	res)
+  (let ((default-directory (tramp-compat-temporary-file-directory)))
     (when (file-readable-p filename)
       (with-temp-buffer
 	(insert-file-contents filename)
 	(goto-char (point-min))
-	(while (not (eobp))
-	  (push (tramp-parse-rhosts-group) res))))
-    res))
+        (loop while (not (eobp)) collect (funcall function))))))
+
+;;;###tramp-autoload
+(defun tramp-parse-rhosts (filename)
+  "Return a list of (user host) tuples allowed to access.
+Either user or host may be nil."
+  (tramp-parse-file filename 'tramp-parse-rhosts-group))
 
 (defun tramp-parse-rhosts-group ()
    "Return a (user host) tuple allowed to access.
@@ -2417,10 +2459,8 @@ Either user or host may be nil."
 	  (concat
 	   "^\\(" tramp-host-regexp "\\)"
 	   "\\([ \t]+" "\\(" tramp-user-regexp "\\)" "\\)?")))
-     (narrow-to-region (point) (point-at-eol))
-     (when (re-search-forward regexp nil t)
+     (when (re-search-forward regexp (point-at-eol) t)
        (setq result (append (list (match-string 3) (match-string 1)))))
-     (widen)
      (forward-line 1)
      result))
 
@@ -2428,124 +2468,62 @@ Either user or host may be nil."
 (defun tramp-parse-shosts (filename)
   "Return a list of (user host) tuples allowed to access.
 User is always nil."
-  ;; On Windows, there are problems in completion when
-  ;; `default-directory' is remote.
-  (let ((default-directory (tramp-compat-temporary-file-directory))
-	res)
-    (when (file-readable-p filename)
-      (with-temp-buffer
-	(insert-file-contents filename)
-	(goto-char (point-min))
-	(while (not (eobp))
-	  (push (tramp-parse-shosts-group) res))))
-    res))
+  (tramp-parse-file filename 'tramp-parse-shosts-group))
 
 (defun tramp-parse-shosts-group ()
    "Return a (user host) tuple allowed to access.
 User is always nil."
-   (let ((result)
-	 (regexp (concat "^\\(" tramp-host-regexp "\\)")))
-     (narrow-to-region (point) (point-at-eol))
-     (when (re-search-forward regexp nil t)
-       (setq result (list nil (match-string 1))))
-     (widen)
-     (or
-      (> (skip-chars-forward ",") 0)
-      (forward-line 1))
-     result))
+   (tramp-parse-group (concat "^\\(" tramp-host-regexp "\\)") 1 ","))
 
 ;;;###tramp-autoload
 (defun tramp-parse-sconfig (filename)
   "Return a list of (user host) tuples allowed to access.
 User is always nil."
-  ;; On Windows, there are problems in completion when
-  ;; `default-directory' is remote.
-  (let ((default-directory (tramp-compat-temporary-file-directory))
-	res)
-    (when (file-readable-p filename)
-      (with-temp-buffer
-	(insert-file-contents filename)
-	(goto-char (point-min))
-	(while (not (eobp))
-	  (push (tramp-parse-sconfig-group) res))))
-    res))
+  (tramp-parse-file filename 'tramp-parse-sconfig-group))
 
 (defun tramp-parse-sconfig-group ()
    "Return a (user host) tuple allowed to access.
 User is always nil."
-   (let ((result)
-	 (regexp (concat "^[ \t]*Host[ \t]+" "\\(" tramp-host-regexp "\\)")))
-     (narrow-to-region (point) (point-at-eol))
-     (when (re-search-forward regexp nil t)
-       (setq result (list nil (match-string 1))))
-     (widen)
-     (or
-      (> (skip-chars-forward ",") 0)
-      (forward-line 1))
-     result))
+   (tramp-parse-group
+    (concat "^[ \t]*Host[ \t]+" "\\(" tramp-host-regexp "\\)") 1 ","))
+
+;; Generic function.
+(defun tramp-parse-shostkeys-sknownhosts (dirname regexp)
+  "Return a list of (user host) tuples allowed to access.
+User is always nil."
+  ;; On Windows, there are problems in completion when
+  ;; `default-directory' is remote.
+  (let* ((default-directory (tramp-compat-temporary-file-directory))
+	 (files (and (file-directory-p dirname) (directory-files dirname))))
+    (loop for f in files when (string-match regexp f) collect
+         (list nil (match-string 1 f)))))
 
 ;;;###tramp-autoload
 (defun tramp-parse-shostkeys (dirname)
   "Return a list of (user host) tuples allowed to access.
 User is always nil."
-  ;; On Windows, there are problems in completion when
-  ;; `default-directory' is remote.
-  (let* ((default-directory (tramp-compat-temporary-file-directory))
-	 (regexp (concat "^key_[0-9]+_\\(" tramp-host-regexp "\\)\\.pub$"))
-	 (files (when (file-directory-p dirname) (directory-files dirname)))
-	 result)
-    (while files
-      (when (string-match regexp (car files))
-	(push (list nil (match-string 1 (car files))) result))
-      (setq files (cdr files)))
-    result))
+  (tramp-parse-shostkeys-sknownhosts
+   dirname (concat "^key_[0-9]+_\\(" tramp-host-regexp "\\)\\.pub$")))
 
+;;;###tramp-autoload
 (defun tramp-parse-sknownhosts (dirname)
   "Return a list of (user host) tuples allowed to access.
 User is always nil."
-  ;; On Windows, there are problems in completion when
-  ;; `default-directory' is remote.
-  (let* ((default-directory (tramp-compat-temporary-file-directory))
-	 (regexp (concat "^\\(" tramp-host-regexp
-			 "\\)\\.ssh-\\(dss\\|rsa\\)\\.pub$"))
-	 (files (when (file-directory-p dirname) (directory-files dirname)))
-	 result)
-    (while files
-      (when (string-match regexp (car files))
-	(push (list nil (match-string 1 (car files))) result))
-      (setq files (cdr files)))
-    result))
+  (tramp-parse-shostkeys-sknownhosts
+   dirname
+   (concat "^\\(" tramp-host-regexp "\\)\\.ssh-\\(dss\\|rsa\\)\\.pub$")))
 
 ;;;###tramp-autoload
 (defun tramp-parse-hosts (filename)
   "Return a list of (user host) tuples allowed to access.
 User is always nil."
-  ;; On Windows, there are problems in completion when
-  ;; `default-directory' is remote.
-  (let ((default-directory (tramp-compat-temporary-file-directory))
-	res)
-    (when (file-readable-p filename)
-      (with-temp-buffer
-	(insert-file-contents filename)
-	(goto-char (point-min))
-	(while (not (eobp))
-	  (push (tramp-parse-hosts-group) res))))
-    res))
+  (tramp-parse-file filename 'tramp-parse-hosts-group))
 
 (defun tramp-parse-hosts-group ()
    "Return a (user host) tuple allowed to access.
 User is always nil."
-   (let ((result)
-	 (regexp
-	  (concat "^\\(" tramp-ipv6-regexp "\\|" tramp-host-regexp "\\)")))
-     (narrow-to-region (point) (point-at-eol))
-     (when (re-search-forward regexp nil t)
-       (setq result (list nil (match-string 1))))
-     (widen)
-     (or
-      (> (skip-chars-forward " \t") 0)
-      (forward-line 1))
-     result))
+   (tramp-parse-group
+    (concat "^\\(" tramp-ipv6-regexp "\\|" tramp-host-regexp "\\)") 1 " \t"))
 
 ;; For su-alike methods it would be desirable to return "root@localhost"
 ;; as default.  Unfortunately, we have no information whether any user name
@@ -2555,29 +2533,17 @@ User is always nil."
 (defun tramp-parse-passwd (filename)
   "Return a list of (user host) tuples allowed to access.
 Host is always \"localhost\"."
-  ;; On Windows, there are problems in completion when
-  ;; `default-directory' is remote.
-  (let ((default-directory (tramp-compat-temporary-file-directory))
-	res)
-    (if (zerop (length tramp-current-user))
-	'(("root" nil))
-      (when (file-readable-p filename)
-	(with-temp-buffer
-	  (insert-file-contents filename)
-	  (goto-char (point-min))
-	  (while (not (eobp))
-	    (push (tramp-parse-passwd-group) res))))
-      res)))
+  (if (zerop (length tramp-current-user))
+      '(("root" nil))
+    (tramp-parse-file filename 'tramp-parse-passwd-group)))
 
 (defun tramp-parse-passwd-group ()
    "Return a (user host) tuple allowed to access.
 Host is always \"localhost\"."
    (let ((result)
 	 (regexp (concat "^\\(" tramp-user-regexp "\\):")))
-     (narrow-to-region (point) (point-at-eol))
-     (when (re-search-forward regexp nil t)
+     (when (re-search-forward regexp (point-at-eol) t)
        (setq result (list (match-string 1) "localhost")))
-     (widen)
      (forward-line 1)
      result))
 
@@ -2585,17 +2551,7 @@ Host is always \"localhost\"."
 (defun tramp-parse-netrc (filename)
   "Return a list of (user host) tuples allowed to access.
 User may be nil."
-  ;; On Windows, there are problems in completion when
-  ;; `default-directory' is remote.
-  (let ((default-directory (tramp-compat-temporary-file-directory))
-	res)
-    (when (file-readable-p filename)
-      (with-temp-buffer
-	(insert-file-contents filename)
-	(goto-char (point-min))
-	(while (not (eobp))
-	  (push (tramp-parse-netrc-group) res))))
-    res))
+  (tramp-parse-file filename 'tramp-parse-netrc-group))
 
 (defun tramp-parse-netrc-group ()
    "Return a (user host) tuple allowed to access.
@@ -2605,10 +2561,8 @@ User may be nil."
 	  (concat
 	   "^[ \t]*machine[ \t]+" "\\(" tramp-host-regexp "\\)"
 	   "\\([ \t]+login[ \t]+" "\\(" tramp-user-regexp "\\)" "\\)?")))
-     (narrow-to-region (point) (point-at-eol))
-     (when (re-search-forward regexp nil t)
+     (when (re-search-forward regexp (point-at-eol) t)
        (setq result (list (match-string 3) (match-string 1))))
-     (widen)
      (forward-line 1)
      result))
 
@@ -2616,26 +2570,18 @@ User may be nil."
 (defun tramp-parse-putty (registry)
   "Return a list of (user host) tuples allowed to access.
 User is always nil."
-  ;; On Windows, there are problems in completion when
-  ;; `default-directory' is remote.
-  (let ((default-directory (tramp-compat-temporary-file-directory))
-	res)
-    (with-temp-buffer
-      (when (zerop (tramp-compat-call-process "reg" nil t nil "query" registry))
-	(goto-char (point-min))
-	(while (not (eobp))
-	  (push (tramp-parse-putty-group registry) res))))
-    res))
+  (with-temp-buffer
+    (when (zerop (tramp-compat-call-process "reg" nil t nil "query" registry))
+      (goto-char (point-min))
+      (loop while (not (eobp)) collect (tramp-parse-putty-group registry)))))
 
 (defun tramp-parse-putty-group (registry)
    "Return a (user host) tuple allowed to access.
 User is always nil."
    (let ((result)
 	 (regexp (concat (regexp-quote registry) "\\\\\\(.+\\)")))
-     (narrow-to-region (point) (point-at-eol))
-     (when (re-search-forward regexp nil t)
+     (when (re-search-forward regexp (point-at-eol) t)
        (setq result (list nil (match-string 1))))
-     (widen)
      (forward-line 1)
      result))
 
@@ -3836,8 +3782,6 @@ Only works for Bourne-like shells."
 ;;   again.  (Greg Stark)
 ;; * Username and hostname completion.
 ;; ** Try to avoid usage of `last-input-event' in `tramp-completion-mode-p'.
-;; ** Unify `tramp-parse-{rhosts,shosts,sconfig,hosts,passwd,netrc}'.
-;;    Code is nearly identical.
 ;; * Make `tramp-default-user' obsolete.
 ;; * Implement a general server-local-variable mechanism, as there are
 ;;   probably other variables that need different values for different
