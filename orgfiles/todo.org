@@ -1,0 +1,14 @@
+* TODO Nagios [66%]
+** DONE ns backend
+*** DONE add management service to perlbal
+** DONE revision
+*** DONE change call to GET
+**** on http://$domain/sanity52.php?runTest=GetRevision&key=A4A4A4
+*** DONE test with Oleg
+** TODO
+* TODO Tests [0%]
+** TODO zx-pbguard
+** TODO zx-proxyprober
+* TODO Munin [0%]
+** TODO fix installation
+** TODO send patch
