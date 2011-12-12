@@ -117,3 +117,16 @@ RCPT TO:postmaster@xerogo.net
 250 Accepted
 RCPT TO:postmaster@meh.com
 550 Relay not permitted
+* upgrade certificate
+** edit ssl.crt/www.domain.tld.crt
+** scp root@ns1.host.com:www.* .
+** rm www.domain.tld.csr
+** mv www.domain.tld.key ssl.key/
+** dig domain.tld
+** dig ns1.host.tld
+** dig ns2.host.tld
+** scp ssl.key/www.domain.tld.key ssl.crt/www.domain.tld.crt root@ns1.host.tld:/etc/perlbal/certs/
+** ssh -l root ns1.host.tld
+*** ubic restart perlbal
+*** ubic status
+** curl -I https://www.domain.tld
