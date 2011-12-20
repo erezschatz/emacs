@@ -205,10 +205,10 @@
 
 (setq erc-autojoin-channels-alist
       '(("freenode.net" "#emacs")
-        ("shadowcat" "#dbix-class" "#moose" "#catalyst" "#perl" "#dancer")
-        ("llarian" "#dbix-class" "#moose" "#catalyst" "#perl" "#dancer")
-        ("eggebuh" "#dbix-class" "#moose" "#catalyst" "#perl" "#dancer")
-        ("netgamers.net" "#battrick")))
+        ("shadowcat" "#dbix-class" "#moose" "#catalyst" "#dancer")
+        ("llarian" "#dbix-class" "#moose" "#catalyst" "#dancer")
+        ("eggebuh" "#dbix-class" "#moose" "#catalyst" "#dancer")
+        ("oftc.net" "#munin" "#debian-perl" "#debian-next"))
 
 
 (require 'emms-setup)
