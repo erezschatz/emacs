@@ -2,14 +2,29 @@
 
 (server-start)
 
+;;X system only
+(if window-system
+    (progn
+      ;;set default font
+      (if (or (eq system-type 'gnu/linux)
+              (eq system-type 'linux))
+          (progn
+            (set-face-attribute 'default nil
+                                :font "Terminus"
+                                :height 80
+                                :background "black"
+                                :foreground "white")
+            (set-face-attribute 'tooltip nil :font "Terminus" :height 80))
+        (set-face-attribute 'default nil :font "ProFontWindows-9.0"))
+
+  ;; this is only needed for non GUI
+  (setq linum-format "%d ")))
+
 ;;highlight current line
 (global-hl-line-mode t)
 
 ;;disable tabs
 (setq-default indent-tabs-mode nil)
-
-;;set line number
-(setq linum-format "%d ")
 
 ;;no tool bar, no menu bar, no scrollbar
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
@@ -243,5 +258,4 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :stipple nil :background "black" :foreground "white" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 80 :width normal :foundry "unknown" :family "Terminus"))))
  '(hl-line ((t (:inverse-video t)))))
