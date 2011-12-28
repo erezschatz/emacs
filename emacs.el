@@ -104,28 +104,13 @@
 ;;load cperl-mode for test files
 (add-to-list 'auto-mode-alist '("\\.t$" . cperl-mode))
 
-;;add local::lib path to PATH to get perldoc working
-(load "cl-seq")
-
-;;; Prepend perlbrew paths to exec-path
-(mapc (lambda (x) (add-to-list 'exec-path x))
-      (mapcar (lambda (x) (concat (getenv "HOME") x))
-              (list "/perl5/bin" "/perl5/lib/perl5")))
-
-;; set PATH to be the same as exec-path, clobber the old PATH value.
-(setenv "PATH"
-        (reduce
-         (lambda (a b) (concatenate 'string a ":" b))
-         exec-path))
-
 (defun flymake-perl-init ()
   (let* ((temp-file   (flymake-init-create-temp-buffer-copy
                        'flymake-create-temp-inplace))
 	 (local-file  (file-relative-name
                        temp-file
                        (file-name-directory buffer-file-name))))
-    (list "perl" (list "-wc -Ilib " local-file))))
-
+    (list "perl" (list "-wc -Ilib -I/home/erez/perl5/lib/perl5 " local-file))))
 
 ;;make cperl-mode always highlight scalar variables
 (setq cperl-highlight-variables-indiscriminately t)
@@ -208,7 +193,7 @@
         ("shadowcat" "#dbix-class" "#moose" "#catalyst" "#dancer")
         ("llarian" "#dbix-class" "#moose" "#catalyst" "#dancer")
         ("eggebuh" "#dbix-class" "#moose" "#catalyst" "#dancer")
-        ("oftc.net" "#munin" "#debian-perl" "#debian-next"))
+        ("oftc.net" "#munin" "#debian-perl" "#debian-next")))
 
 
 (require 'emms-setup)

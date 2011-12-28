@@ -130,3 +130,16 @@ RCPT TO:postmaster@meh.com
 *** ubic restart perlbal
 *** ubic status
 ** curl -I https://www.domain.tld
+* server installation
+** scp iptables.hardened root@$IP:/etc/sysconfig/iptables
+*** restart iptables
+** yum upgrade
+** scp -R prep root@$IP:/root
+*** sh prep/main.sh
+** scp and install bind (lamp-named)
+** cpanm Ubic Perlbal
+** ubic-admin setup
+*** scp scp perlbal.init root@$IP:/etc/init.d/perlbal
+*** scp perlbal.service root@$IP:/etc/ubic/service/perlbal
+** install nrpe
+*** nagios/nrpe
