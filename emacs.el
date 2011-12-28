@@ -199,6 +199,7 @@
 (require 'emms-setup)
 (emms-standard)
 (emms-default-players)
+(require 'emms-streams)
 
 ;;helper modules
 
