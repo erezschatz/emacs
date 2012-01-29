@@ -138,8 +138,8 @@
 (require 'json)
 
 ;;auctex
-;;(load "auctex.el" nil t t)
-;;(load "preview-latex.el" nil t t)
+(load "auctex.el" nil t t)
+(load "preview-latex.el" nil t t)
 
 ;;full-ack
 (autoload 'ack-same "full-ack" nil t)
@@ -193,13 +193,11 @@
         ("shadowcat" "#dbix-class" "#moose" "#catalyst" "#dancer")
         ("llarian" "#dbix-class" "#moose" "#catalyst" "#dancer")
         ("eggebuh" "#dbix-class" "#moose" "#catalyst" "#dancer")
-        ("oftc.net" "#munin" "#debian-perl" "#debian-next")))
+        ("oftc.net" "#munin" "#debian-perl" "#debian-next" "suckless")))
 
 
 (require 'emms-setup)
-(emms-standard)
-(emms-default-players)
-(require 'emms-streams)
+(emms-all)
 
 ;;helper modules
 
@@ -231,6 +229,16 @@
 
 ;;automatically revert buffer
 (global-auto-revert-mode t)
+
+;;microblogging
+
+;;; Identi.ca mode
+(require 'identica-mode)
+(setq identica-auth-mode "oauth")
+
+;;; Twittering-mode
+(require 'twittering-mode)
+(setq twittering-use-master-password t)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
