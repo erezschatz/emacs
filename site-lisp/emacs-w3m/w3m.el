@@ -1,6 +1,6 @@
 ;;; w3m.el --- an Emacs interface to w3m -*- coding: iso-2022-7bit; -*-
 
-;; Copyright (C) 2000-2011 TSUCHIYA Masatoshi <tsuchiya@namazu.org>
+;; Copyright (C) 2000-2012 TSUCHIYA Masatoshi <tsuchiya@namazu.org>
 
 ;; Authors: TSUCHIYA Masatoshi <tsuchiya@namazu.org>,
 ;;          Shun-ichi GOTO     <gotoh@taiyo.co.jp>,
@@ -210,7 +210,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1546 $"))
+    (let ((rev "$Revision: 1.1552 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1136))
 	   (format "1.4.%d" (+ rev 50)))))
@@ -2453,6 +2453,7 @@ nil value means it has not been initialized.")
   '(("image/jpeg" . jpeg)
     ("image/gif" . gif)
     ("image/png" . png)
+    ("image/tiff" . tiff)
     ("image/x-xbm" . xbm)
     ("image/x-xpm" . xpm))
   "Alist of content types and image types defined as the Emacs' features.")
@@ -3502,10 +3503,8 @@ The database is kept in `w3m-entity-table'."
 	(delete-region start (point))
 	(w3m-add-text-properties start (point-max)
 				 (list 'w3m-name-anchor
-				       (cons
-					(w3m-decode-entities-string
-					 (w3m-url-transfer-encode-string id))
-					prenames)))))
+				       (cons (w3m-decode-entities-string id)
+					     prenames)))))
     (goto-char (point-min))
     (while (re-search-forward "<a[ \t\r\f\n]+" nil t)
       (setq start (match-beginning 0))
@@ -3573,19 +3572,13 @@ The database is kept in `w3m-entity-table'."
 	    (when name
 	      (w3m-add-text-properties start (point-max)
 				       (list 'w3m-name-anchor2
-					     (cons
-					      (w3m-decode-entities-string
-					       (w3m-url-transfer-encode-string
-						name))
-					      prenames))))))
+					     (cons (w3m-decode-entities-string name)
+						   prenames))))))
 	 (name
 	  (w3m-add-text-properties start (point-max)
 				   (list 'w3m-name-anchor2
-					 (cons
-					  (w3m-decode-entities-string
-					   (w3m-url-transfer-encode-string
-					    name))
-					  prenames)))))))
+					 (cons (w3m-decode-entities-string name)
+					       prenames)))))))
     (when w3m-icon-data
       (setq w3m-icon-data (cons (and (car w3m-icon-data)
 				     (w3m-expand-url (car w3m-icon-data)))
@@ -6616,7 +6609,7 @@ COUNT is treated as 1 by default if it is omitted."
 	    ;; Inhibit sprouting of a new history.
 	    (w3m-history-reuse-history-elements t)
 	    (w3m-use-refresh 'wait-minimum))
-	(if hist
+	(if (caar hist)
 	    (let ((w3m-prefer-cache t))
 	      ;; Save last position.
 	      (w3m-history-store-position)
@@ -8510,8 +8503,10 @@ or a list which consists of the following elements:
   (setq major-mode 'w3m-mode)
   (setq mode-name "w3m")
   (use-local-map w3m-mode-map)
-  (setq bidi-paragraph-direction 'left-to-right
-	truncate-lines t
+  ;; Force paragraph direction to be left-to-right.  Don't make it
+  ;; bound globally in old Emacsen and XEmacsen.
+  (set (make-local-variable 'bidi-paragraph-direction) 'left-to-right)
+  (setq	truncate-lines t
 	w3m-display-inline-images w3m-default-display-inline-images)
   (when w3m-auto-show
     (when (boundp 'auto-hscroll-mode)
@@ -9166,8 +9161,9 @@ the current page."
   (unless (or (w3m-url-local-p url)
 	      (string-match "\\`about:" url))
     (w3m-string-match-url-components url)
-    (setq url (concat (w3m-url-transfer-encode-string
-		       (substring url 0 (match-beginning 8)))
+    (setq url (concat (save-match-data
+			(w3m-url-transfer-encode-string
+			 (substring url 0 (match-beginning 8))))
 		      (if (match-beginning 8)
 			  (concat "#" (match-string 9 url))
 			""))))
@@ -9341,8 +9337,7 @@ Cannot run two w3m processes simultaneously \
 			     ;; Redisplay to search an anchor sure.
 			     (sit-for 0)
 			     (w3m-search-name-anchor
-			      (w3m-url-transfer-encode-string name)
-			      nil (not (eq action 'cursor-moved)))))
+			      name nil (not (eq action 'cursor-moved)))))
 		  (setf (w3m-arrived-time (w3m-url-strip-authinfo orig))
 			(w3m-arrived-time url)))
 		(unless (eq action 'cursor-moved)

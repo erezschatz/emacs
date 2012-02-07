@@ -3,7 +3,7 @@
 #     autoconf
 # in the directory containing this script.
 
-#  Copyright (C) 2003-2011 Free Software Foundation, Inc.
+#  Copyright (C) 2003-2012 Free Software Foundation, Inc.
 
 #  This file is free software: you can redistribute it and/or modify
 #  it under the terms of the GNU General Public License as published
@@ -26,7 +26,7 @@ AC_PREREQ([2.50])
 
 # Initialize configure script.  This is the only point Tramp revision
 # needs to be set.
-AC_INIT([Tramp], [2.2.4-pre], [tramp-devel@gnu.org])
+AC_INIT([Tramp], [2.2.5-pre], [tramp-devel@gnu.org])
 AC_MSG_NOTICE([$PACKAGE_STRING])
 
 # The last version of Tramp that was merged into the Emacs Bazaar

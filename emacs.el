@@ -15,10 +15,10 @@
                                 :background "black"
                                 :foreground "white")
             (set-face-attribute 'tooltip nil :font "Terminus" :height 80))
-        (set-face-attribute 'default nil :font "ProFontWindows-9.0"))
+        (set-face-attribute 'default nil :font "ProFontWindows-9.0")))
 
   ;; this is only needed for non GUI
-  (setq linum-format "%d ")))
+  (setq linum-format "%d "))
 
 ;;highlight current line
 (global-hl-line-mode t)
@@ -64,7 +64,7 @@
 ;;set emerge to ignore whitespace diff
 (setq emerge-diff-options "--ignore-all-space")
 
-;;Run ‘save-buffers-kill-emacs’ without process-killing query
+;;Run 'save-buffers-kill-emacs' without process-killing query
 (defadvice save-buffers-kill-emacs (around no-query-kill-emacs activate)
   "Prevent Active processes exist query when quit."
   (flet ((process-list ())) ad-do-it))
@@ -177,9 +177,8 @@
 
 (add-hook 'org-after-todo-statistics-hook 'org-summary-todo)
 
-(setq org-mobile-directory "~/Dropbox/orgfiles")
-(setq org-directory "~/emacs/orgfiles")
-(setq org-mobile-inbox-for-pull "~/Dropbox/orgfiles")
+;;Fontifying Code Buffers
+(setq org-src-fontify-natively t)
 
 ;;keywiz
 (require 'keywiz)
@@ -193,11 +192,7 @@
         ("shadowcat" "#dbix-class" "#moose" "#catalyst" "#dancer")
         ("llarian" "#dbix-class" "#moose" "#catalyst" "#dancer")
         ("eggebuh" "#dbix-class" "#moose" "#catalyst" "#dancer")
-        ("oftc.net" "#munin" "#debian-perl" "#debian-next" "suckless")))
-
-
-(require 'emms-setup)
-(emms-all)
+        ("oftc.net" "#munin" "#debian-perl" "#debian-next" "#suckless")))
 
 ;;helper modules
 
@@ -245,11 +240,12 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
-)
+ )
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(cperl-hash-face ((t (:background "navy" :foreground "Red" :weight bold))))
  '(hl-line ((t (:inverse-video t)))))

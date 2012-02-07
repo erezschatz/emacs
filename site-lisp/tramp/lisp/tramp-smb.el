@@ -1,6 +1,6 @@
 ;;; tramp-smb.el --- Tramp access functions for SMB servers
 
-;; Copyright (C) 2002-2011 Free Software Foundation, Inc.
+;; Copyright (C) 2002-2012 Free Software Foundation, Inc.
 
 ;; Author: Michael Albinus <michael.albinus@gmx.de>
 ;; Keywords: comm, processes
@@ -43,7 +43,7 @@
       ;; We define an empty command, because `tramp-smb-call-winexe'
       ;; opens already the powershell.  Used in `tramp-handle-shell-command'.
       (tramp-remote-shell "")
-      ;; This is just a guess.  We don't know whether the share "$C"
+      ;; This is just a guess.  We don't know whether the share "C$"
       ;; is available for public use, and whether the user has write
       ;; access.
       (tramp-tmpdir "/C$/Temp"))))
@@ -248,8 +248,8 @@ This can be used to disable echo etc."
 ;;;###tramp-autoload
 (defsubst tramp-smb-file-name-p (filename)
   "Check if it's a filename for SMB servers."
-  (let ((v (tramp-dissect-file-name filename)))
-    (string= (tramp-file-name-method v) tramp-smb-method)))
+  (string= (tramp-file-name-method (tramp-dissect-file-name filename))
+	   tramp-smb-method))
 
 ;;;###tramp-autoload
 (defun tramp-smb-file-name-handler (operation &rest args)
@@ -505,7 +505,7 @@ PRESERVE-UID-GID and PRESERVE-SELINUX-CONTEXT are completely ignored."
     ;; Dissect NAME.
     (with-parsed-tramp-file-name name nil
       ;; Tilde expansion if necessary.  We use the user name as share,
-      ;; which is offen the case in domains.
+      ;; which is often the case in domains.
       (when (string-match "\\`/?~\\([^/]*\\)" localname)
 	(setq localname
 	      (replace-match
@@ -1167,7 +1167,7 @@ If VEC has no cifs capabilities, exchange \"/\" by \"\\\\\"."
       (setq
        localname
        (if (string-match "^/?[^/]+\\(/.*\\)" localname)
-	   ;; There is a share, sparated by "/".
+	   ;; There is a share, separated by "/".
 	   (if (not (tramp-smb-get-cifs-capabilities vec))
 	       (mapconcat
 		(lambda (x) (if (equal x ?/) "\\" (char-to-string x)))

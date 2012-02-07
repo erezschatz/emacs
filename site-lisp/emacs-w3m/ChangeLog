@@ -1,3 +1,43 @@
+2012-01-26  Katsumi Yamaoka  <yamaoka@jpl.org>
+
+	* w3m.el (w3m-mode): Don't make bidi-paragraph-direction bound globally
+	in old Emacsen and XEmacsen.
+	(w3m-goto-url): Work for name anchors.
+
+2012-01-23  Katsumi Yamaoka  <yamaoka@jpl.org>
+
+	* w3m-ems.el (w3m-form-make-button): Use "submit" instead for an empty
+	text, that won't be buttonized.
+	Reported by Roland Winkler <winkler@gnu.org>.
+
+2012-01-13  Hideyuki SHIRAI  <shirai@meadowy.org>
+
+	* w3m.el (w3m-fontify-anchors, w3m-goto-url): Not encode and decode
+	the anchor values to use Punycode.
+
+2012-01-10  Katsumi Yamaoka  <yamaoka@jpl.org>
+
+	* w3m.el (w3m-image-type-alist): Add image/tiff.
+	(w3m-view-previous-page): Protect against empty history.
+
+2012-01-06  Katsumi Yamaoka  <yamaoka@jpl.org>
+
+	* Makefile.in (install-icons, install-icons30, install-info)
+	(install-info-en, install-info-ja, install-package)
+	(install-package-ja):
+	* doc/Makefile.in (install): Add DESTDIR variable to installation
+	directory.
+
+	* w3mhack.el (w3mhack-expand-file-name): New function.
+	(w3mhack-what-where): Use it.
+
+	* aclocal.m4 (AC_SET_VANILLA_FLAG): Remove --no-unibyte option.
+
+2012-01-02  Elias Pipping  <pipping@lavabit.com>
+
+	* Makefile.in (install-lisp): Add DESTDIR variable to installation
+	directory.
+
 2011-12-26  Dan Jacobson  <jidanni@jidanni.org>
 
 	* w3m.el (w3m-gohome): Always reload the home page.

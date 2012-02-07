@@ -1,3 +1,25 @@
+2012-01-19  Eric Hanchrow  <eric.hanchrow@gmail.com>
+
+	* tramp.texi (File): Tweak wording for the `scpc' option.
+
+2012-01-15  Michael Albinus  <michael.albinus@gmx.de>
+
+	Version 2.2.4 released.
+
+2011-11-28  Michael Albinus  <michael.albinus@gmx.de>
+
+	* tramp.texi (History): Add remote commands on Windows, and ad-hoc
+	multi-hop methods.
+
+2011-11-24  Michael Albinus  <michael.albinus@gmx.de>
+
+	* tramp.texi (Ad-hoc multi-hops): Add 'tramp-save-ad-hoc-proxies'
+	option.
+
+2011-11-23  Michael Albinus  <michael.albinus@gmx.de>
+
+	* tramp.texi (Ad-hoc multi-hops): New section.
+
 2011-10-23  Michael Albinus  <michael.albinus@gmx.de>
 
 	Version 2.2.3 released.

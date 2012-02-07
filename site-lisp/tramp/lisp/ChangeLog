@@ -1,3 +1,167 @@
+2012-01-27  Michael Albinus  <michael.albinus@gmx.de>
+
+	* Makefile.in (EMACS_INFO): Add variable.
+
+	* tramp.el (tramp-get-method-parameter): Move up.
+	(tramp-mode-string-to-int, tramp-local-host-p): Set tramp-autoload
+	cookie.
+
+2012-01-26  Michael Albinus  <michael.albinus@gmx.de>
+
+	* tramp.el (tramp-completion-function-alist): Adapt docstring.
+	(tramp-parse-shostkeys-sknownhosts): Do not return "." or "..".
+	(tramp-parse-putty): Handle UNIX case.
+
+	* tramp-sh.el (tramp-completion-function-alist-putty): Handle UNIX case.
+
+2012-01-22  Michael Albinus  <michael.albinus@gmx.de>
+
+	* tramp.el (tramp-action-login): Set connection property "login-as".
+
+	* tramp-cache.el (tramp-dump-connection-properties): Do not dump
+	properties, when "login-as" is set.
+
+	* tramp-sh.el (tramp-methods): Add user spec to "pscp" and "psftp".
+	(tramp-default-user-alist): Don't add "pscp".
+	(tramp-do-copy-or-rename-file-out-of-band): Use connection
+	property "login-as", if set.  (Bug#10530)
+
+2012-01-21  Michael Albinus  <michael.albinus@gmx.de>
+
+	* tramp-sh.el (tramp-default-user-alist): Don't add "plink",
+	"plink1" and "psftp".  (Bug#10530)
+
+2012-01-17  Michael Albinus  <michael.albinus@gmx.de>
+
+	* tramp.el (tramp-methods, tramp-rsh-end-of-line): Remove
+	`tramp-password-end-of-line' from docstring.
+	(tramp-default-password-end-of-line): Remove defcustom.
+	(tramp-local-end-of-line): New defcustom.
+	(tramp-action-login, tramp-action-password, tramp-action-yesno)
+	(tramp-action-yn, tramp-action-terminal): Use it.  (Bug#10530)
+
+	* tramp-sh.el (tramp-methods): Do not use `tramp-password-end-of-line'.
+
+2012-01-15  Michael Albinus  <michael.albinus@gmx.de>
+
+	Version 2.2.4 released.
+
+	* tramp-sh.el (tramp-remote-path): Set tramp-autoload cookie.
+
+2012-01-01  Michael Albinus  <michael.albinus@gmx.de>
+
+	* tramp-sh.el (tramp-remote-path): Add "/opt/bin" and "/opt/sbin".
+	(tramp-find-shell): Rearrange implementation.
+	(tramp-find-inline-compress): Cache the compress commands in the
+	process cache.
+	(tramp-get-inline-compress): Read connection properties from the
+	process cache.
+
+2011-12-30  Michael Albinus  <michael.albinus@gmx.de>
+
+	* tramp-sh.el (tramp-open-connection-setup-interactive-shell):
+	Move check for busybox ...
+	(tramp-find-shell): ... here.  Simplify implementation.
+	(tramp-remote-coding-commands): Make the test command an extra slot.
+	(tramp-find-inline-encoding): Cache the coding commands in the
+	process cache.  Apply test command on the remote side, if defined.
+	(tramp-get-inline-coding): Read connection properties from the
+	process cache.
+
+2011-12-29  Michael Albinus  <michael.albinus@gmx.de>
+
+	* tramp-sh.el (tramp-find-shell): Set "remote-shell" property also
+	for alternative shells.
+	(tramp-open-connection-setup-interactive-shell): Check, whether
+	the shell is a busybox.
+	(tramp-send-command): Don't suppress multiple prompts for
+	busyboxes, it hurts.
+
+2011-12-15  Michael Albinus  <michael.albinus@gmx.de>
+
+	* tramp-sh.el (tramp-find-file-exists-command): Spelling fixes.
+	(tramp-remote-coding-commands): Check "test -c /dev/stdout".  If
+	failing, a regular file would be written otherwise.  Reported by
+	Dmitry Kurochkin <dmitry.kurochkin@gmail.com>.
+	(tramp-find-inline-encoding): Embed checks in parentheses.
+
+2011-12-07  Michael Albinus  <michael.albinus@gmx.de>
+
+	* tramp.el (top): Require 'cl.
+	(tramp-enter-password): Remove it.  Move implementation ...
+	(tramp-action-password): ... here.
+	(tramp-make-tramp-temp-file, tramp-read-passwd)
+	(tramp-clear-passwd, tramp-time-less-p, tramp-time-diff): Set
+	tramp-autoload cookie.
+
+2011-12-02  Michael Albinus  <michael.albinus@gmx.de>
+
+	* tramp-sh.el (tramp-maybe-open-connection): Handle user
+	interrupt.  (Bug#10187)
+
+2011-11-24  Michael Albinus  <michael.albinus@gmx.de>
+
+	* tramp.el (tramp-save-ad-hoc-proxies): New defcustom.
+	(tramp-completion-handle-file-name-all-completions): Fix an error
+	when called from ido.
+
+	* tramp-sh.el (tramp-compute-multi-hops): Save
+	`tramp-default-proxies-alist' when requested.
+
+2011-11-22  Michael Albinus  <michael.albinus@gmx.de>
+
+	* tramp.el (tramp-completion-make-tramp-file-name)
+	(tramp-get-completion-user-host): Remove optional arg HOP, not
+	needed any longer.
+	(tramp-completion-handle-file-name-all-completions): Handle hops.
+	(tramp-completion-dissect-file-name): Use better local variable name.
+
+2011-11-19  Michael Albinus  <michael.albinus@gmx.de>
+
+	* tramp.el (tramp-make-tramp-file-name): Fix docstring.
+	(tramp-completion-make-tramp-file-name)
+	(tramp-get-completion-user-host): New optional arg HOP.
+	(tramp-completion-dissect-file-name1): Add hop to the vector.
+
+2011-11-17  Michael Albinus  <michael.albinus@gmx.de>
+
+	Add ad-hoc hops.
+
+	* tramp.el (tramp-user-regexp, tramp-file-name-regexp-unified)
+	(tramp-file-name-regexp-url): Extend regexp by hop separator.
+	(tramp-postfix-hop-format, tramp-postfix-hop-regexp)
+	(tramp-remote-file-name-spec-regexp): New defconst.
+	(tramp-file-name-structure): Extend structure for hops.
+	(tramp-file-name-p, tramp-dissect-file-name)
+	(with-parsed-tramp-file-name): Handle hops.
+	(tramp-file-name-hop): New defun.
+	(tramp-make-tramp-file-name): New optional arg HOP.
+
+	* tramp-efs.el (tramp-disable-efs): Fix docstring.
+	(tramp-efs-file-name-p): Simplify.
+
+	* tramp-ftp.el (tramp-disable-ange-ftp): Fix docstring.
+	(tramp-ftp-file-name-p): Simplify.
+
+	* tramp-gvfs.el (tramp-gvfs-handle-expand-file-name): Add hop to
+	connection vector.
+
+	* tramp-gw.el (tramp-gw-open-connection): Add hop to connection
+	vector.
+
+	* tramp-sh.el (tramp-sh-handle-expand-file-name)
+	(tramp-compute-multi-hops): Handle hops.
+
+	* tramp-smb.el (tramp-smb-file-name-p): Simplify.
+
+2011-11-16  Michael Albinus  <michael.albinus@gmx.de>
+
+	* tramp-cache.el (tramp-flush-file-property): Flush also
+	properties of linked files.  (Bug#9879)
+
+	* tramp-sh.el (tramp-sh-handle-file-truename): Cache only the
+	local file name.
+
 2011-11-10  Thierry Volpiatto  <thierry.volpiatto@gmail.com>
 
 	* tramp.el (tramp-parse-sknownhosts): Fix copy error of previous change.

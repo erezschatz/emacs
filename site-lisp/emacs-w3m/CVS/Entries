@@ -1,14 +1,11 @@
 /.cvsignore/1.13/Tue Apr 27 07:01:41 2004//
 /BUGS.ja/1.52/Fri Dec  8 06:28:19 2006//
 /COPYING/1.4/Tue Jul  5 23:52:27 2005//
-/ChangeLog/1.3394/Mon Dec 26 01:43:10 2011//
 /ChangeLog.1/1.4/Thu Apr 19 23:03:02 2007//
-/Makefile.in/1.81/Tue Dec  6 14:57:29 2011//
 /NEWS/1.20/Wed Feb  6 02:24:21 2008//
 /NEWS.ja/1.9/Wed Feb  6 02:24:21 2008//
 /README/1.79/Tue May 20 14:47:17 2008//
 /README.ja/1.76/Tue May 20 14:47:17 2008//
-/aclocal.m4/1.37/Mon Dec  5 14:48:01 2011//
 /bookmark-w3m.el/1.2/Thu Oct 21 23:38:23 2010//
 /configure.in/1.11/Mon Jan 16 11:49:49 2006//
 /install-sh/1.4/Fri Nov 15 05:10:43 2002//
@@ -22,7 +19,6 @@
 /w3m-ccl.el/1.15/Wed Jul 13 07:04:39 2011//
 /w3m-cookie.el/1.29/Mon May 24 01:09:27 2010//
 /w3m-dtree.el/1.33/Wed May 20 23:13:29 2009//
-/w3m-ems.el/1.50/Wed Jul 20 01:16:49 2011//
 /w3m-favicon.el/1.47/Mon Dec  5 14:48:01 2011//
 /w3m-fb.el/1.4/Wed Sep 20 09:26:42 2006//
 /w3m-filter.el/1.39/Fri Jul 18 06:40:50 2008//
@@ -43,6 +39,15 @@
 /w3m-util.el/1.149/Wed Nov 30 23:27:56 2011//
 /w3m-weather.el/1.30/Wed Oct 17 11:15:57 2007//
 /w3m-xmas.el/1.156/Sat Feb 13 08:34:39 2010//
-/w3m.el/1.1546/Mon Dec 26 01:43:11 2011//
-/w3mhack.el/1.174/Fri Oct  8 04:53:20 2010//
-D
+D/attic////
+D/doc////
+D/icons////
+D/icons30////
+D/patches////
+D/shimbun////
+/ChangeLog/1.3401/Sun Jan 29 12:31:17 2012//
+/Makefile.in/1.82/Sun Jan 29 12:31:17 2012//
+/aclocal.m4/1.38/Sun Jan 29 12:31:17 2012//
+/w3m-ems.el/1.51/Sun Jan 29 12:31:17 2012//
+/w3m.el/1.1552/Sun Jan 29 12:31:17 2012//
+/w3mhack.el/1.175/Sun Jan 29 12:31:17 2012//

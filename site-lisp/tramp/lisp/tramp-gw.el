@@ -1,6 +1,6 @@
 ;;; tramp-gw.el --- Tramp utility functions for HTTP tunnels and SOCKS gateways
 
-;; Copyright (C) 2007-2011 Free Software Foundation, Inc.
+;; Copyright (C) 2007-2012 Free Software Foundation, Inc.
 
 ;; Author: Michael Albinus <michael.albinus@gmx.de>
 ;; Keywords: comm, processes
@@ -154,7 +154,7 @@ instead of the host name declared in TARGET-VEC."
 	       (memq (process-status tramp-gw-aux-proc) '(listen)))
     (let ((aux-vec
 	   (vector "aux" (tramp-file-name-user gw-vec)
-		   (tramp-file-name-host gw-vec) nil)))
+		   (tramp-file-name-host gw-vec) nil nil)))
       (setq tramp-gw-aux-proc
 	    (make-network-process
 	     :name (tramp-buffer-name aux-vec) :buffer nil :host 'local
@@ -178,7 +178,7 @@ instead of the host name declared in TARGET-VEC."
 	   (tramp-file-name-host gw-vec)))
 	 ;; Declare the SOCKS server to be used.
 	 (socks-server
-	  (list "Tramp tempory socks server list"
+	  (list "Tramp temporary socks server list"
 		;; Host name.
 		(tramp-file-name-real-host gw-vec)
 		;; Port number.

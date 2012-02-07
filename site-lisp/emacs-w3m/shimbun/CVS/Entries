@@ -1,5 +1,4 @@
 /.cvsignore/1.2/Tue Feb  4 12:00:43 2003//
-/ChangeLog/1.278/Thu Dec  8 23:31:54 2011//
 /mew-shimbun.el/1.58/Wed Jan 13 00:59:30 2010//
 /nnshimbun.el/1.72/Thu Jul  7 10:00:10 2011//
 /sb-2ch.el/1.17/Tue Jul  5 23:52:29 2005//
@@ -50,7 +49,6 @@
 /sb-javaconf.el/1.10/Wed Oct 17 11:15:58 2007//
 /sb-jpilot.el/1.9/Wed Oct 17 11:15:58 2007//
 /sb-jpo.el/1.16/Wed Oct 17 11:15:58 2007//
-/sb-kantei.el/1.59/Thu Dec  8 23:31:55 2011//
 /sb-kde.el/1.8/Wed Oct 17 11:15:58 2007//
 /sb-laut-de.el/1.7/Thu Nov  4 04:32:04 2010//
 /sb-linuxce-jp.el/1.7/Wed Oct 17 11:15:58 2007//
@@ -132,4 +130,6 @@
 /sb-zdnet-jp.el/1.9/Wed Oct 17 11:15:58 2007//
 /sb-zeit-de.el/1.17/Thu Nov  4 04:32:04 2010//
 /shimbun.el/1.217/Mon Dec  5 23:35:55 2011//
+/ChangeLog/1.279/Sun Jan 29 12:31:18 2012//
+/sb-kantei.el/1.61/Sun Jan 29 12:31:18 2012//
 D
