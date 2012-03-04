@@ -138,8 +138,9 @@
 (require 'json)
 
 ;;auctex
-(load "auctex.el" nil t t)
-(load "preview-latex.el" nil t t)
+;;
+;;(load "auctex.el" nil t t)
+;;(load "preview-latex.el" nil t t)
 
 ;;full-ack
 (autoload 'ack-same "full-ack" nil t)
