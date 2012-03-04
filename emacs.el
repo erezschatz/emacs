@@ -2,14 +2,29 @@
 
 (server-start)
 
+;;X system only
+(if window-system
+    (progn
+      ;;set default font
+      (if (or (eq system-type 'gnu/linux)
+              (eq system-type 'linux))
+          (progn
+            (set-face-attribute 'default nil
+                                :font "Terminus"
+                                :height 80
+                                :background "black"
+                                :foreground "white")
+            (set-face-attribute 'tooltip nil :font "Terminus" :height 80))
+        (set-face-attribute 'default nil :font "ProFontWindows-9.0")))
+
+  ;; this is only needed for non GUI
+  (setq linum-format "%d "))
+
 ;;highlight current line
 (global-hl-line-mode t)
 
 ;;disable tabs
 (setq-default indent-tabs-mode nil)
-
-;;set line number
-(setq linum-format "%d ")
 
 ;;no tool bar, no menu bar, no scrollbar
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
@@ -49,7 +64,7 @@
 ;;set emerge to ignore whitespace diff
 (setq emerge-diff-options "--ignore-all-space")
 
-;;Run ‘save-buffers-kill-emacs’ without process-killing query
+;;Run 'save-buffers-kill-emacs' without process-killing query
 (defadvice save-buffers-kill-emacs (around no-query-kill-emacs activate)
   "Prevent Active processes exist query when quit."
   (flet ((process-list ())) ad-do-it))
@@ -89,28 +104,13 @@
 ;;load cperl-mode for test files
 (add-to-list 'auto-mode-alist '("\\.t$" . cperl-mode))
 
-;;add local::lib path to PATH to get perldoc working
-(load "cl-seq")
-
-;;; Prepend perlbrew paths to exec-path
-(mapc (lambda (x) (add-to-list 'exec-path x))
-      (mapcar (lambda (x) (concat (getenv "HOME") x))
-              (list "/perl5/bin" "/perl5/lib/perl5")))
-
-;; set PATH to be the same as exec-path, clobber the old PATH value.
-(setenv "PATH"
-        (reduce
-         (lambda (a b) (concatenate 'string a ":" b))
-         exec-path))
-
 (defun flymake-perl-init ()
   (let* ((temp-file   (flymake-init-create-temp-buffer-copy
                        'flymake-create-temp-inplace))
 	 (local-file  (file-relative-name
                        temp-file
                        (file-name-directory buffer-file-name))))
-    (list "perl" (list "-wc -Ilib " local-file))))
-
+    (list "perl" (list "-wc -Ilib -I/home/erez/perl5/lib/perl5 " local-file))))
 
 ;;make cperl-mode always highlight scalar variables
 (setq cperl-highlight-variables-indiscriminately t)
@@ -154,6 +154,13 @@
 (require 'magit)
 (require 'git-blame)
 
+;;fossil
+(autoload 'vc-fossil-registered "vc-fossil")
+(add-to-list 'vc-handled-backends 'Fossil)
+
+;;tramp - Transparent Remote (file) Access, Multiple Protocol
+(require 'tramp)
+
 ;;org-mode
 (require 'org-install)
 (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
@@ -171,16 +178,11 @@
 
 (add-hook 'org-after-todo-statistics-hook 'org-summary-todo)
 
-;;calendar
-(require 'calfw)
-(require 'calfw-ical)
+;;Fontifying Code Buffers
+(setq org-src-fontify-natively t)
 
 ;;keywiz
 (require 'keywiz)
-
-;;typing game
-
-(autoload 'typing-of-emacs "The Typing Of Emacs, a game." t)
 
 ;;IRC
 
@@ -188,31 +190,10 @@
 
 (setq erc-autojoin-channels-alist
       '(("freenode.net" "#emacs")
-        ("shadowcat" "#dbix-class" "#moose" "#catalyst" "#perl" "#dancer")
-        ("llarian" "#dbix-class" "#moose" "#catalyst" "#perl" "#dancer")
-        ("eggebuh" "#dbix-class" "#moose" "#catalyst" "#perl" "#dancer")
-        ("netgamers.net" "#battrick")))
-
-;;jabber
-
-(require 'jabber-autoloads)
-(setq jabber-username "moonbuzz@gmail.com")
-(setq jabber-nickname "erez")
-(setq jabber-connection-type (quote ssl))
-(setq jabber-network-server "talk.google.com")
-(setq jabber-server "gmail.com")
-
-;;microblogging
-
-;;identica
-(require 'identica-mode)
-(setq identica-username "erez")
-(setq identica-soft-wrap-status 1)
-(global-set-key "\C-cip" 'identica-update-status-interactive)
-
-;;twitter
-(require 'twittering-mode)
-(setq twittering-use-master-password t)
+        ("shadowcat" "#dbix-class" "#moose" "#catalyst" "#dancer")
+        ("llarian" "#dbix-class" "#moose" "#catalyst" "#dancer")
+        ("eggebuh" "#dbix-class" "#moose" "#catalyst" "#dancer")
+        ("oftc.net" "#munin" "#debian-perl" "#debian-next" "#suckless")))
 
 ;;helper modules
 
@@ -245,15 +226,27 @@
 ;;automatically revert buffer
 (global-auto-revert-mode t)
 
+;;microblogging
+
+;;; Identi.ca mode
+(require 'identica-mode)
+(setq identica-auth-mode "oauth")
+
+;;; Twittering-mode
+(require 'twittering-mode)
+(setq twittering-use-master-password t)
+
 (custom-set-variables
-  ;; custom-set-variables was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
- '(browse-url-browser-function (quote browse-url-w3)))
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+
 (custom-set-faces
-  ;; custom-set-faces was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(cperl-hash-face ((t (:background "navy" :foreground "Red" :weight bold))))
  '(hl-line ((t (:inverse-video t)))))

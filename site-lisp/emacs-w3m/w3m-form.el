@@ -629,8 +629,7 @@ If optional REUSE-FORMS is non-nil, reuse it as `w3m-current-form'."
 	      (setq action (w3m-url-transfer-encode-string
 			    (w3m-decode-anchor-string action)
 			    (if charset
-				(w3m-charset-to-coding-system charset)
-			      w3m-current-coding-system))))
+				(w3m-charset-to-coding-system charset)))))
 	    (if (setq form (cdr (assq fid forms)))
 		(progn
 		  (setf (w3m-form-method form) (or method "get"))
