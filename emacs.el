@@ -188,11 +188,11 @@
 (require 'erc)
 
 (setq erc-autojoin-channels-alist
-      '(("freenode.net" "#emacs")
+      '(("freenode.net" "#emacs" "#org-mode")
         ("shadowcat" "#dbix-class" "#moose" "#catalyst" "#dancer")
         ("llarian" "#dbix-class" "#moose" "#catalyst" "#dancer")
         ("eggebuh" "#dbix-class" "#moose" "#catalyst" "#dancer")
-        ("oftc.net" "#munin" "#debian-perl" "#debian-next" "#suckless")))
+        ("oftc.net" "#munin" "#debian-next" "#suckless")))
 
 ;;helper modules
 
