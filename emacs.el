@@ -15,10 +15,7 @@
                                 :background "black"
                                 :foreground "white")
             (set-face-attribute 'tooltip nil :font "Terminus" :height 80))
-        (set-face-attribute 'default nil :font "ProFontWindows-9.0")))
-
-  ;; this is only needed for non GUI
-  (setq linum-format "%d "))
+        (set-face-attribute 'default nil :font "ProFontWindows-9.0"))))
 
 ;;highlight current line
 (global-hl-line-mode t)
@@ -68,7 +65,9 @@
 (defadvice save-buffers-kill-emacs (around no-query-kill-emacs activate)
   "Prevent Active processes exist query when quit."
   (flet ((process-list ())) ad-do-it))
+
 ;;c
+
 (setq c-basic-offset 8)
 
 ;;perl
@@ -81,7 +80,6 @@
  (append auto-mode-alist interpreter-mode-alist))
 
 ;;cperl indents
-
 (setq cperl-indent-level 4
       cperl-close-paren-offset -4
       cperl-continued-statement-offset 4
@@ -169,7 +167,6 @@
 (global-set-key "\C-cb" 'org-iswitchb)
 
 ;;automatically change to DONE when all children are done
-
 (defun org-summary-todo (n-done n-not-done)
   "Switch entry to DONE when all subentries are done, to TODO otherwise."
   (let (org-log-done org-log-states)   ; turn off logging
