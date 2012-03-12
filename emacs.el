@@ -6,16 +6,15 @@
 (if window-system
     (progn
       ;;set default font
-      (if (or (eq system-type 'gnu/linux)
-              (eq system-type 'linux))
-          (progn
-            (set-face-attribute 'default nil
-                                :font "Terminus"
-                                :height 80
-                                :background "black"
-                                :foreground "white")
-            (set-face-attribute 'tooltip nil :font "Terminus" :height 80))
-        (set-face-attribute 'default nil :font "ProFontWindows-9.0"))))
+      (set-face-attribute 'default nil
+                          :font "Terminus"
+                          :height 80
+                          :background "black"
+                          :foreground "white")
+      (set-face-attribute 'tooltip nil :font "Terminus" :height 80)))
+
+(setq browse-url-browser-function 'browse-url-generic
+      browse-url-generic-program "/usr/bin/conkeror")
 
 ;;highlight current line
 (global-hl-line-mode t)
@@ -185,7 +184,7 @@
 (require 'erc)
 
 (setq erc-autojoin-channels-alist
-      '(("freenode.net" "#emacs" "#org-mode")
+      '(("freenode.net" "#emacs" "#org-mode" "#conkeror")
         ("shadowcat" "#dbix-class" "#moose" "#catalyst" "#dancer")
         ("llarian" "#dbix-class" "#moose" "#catalyst" "#dancer")
         ("eggebuh" "#dbix-class" "#moose" "#catalyst" "#dancer")
