@@ -176,9 +176,6 @@
 ;;Fontifying Code Buffers
 (setq org-src-fontify-natively t)
 
-;;keywiz
-(require 'keywiz)
-
 ;;IRC
 
 (require 'erc)
