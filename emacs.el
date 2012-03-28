@@ -48,9 +48,6 @@
 (put 'upcase-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
 
-;;adhere to the system set browser
-(setq browse-url-browser-function 'browse-url-generic)
-
 ;;save all backups in the temp folder
 (setq backup-directory-alist
       `((".*" . ,temporary-file-directory)))
@@ -60,10 +57,13 @@
 ;;set emerge to ignore whitespace diff
 (setq emerge-diff-options "--ignore-all-space")
 
-;;Run 'save-buffers-kill-emacs' without process-killing query
-(defadvice save-buffers-kill-emacs (around no-query-kill-emacs activate)
-  "Prevent Active processes exist query when quit."
-  (flet ((process-list ())) ad-do-it))
+;;delete trailing whitespaces
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+;;automatically revert buffer
+(global-auto-revert-mode t)
+
+(autoload 'ibuffer "ibuffer" "List buffers." t)
 
 ;;c
 
@@ -124,7 +124,7 @@
 (add-to-list 'auto-mode-alist '("\\.pod$" . pod-mode))
 (add-hook 'pod-mode-hook 'font-lock-mode)
 
-;; yaml
+;;yaml
 (require 'yaml-mode)
 (add-to-list 'auto-mode-alist '("\\.ya?ml$" . yaml-mode))
 
@@ -176,19 +176,18 @@
 ;;Fontifying Code Buffers
 (setq org-src-fontify-natively t)
 
-;;keywiz
-(require 'keywiz)
-
 ;;IRC
 
 (require 'erc)
 
+(erc :server "localhost"        :port 6667 :nick "erez")
+(erc :server "irc.freenode.net" :port 6667 :nick "erez")
+(erc :server "irc.perl.org"     :port 6667 :nick "erez")
+(erc :server "irc.oftc.net"     :port 6667 :nick "erez")
+
 (setq erc-autojoin-channels-alist
-      '(("freenode.net" "#emacs" "#org-mode" "#conkeror")
-        ("shadowcat" "#dbix-class" "#moose" "#catalyst" "#dancer")
-        ("llarian" "#dbix-class" "#moose" "#catalyst" "#dancer")
-        ("eggebuh" "#dbix-class" "#moose" "#catalyst" "#dancer")
-        ("oftc.net" "#munin" "#debian-next" "#suckless")))
+      '(("freenode.net" "#emacs" "#conkeror")
+        ("oftc.net" "#munin" "#suckless")))
 
 ;;helper modules
 
@@ -212,24 +211,10 @@
 (global-set-key "\C-x\C-k" 'kill-region)
 (global-set-key "\C-c\C-k" 'kill-region)
 
-;;when opening buffer menu, switch to it
-(global-set-key "\C-x\C-b" 'buffer-menu-other-window)
+;; override buffer menu
+(global-set-key (kbd "C-x C-b") 'ibuffer)
 
-;;delete trailing whitespaces
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
-
-;;automatically revert buffer
-(global-auto-revert-mode t)
-
-;;microblogging
-
-;;; Identi.ca mode
-(require 'identica-mode)
-(setq identica-auth-mode "oauth")
-
-;;; Twittering-mode
-(require 'twittering-mode)
-(setq twittering-use-master-password t)
+(eshell)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
