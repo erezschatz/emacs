@@ -176,11 +176,21 @@
 ;;Fontifying Code Buffers
 (setq org-src-fontify-natively t)
 
+(require 'org2blog)
+
+(setq org2blog/wp-blog-alist
+    '(("Repetition, Change, Contrast"
+       :url "http://repeatchange.wordpress.com"
+       :username "erez"
+       :default-title ""
+       :default-categories ("Cricket")
+       :tags-as-categories nil)))
+
 ;;IRC
 
 (require 'erc)
 
-(erc :server "localhost"        :port 6667 :nick "erez")
+;;(erc :server "localhost"        :port 6667 :nick "erez")
 (erc :server "irc.freenode.net" :port 6667 :nick "erez")
 (erc :server "irc.perl.org"     :port 6667 :nick "erez")
 (erc :server "irc.oftc.net"     :port 6667 :nick "erez")
@@ -188,6 +198,10 @@
 (setq erc-autojoin-channels-alist
       '(("freenode.net" "#emacs" "#conkeror")
         ("oftc.net" "#munin" "#suckless")))
+
+(erc-log-mode)
+(setq erc-log-channels-directory "~/.erc/logs/")
+(setq erc-save-buffer-on-part t)
 
 ;;helper modules
 
