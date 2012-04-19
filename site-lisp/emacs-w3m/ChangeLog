@@ -1,3 +1,77 @@
+2012-04-18  Andrey Kotlarski  <m00naticus@gmail.com>
+
+	* w3m-lnum.el (w3m-with-lnum, w3m-lnum-universal-dispatch):
+	Explicitly redraw mode line.
+	(w3m-lnum-visit): Fix prompt; add --insecure option to Curl.
+
+2012-04-17  Katsumi Yamaoka  <yamaoka@jpl.org>
+
+	* w3m.el (w3m-create-page): Add a filter for Google Analytics tracking
+	temporarily --- maybe this should be incorporated in w3m-filter.el.
+
+2012-04-13  Katsumi Yamaoka  <yamaoka@jpl.org>
+
+	* w3m.el (w3m-goto-mailto-url): Protect against nil value of body=;
+	decode url string; don't change mail buffer's modification status;
+	make sure body text is inserted to the message body.
+
+2012-04-12  Katsumi Yamaoka  <yamaoka@jpl.org>
+
+	* w3m.el (w3m-shr-url-at-point): New function.
+	(w3m-url-at-point): Use it.
+
+	* doc/ptexinfmt.el (texinfo-format-syntax-table): Modify character
+	syntax of " and \ to w, as a workaround.
+	(texinfo-format-comma): Support @comma.
+	(texinfo-format-parse-args): Tweak it so as to work for @comma.
+
+2012-03-16  Katsumi Yamaoka  <yamaoka@jpl.org>
+
+	* w3m.el (w3m-scroll-left, w3m-scroll-right): Use image-mode function
+	for an image page.
+	(w3m-shift-left, w3m-shift-right): Pass prefix argument to image-mode
+	function.
+
+2012-03-12  Dan Jacobson  <jidanni@jidanni.org>
+
+	* w3m.el (w3m-ctl-c-map): Bind `C-c C-e' to w3m-goto-new-session-url.
+
+2012-02-27  Katsumi Yamaoka  <yamaoka@jpl.org>
+
+	* w3m.el (w3m-relationship-estimate-rules)
+	(w3m-open-all-links-in-new-session): Work for https Google pages.
+
+2012-02-20  Katsumi Yamaoka  <yamaoka@jpl.org>
+
+	* w3m.el (w3m-goto-mailto-url): Work for mail body.
+
+2012-02-13  Katsumi Yamaoka  <yamaoka@jpl.org>
+
+	* w3m-util.el (w3m-switch-to-buffer): Abolish.
+
+	* w3m-bookmark.el (w3m-bookmark-add-all-urls):
+	* w3m-ems.el (w3m-tab-drag-mouse-function)
+	(w3m-tab-click-mouse-function, w3m-tab-next-buffer)
+	(w3m-tab-make-keymap):
+	* w3m-form.el (w3m-form-input-textarea, w3m-form-input-select)
+	(w3m-form-input-map):
+	* w3m-session.el (w3m-session-select):
+	* w3m-tabmenu.el (w3m-switch-buffer, w3m-tab-menubar-open-item):
+	* w3m-util.el (w3m-popup-buffer, w3m-make-menu-commands):
+	* w3m.el (w3m-next-buffer, w3m-move-unseen-buffer)
+	(w3m-goto-url-new-session, w3m-reload-all-pages): Revert to using
+	switch-to-buffer.
+
+2012-02-10  Katsumi Yamaoka  <yamaoka@jpl.org>
+
+	* w3m-hist.el (w3m-history-store-position): Don't trust column position
+	that Emacs tells if there's an image.
+	(w3m-history-restore-position): Revert 2011-10-21 change.
+
+2012-02-10  Kevin Ryde  <user42@zip.com.au>
+
+	* w3m.el (w3m-about-header): Show info of image where point stays.
+
 2012-01-26  Katsumi Yamaoka  <yamaoka@jpl.org>
 
 	* w3m.el (w3m-mode): Don't make bidi-paragraph-direction bound globally

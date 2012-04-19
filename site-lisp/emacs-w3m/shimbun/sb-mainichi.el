@@ -1,6 +1,6 @@
 ;;; sb-mainichi.el --- shimbun backend for Mainichi jp -*- coding: iso-2022-7bit; -*-
 
-;; Copyright (C) 2001-2009, 2011 Koichiro Ohba <koichiro@meadowy.org>
+;; Copyright (C) 2001-2009, 2011, 2012 Koichiro Ohba <koichiro@meadowy.org>
 
 ;; Author: Koichiro Ohba <koichiro@meadowy.org>
 ;;         Katsumi Yamaoka <yamaoka@jpl.org>
@@ -45,6 +45,12 @@
 
 (defvar shimbun-mainichi-prefer-text-plain nil
   "*Non-nil means prefer text/plain articles rather than html articles.")
+
+(defvar shimbun-mainichi-ignored-subject "\\`PR: ")
+
+(luna-define-method initialize-instance :after ((shimbun shimbun-mainichi)
+						&rest init-args)
+  (shimbun-rss-initialize-ignored-subject shimbun))
 
 (defvar shimbun-mainichi-group-table
   '(("flash" "ニュース速報"
@@ -161,9 +167,9 @@ Face: iVBORw0KGgoAAAANSUhEUgAAABwAAAAcBAMAAACAI8KnAAAABGdBTUEAALGPC/xhBQAAABh
 	(shimbun-strip-cr)
 	(goto-char (point-min))
 	(when (and (re-search-forward "\
-<table[\t\n ]+\\(?:[^\t\n >]+[\t\n ]+\\)*class=\"MidashiList\""
+<div[\t\n ]+\\(?:[^\t\n >]+[\t\n ]+\\)*class=\"NewsArticle\""
 				      nil t)
-		   (shimbun-end-of-tag "table"))
+		   (shimbun-end-of-tag "div"))
 	  (goto-char (match-beginning 0))
 	  (setq end (match-end 0))
 	  (while (re-search-forward
@@ -234,14 +240,23 @@ Face: iVBORw0KGgoAAAANSUhEUgAAABwAAAAcBAMAAACAI8KnAAAABGdBTUEAALGPC/xhBQAAABh
 
 (defun shimbun-mainichi-multi-next-url (shimbun header url)
   (goto-char (point-min))
-  (when (and (re-search-forward "\
-<div[\t\n ]\\(?:[^\t\n >]+[\t\n ]+\\)*class=\"PageBtn\""
-				nil t)
-	     (shimbun-end-of-tag "div")
-	     (re-search-backward "\
-<a[\t\n ]+href=\"\\([^\"]+\\)\"[^>]*>[\t\n ]*次へ[^<]*</a>"
-				 (match-beginning 0) t))
-    (shimbun-expand-url (match-string 1) url)))
+  (let (end)
+    (when (and (or (and (re-search-forward "\
+<nav[\t\n ]\\(?:[^\t\n >]+[\t\n ]+\\)*id=\"SearchPageAutoWrap\"" nil t)
+			(shimbun-end-of-tag "nav"))
+		   (progn
+		     (goto-char (point-min))
+		     (and (re-search-forward "\
+<ul[\t\n ]\\(?:[^\t\n >]+[\t\n ]+\\)*class=\"SearchPageWrap clr\"" nil t)
+			  (shimbun-end-of-tag "ul"))))
+	       (progn
+		 (goto-char (match-beginning 0))
+		 (setq end (match-end 0))
+		 (re-search-forward "\
+<li[\t\n ]\\(?:[^\t\n >]+[\t\n ]+\\)*class=\"PageSelect\"" end t))
+	       (re-search-forward "\
+<a[\t\n ]\\(?:[^\t\n >]+[\t\n ]+\\)*href=\"\\([^\"]+\\)" end t))
+      (shimbun-expand-url (match-string 1) url))))
 
 (luna-define-method shimbun-clear-contents :around ((shimbun shimbun-mainichi)
 						    header)
@@ -266,7 +281,8 @@ Face: iVBORw0KGgoAAAANSUhEUgAAABwAAAAcBAMAAACAI8KnAAAABGdBTUEAALGPC/xhBQAAABh
 		 (shimbun-end-of-tag (match-string 1)))
 	(setq arts (nconc arts (list (concat "<p>" (match-string 2) "</p>"))))))
     (while (and (re-search-forward "\
-<div[\t\n ]+\\(?:[^\t\n >]+[\t\n ]+\\)*class=\"\\(?:NewsBody\\|Credit\\)\""
+<div[\t\n ]+\\(?:[^\t\n >]+[\t\n ]+\\)*class=\
+\"\\(?:NewsBody\\(?: clr\\)?\\|Credit\\)\""
 				   nil t)
 		(shimbun-end-of-tag "div"))
       (push (match-string 2) arts))
