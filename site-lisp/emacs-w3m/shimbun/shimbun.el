@@ -1,6 +1,6 @@
 ;;; shimbun.el --- interfacing with web newspapers -*- coding: iso-2022-7bit; -*-
 
-;; Copyright (C) 2001-2011 Yuuichi Teranishi <teranisi@gohome.org>
+;; Copyright (C) 2001-2012 Yuuichi Teranishi <teranisi@gohome.org>
 
 ;; Author: TSUCHIYA Masatoshi <tsuchiya@namazu.org>,
 ;;         Akihiro Arisawa    <ari@mbf.sphere.ne.jp>,
@@ -240,7 +240,6 @@ Default is the value of `w3m-default-save-directory'."
 (defalias 'shimbun-find-coding-system 'w3m-find-coding-system)
 (defalias 'shimbun-interactive-p 'w3m-interactive-p)
 (defalias 'shimbun-replace-in-string 'w3m-replace-in-string)
-(defalias 'shimbun-switch-to-buffer 'w3m-switch-to-buffer)
 (defalias 'shimbun-url-encode-string 'w3m-url-encode-string)
 
 (defun shimbun-retrieve-url (url &optional no-cache no-decode referer)
@@ -1801,7 +1800,7 @@ There are exceptions; some chars aren't converted, and \"＜\", \"＞\
     (unless (eobp)
       (shimbun-japanese-hankaku-region start (point-max) quote))))
 
-;; Silence XEmacs' byte compiler.
+;; Silence XEmacs's byte compiler.
 (eval-when-compile
   (if (fboundp 'libxml-parse-xml-region) nil
     (defalias 'libxml-parse-xml-region 'ignore)))

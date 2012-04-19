@@ -79,7 +79,7 @@
 (require 'w3m-util)
 (require 'w3m-proc)
 
-;; Silence the Emacs' byte-compiler that says ``might not be defined''.
+;; Silence the Emacs's byte-compiler that says ``might not be defined''.
 (eval-when-compile
   (defalias 'w3m-setup-menu 'ignore))
 
@@ -210,7 +210,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1552 $"))
+    (let ((rev "$Revision: 1.1563 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1136))
 	   (format "1.4.%d" (+ rev 50)))))
@@ -1658,7 +1658,7 @@ It influences only when a new emacs-w3m buffer is created."
 
 (defcustom w3m-popup-frame-parameters nil
   "Alist of frame parameters used when creating a new emacs-w3m frame.
-It allows not only the alist form but also XEmacs' plist form."
+It allows not only the alist form but also XEmacs's plist form."
   :group 'w3m
   :type '(choice (group :inline t :tag "Frame Parameters (Emacs)"
 			(repeat :inline t :tag "Frame Parameters (Emacs)"
@@ -1974,7 +1974,7 @@ Here are some predefined functions which can be used for those ways:
 
 (defcustom w3m-relationship-estimate-rules
   `((w3m-relationship-simple-estimate
-     "\\`http://\\(?:www\\|blogsearch\\|groups\\|news\\|images\\)\
+     "\\`https?://\\(?:www\\|blogsearch\\|groups\\|news\\|images\\)\
 \\.google\\.[^/]+/\\(?:\\(?:blog\\|code\\)?search\\|groups\\|news\\|images\
 \\|cse\\?cx=\\|custom\\?\\(?:q\\|hl\\)=\\)"
      ,(concat "<a[^>]+?href=" w3m-html-string-regexp "[^>]*>[\t\n ]*"
@@ -1987,7 +1987,7 @@ Here are some predefined functions which can be used for those ways:
 	      "<b>\\(?:上一頁\\|前へ\\|이전\\)</b>\\)")
      nil nil)
     (w3m-relationship-simple-estimate
-     "\\`http://www\\.google\\.[^/]+/gwt/n\\?u="
+     "\\`https?://www\\.google\\.[^/]+/gwt/n\\?u="
      ,(concat "<a[^>]+?href=" w3m-html-string-regexp
 	      "[ \t\n]+accesskey=\"3\">")
      ,(concat "<a[^>]+?href=" w3m-html-string-regexp
@@ -2258,7 +2258,7 @@ It shows a percentage of the data loaded from the web server."
 (defcustom w3m-ignored-image-url-regexp nil
   "*Regexp matching image urls which you don't want to view.
 It is effective even if `w3m-display-inline-images' is non-nil.
-For instance, the value \"^http://www\\.google\\.com/\" conceals
+For instance, the value \"^https?://www\\.google\\.com/\" conceals
 Google's logo and navigation images, but display YouTube's
 thumbnail."
   :group 'w3m
@@ -2456,7 +2456,7 @@ nil value means it has not been initialized.")
     ("image/tiff" . tiff)
     ("image/x-xbm" . xbm)
     ("image/x-xpm" . xpm))
-  "Alist of content types and image types defined as the Emacs' features.")
+  "Alist of content types and image types defined as the Emacs's features.")
 
 (defconst w3m-toolbar-buttons
   '("back" "parent" "forward" "reload" "open" "home" "search" "image"
@@ -3914,9 +3914,9 @@ You are retrieving non-secure image(s).  Continue? ")
 	      (delete-region start end)
 	      (setq end start))
 	     (t (w3m-remove-image start end)))
-	    (w3m-add-text-properties start end
-				     '(w3m-image-status off
-							w3m-idle-image-item nil))))
+	    (w3m-add-text-properties
+	     start end
+	     '(w3m-image-status off w3m-idle-image-item nil))))
 	(set-buffer-modified-p nil)))))
 
 (defun w3m-toggle-inline-image (&optional force no-cache)
@@ -4423,8 +4423,12 @@ not being archived in Gmane cannot be helped."
 	     (w3m-url-encode-string (match-string-no-properties 1)
 				    nil t))))))))
 
+(defun w3m-shr-url-at-point ()
+  "Return a url that shr.el provides at point."
+  (w3m-get-text-property-around 'shr-url))
+
 (defun w3m-header-line-url ()
-  "Return w3m-current-url if point on header line."
+  "Return w3m-current-url if point stays at header line."
   (let ((faces (get-text-property (point) 'face)))
     (when (and (eq major-mode 'w3m-mode)
 	       (listp faces)
@@ -4474,6 +4478,7 @@ Like `ffap-url-at-point', except that text props will be stripped."
 	  (t
 	   (lambda nil
 	     (or (w3m-gmane-url-at-point)
+		 (w3m-shr-url-at-point)
 		 (w3m-header-line-url)
 		 (ffap-url-at-point)))))))
 
@@ -6346,6 +6351,14 @@ If so return \"text/html\", otherwise \"text/plain\"."
   (setq type (w3m-prepare-content url type charset))
   (w3m-safe-decode-buffer url charset type)
   (setq charset (or charset w3m-current-content-charset))
+  ;; FIXME: Maybe this should be incorporated in w3m-filter.el.
+  ;; Filter Google Analytics tracking.
+  (when (string-match "\\`https?://[a-z]+\\.google\\." url)
+    (goto-char (point-min))
+    (while (re-search-forward "\
+\\(<a[\t\n ]+href=\"\\)/\\(?:imgres\\?imgurl\\|url\\?q\\)=\\([^&]+\\)[^>]+>"
+			      nil t)
+      (replace-match "\\1\\2\">")))
   (when w3m-use-filter (w3m-filter url))
   (w3m-relationship-estimate url)
   ;; Create pages.
@@ -6887,10 +6900,11 @@ If Transient Mark mode, deactivate the mark."
       (setq urls (list url)))
     (save-excursion
       (goto-char start)
-      (setq all (not (and (bolp)
-			  w3m-current-url
-			  (string-match "\\`http://\\(?:[^/]+\\.\\)*google\\."
-					w3m-current-url))))
+      (setq all (not
+		 (and (bolp)
+		      w3m-current-url
+		      (string-match "\\`https?://\\(?:[^/]+\\.\\)*google\\."
+				    w3m-current-url))))
       (while (progn
 	       (w3m-next-anchor)
 	       (and (> (point) prev)
@@ -7592,7 +7606,7 @@ a page in a new buffer with the correct width."
     (w3m-history-store-position)
     (let* ((buffers (w3m-list-buffers))
 	   (len (length buffers)))
-      (w3m-switch-to-buffer
+      (switch-to-buffer
        (nth (mod (+ arg (- len (length (memq (current-buffer) buffers))))
 		 len)
 	    buffers)))
@@ -7775,6 +7789,7 @@ for users.  See Info node `(elisp)Key Binding Conventions'.")
 	(define-key map [(control space)] 'w3m-history-store-position)
       ;; `C- ' doesn't mean `C-SPC' in XEmacs.
       (define-key map [?\C-\ ] 'w3m-history-store-position))
+    (define-key map "\C-e" 'w3m-goto-new-session-url)
     (define-key map "\C-v" 'w3m-history-restore-position)
     (define-key map "\C-t" 'w3m-copy-buffer)
     (define-key map "\C-p" 'w3m-previous-buffer)
@@ -8355,7 +8370,7 @@ or a list which consists of the following elements:
 		  (throw 'unseen buf)))))
       (if (not unseen)
 	  (message "No unseen buffer.")
-	(w3m-switch-to-buffer unseen)
+	(switch-to-buffer unseen)
 	(run-hooks 'w3m-select-buffer-hook)
 	(w3m-select-buffer-update)))))
 
@@ -8592,56 +8607,56 @@ greater."
 If ARG (the prefix) is a number, scroll the window ARG columns.
 Otherwise, it defaults to `w3m-horizontal-scroll-columns'."
   (interactive "P")
-  (when (if (memq last-command '(w3m-scroll-left w3m-shift-left))
-	    (or (< (window-hscroll) w3m-current-longest-line)
-		(progn (ding) nil))
-	  (w3m-set-current-longest-line)
-	  (< (window-hscroll) w3m-current-longest-line))
-    (w3m-horizontal-scroll 'left (if arg
-				     (prefix-numeric-value arg)
-				   w3m-horizontal-scroll-columns))))
+  (setq arg (if arg (prefix-numeric-value arg) w3m-horizontal-scroll-columns))
+  (if (w3m-image-page-displayed-p)
+      (image-forward-hscroll arg)
+    (when (if (memq last-command '(w3m-scroll-left w3m-shift-left))
+	      (or (< (window-hscroll) w3m-current-longest-line)
+		  (progn (ding) nil))
+	    (w3m-set-current-longest-line)
+	    (< (window-hscroll) w3m-current-longest-line))
+      (w3m-horizontal-scroll 'left arg))))
 
 (defun w3m-scroll-right (arg)
   "Scroll to the right.
 If ARG (the prefix) is a number, scroll the window ARG columns.
 Otherwise, it defaults to `w3m-horizontal-scroll-columns'."
   (interactive "P")
-  (if (zerop (window-hscroll))
-      (when (memq last-command '(w3m-scroll-right w3m-shift-right))
-	(ding))
-    (w3m-horizontal-scroll 'right (if arg
-				      (prefix-numeric-value arg)
-				    w3m-horizontal-scroll-columns))))
+  (setq arg (if arg (prefix-numeric-value arg) w3m-horizontal-scroll-columns))
+  (if (w3m-image-page-displayed-p)
+      (image-backward-hscroll arg)
+    (if (zerop (window-hscroll))
+	(when (memq last-command '(w3m-scroll-right w3m-shift-right))
+	  (ding))
+      (w3m-horizontal-scroll 'right arg))))
 
 (defun w3m-shift-left (arg)
   "Shift to the left.  Shift means a fine level horizontal scrolling.
 If ARG (the prefix) is a number, scroll the window ARG columns.
 Otherwise, it defaults to `w3m-horizontal-shift-columns'."
   (interactive "P")
+  (setq arg (if arg (prefix-numeric-value arg) w3m-horizontal-shift-columns))
   (if (w3m-image-page-displayed-p)
-      (image-forward-hscroll (or arg 1))
+      (image-forward-hscroll arg)
     (when (if (memq last-command '(w3m-scroll-left w3m-shift-left))
 	      (or (< (window-hscroll) w3m-current-longest-line)
 		  (progn (ding) nil))
 	    (w3m-set-current-longest-line)
 	    (< (window-hscroll) w3m-current-longest-line))
-      (w3m-horizontal-scroll 'left (if arg
-				       (prefix-numeric-value arg)
-				     w3m-horizontal-shift-columns)))))
+      (w3m-horizontal-scroll 'left arg))))
 
 (defun w3m-shift-right (arg)
   "Shift to the right.  Shift means a fine level horizontal scrolling.
 If ARG (the prefix) is a number, scroll the window ARG columns.
 Otherwise, it defaults to `w3m-horizontal-shift-columns'."
   (interactive "P")
+  (setq arg (if arg (prefix-numeric-value arg) w3m-horizontal-shift-columns))
   (if (w3m-image-page-displayed-p)
-      (image-backward-hscroll (or arg 1))
+      (image-backward-hscroll arg)
     (if (zerop (window-hscroll))
 	(when (memq last-command '(w3m-scroll-right w3m-shift-right))
 	  (ding))
-      (w3m-horizontal-scroll 'right (if arg
-					(prefix-numeric-value arg)
-				      w3m-horizontal-shift-columns)))))
+      (w3m-horizontal-scroll 'right arg))))
 
 (defvar w3m-horizontal-scroll-done nil)
 (make-variable-buffer-local 'w3m-horizontal-scroll-done)
@@ -8829,8 +8844,8 @@ It makes the ends of upper and lower three lines visible.  If
 
 (defun w3m-goto-mailto-url (url &optional post-data)
   (let ((before (nreverse (buffer-list)))
-	comp info buffers buffer function)
-    (setq url (w3m-decode-entities-string url))
+	comp info body buffers buffer function)
+    (setq url (w3m-decode-entities-string (w3m-url-decode-string url)))
     (save-window-excursion
       (if (and (symbolp w3m-mailto-url-function)
 	       (fboundp w3m-mailto-url-function))
@@ -8844,14 +8859,18 @@ It makes the ends of upper and lower three lines visible.  If
 		     (fboundp comp))
 	  (error "No function to compose a mail in `%s'"
 		 (symbol-value 'mail-user-agent)))
-	;; Use rfc2368.el if exist.
-	;; rfc2368.el is written by Sen Nagata.
-	;; You can find it in "contrib" directory of Mew package
-	;; or in "utils" directory of Wanderlust package.
 	(if (or (featurep 'rfc2368)
 		(condition-case nil (require 'rfc2368) (error nil)))
+	    ;; Use rfc2368.el
 	    (progn
-	      (setq info (rfc2368-parse-mailto-url url))
+	      (setq info (rfc2368-parse-mailto-url url)
+		    body (assoc "Body" info)
+		    info (delq body info)
+		    body (delq nil (list (cdr body))))
+	      (when post-data
+		(setq body (nconc body (list (if (consp post-data)
+						 (car post-data)
+					       post-data)))))
 	      (apply comp
 		     (append (mapcar
 			      (lambda (x)
@@ -8859,17 +8878,8 @@ It makes the ends of upper and lower three lines visible.  If
 				    (cdr (assoc x info))
 				  (setq info (delq (assoc x info) info))))
 			      '("To" "Subject"))
-			     (if post-data
-				 (nconc
-				  info
-				  (list (cons
-					 "body"
-					 (or (and
-					      (consp post-data)
-					      (concat (car post-data) "\n"))
-					     (concat post-data "\n")))))
-			       (list info)))))
-	  ;; without rfc2368.el.
+			     (list info))))
+	  ;; W/o rfc2368.el
 	  (string-match ":\\([^?]+\\)" url)
 	  (funcall comp (match-string 1 url)))))
     (setq buffers (nreverse (buffer-list)))
@@ -8885,10 +8895,19 @@ It makes the ends of upper and lower three lines visible.  If
 	    (setq buffers nil)))))
     (when function
       (let (special-display-buffer-names
-	    special-display-regexps
-	    same-window-buffer-names
-	    same-window-regexps)
-	(funcall function buffer)))))
+	    special-display-regexps same-window-buffer-names
+	    same-window-regexps mod)
+	(funcall function buffer)
+	(when body
+	  (setq mod (buffer-modified-p))
+	  (goto-char (point-min))
+	  (search-forward (concat "\n" (regexp-quote mail-header-separator)
+				  "\n") nil 'move)
+	  (unless (bolp) (insert "\n"))
+	  (while body
+	    (insert (pop body))
+	    (unless (bolp) (insert "\n")))
+	  (set-buffer-modified-p mod))))))
 
 (defun w3m-convert-ftp-url-for-emacsen (url)
   (or (and (string-match "^ftp://?\\([^/@]+@\\)?\\([^/]+\\)\\(?:/~/\\)?" url)
@@ -9510,7 +9529,7 @@ session will start afresh."
 	(progn
 	  ;; Store the current position in the history structure.
 	  (w3m-history-store-position)
-	  (w3m-switch-to-buffer
+	  (switch-to-buffer
 	   (setq buffer (w3m-copy-buffer nil nil
 					 w3m-new-session-in-background
 					 'empty)))
@@ -9583,11 +9602,11 @@ If the prefix arg ARG is given, it also clears forms and post data."
   (if arg
       (save-window-excursion
 	(dolist (buffer (w3m-list-buffers))
-	  (w3m-switch-to-buffer buffer)
+	  (switch-to-buffer buffer)
 	  (w3m-reload-this-page)))
     (dolist (buffer (w3m-list-buffers))
       (save-window-excursion
-	(w3m-switch-to-buffer buffer)
+	(switch-to-buffer buffer)
 	(w3m-reload-this-page)))))
 
 (defun w3m-redisplay-this-page (&optional arg)
@@ -9950,15 +9969,26 @@ non-ASCII characters."
 	    (let ((time (w3m-last-modified url)))
 	      (if time (current-time-string time) "")))
 
-    (let (anchor anchor-title)
+    (let (anchor anchor-title
+          image-url image-alt image-size)
       (with-current-buffer w3m-current-buffer
 	(when (equal url w3m-current-url)
-	  (setq anchor (w3m-anchor))
-	  (setq anchor-title (w3m-anchor-title))))
+          (setq anchor (w3m-anchor)
+                anchor-title (w3m-anchor-title)
+                image-url (w3m-image)
+                image-alt (w3m-image-alt)
+                image-size (w3m-get-text-property-around 'w3m-image-size))))
       (if anchor
 	  (insert "\nCurrent Anchor: " anchor))
       (if anchor-title
-	  (insert "\nAnchor Title:   " anchor-title)))
+	  (insert "\nAnchor Title:   " anchor-title))
+      (if image-url
+          (insert "\nImage:      " image-url))
+      (if image-alt
+          (insert "\nImage Alt:  " image-alt))
+      (if image-size
+          (insert (format "\nImage Size: %sx%s"
+                          (car image-size) (cdr image-size)))))
 
     (let ((ct (w3m-arrived-content-type url))
 	  (charset (w3m-arrived-content-charset url))
