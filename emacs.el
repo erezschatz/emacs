@@ -165,6 +165,8 @@
 (global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cb" 'org-iswitchb)
 
+(setq org-agenda-files (quote ("~/org")))
+
 ;;automatically change to DONE when all children are done
 (defun org-summary-todo (n-done n-not-done)
   "Switch entry to DONE when all subentries are done, to TODO otherwise."
@@ -200,7 +202,7 @@
         ("oftc.net" "#munin" "#suckless")))
 
 (erc-log-mode)
-(setq erc-log-channels-directory "~/.erc/logs/")
+(setq erc-log-channels-directory "~/.logs/")
 (setq erc-save-buffer-on-part t)
 
 ;;helper modules
@@ -236,16 +238,16 @@
 (eshell)
 
 (custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+  ;; custom-set-variables was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+)
 
 (custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
+  ;; custom-set-faces was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
  '(cperl-hash-face ((t (:background "navy" :foreground "Red" :weight bold))))
  '(hl-line ((t (:inverse-video t)))))
