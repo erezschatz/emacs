@@ -1,0 +1,7 @@
+#+READONLY
+#+TODO: TODO DONE
+#+TODO: asi NEXT THEN erezs talf jenya thorn | DONE FINISHED
+#+TAGS: 
+#+DRAWERS: PROPERTIES CLOCK LOGBOOK
+#+ALLPRIORITIES: A B C
+* [[file:agendas.org][Agenda Views]]

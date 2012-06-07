@@ -188,6 +188,9 @@
        :default-categories ("Cricket")
        :tags-as-categories nil)))
 
+;;mobile org
+(setq org-mobile-directory "~/emacs/mobile/")
+(setq org-mobile-files "~/emacs/mobile/todo.org")
 ;;IRC
 
 (require 'erc)
