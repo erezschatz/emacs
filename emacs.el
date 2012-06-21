@@ -238,6 +238,10 @@
 ;; optional keyboard short-cut
 (global-set-key "\C-xm" 'browse-url-at-point)
 
+;;gnus
+
+(setq gnus-select-method '(nntp "news.mixmin.net"))
+
 (eshell)
 
 (custom-set-variables
