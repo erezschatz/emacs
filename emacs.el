@@ -208,6 +208,24 @@
 (setq erc-log-channels-directory "~/.logs/")
 (setq erc-save-buffer-on-part t)
 
+;;gnus
+
+(setq gnus-select-method '(nntp "news.mixmin.net"))
+
+(setq gnus-select-method '(nnimap "gmail"
+				  (nnimap-address "imap.gmail.com")
+				  (nnimap-server-port 993)
+				  (nnimap-stream ssl)))
+
+(setq message-send-mail-function 'smtpmail-send-it
+      smtpmail-starttls-credentials '(("smtp.gmail.com" 587 nil nil))
+      smtpmail-auth-credentials '(("smtp.gmail.com" 587 "moonbuzz@gmail.com" nil))
+      smtpmail-default-smtp-server "smtp.gmail.com"
+      smtpmail-smtp-server "smtp.gmail.com"
+      smtpmail-smtp-service 587)
+
+(eshell)
+
 ;;helper modules
 
 ;;fill-column-indicator
@@ -237,12 +255,6 @@
 (autoload 'w3m-browse-url "w3m" "Ask a WWW browser to show a URL." t)
 ;; optional keyboard short-cut
 (global-set-key "\C-xm" 'browse-url-at-point)
-
-;;gnus
-
-(setq gnus-select-method '(nntp "news.mixmin.net"))
-
-(eshell)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
