@@ -56,7 +56,6 @@
 /sb-m17n.el/1.9/Mon May 11 01:17:59 2009//
 /sb-macosx-jp.el/1.3/Wed Oct 17 11:15:58 2007//
 /sb-mailarc.el/1.5/Tue Jul  5 23:52:29 2005//
-/sb-mailman.el/1.16/Thu Mar 27 11:44:01 2008//
 /sb-makanai.el/1.20/Wed Oct 17 11:15:58 2007//
 /sb-marc-aims.el/1.8/Wed Oct 17 11:15:58 2007//
 /sb-meadow.el/1.15/Wed Oct 17 11:15:58 2007//
@@ -127,9 +126,11 @@
 /sb-yomiuri.el/1.60/Fri Jan 11 07:43:25 2008//
 /sb-zdnet-jp.el/1.9/Wed Oct 17 11:15:58 2007//
 /sb-zeit-de.el/1.17/Thu Nov  4 04:32:04 2010//
-/ChangeLog/1.286/Thu Apr 19 12:53:14 2012//
 /nnshimbun.el/1.74/Thu Apr 19 12:53:14 2012//
 /sb-kantei.el/1.64/Thu Apr 19 12:53:14 2012//
 /sb-mainichi.el/1.69/Thu Apr 19 12:53:15 2012//
 /shimbun.el/1.219/Thu Apr 19 12:53:15 2012//
+/ChangeLog/1.287/Wed Jun 27 10:29:23 2012//
+/sb-chise.el/1.1/Tue May  1 06:10:07 2012//
+/sb-mailman.el/1.17/Wed Jun 27 10:29:23 2012//
 D

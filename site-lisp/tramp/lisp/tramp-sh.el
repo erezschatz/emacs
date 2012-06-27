@@ -43,7 +43,7 @@
 ;; `dired-insert-set-properties'.
 
 (defcustom tramp-inline-compress-start-size 4096
-  "*The minimum size of compressing where inline transfer.
+  "The minimum size of compressing where inline transfer.
 When inline transfer, compress transferred data of file
 whose size is this value or above (up to `tramp-copy-size-limit').
 If it is nil, no compression at all will be applied."
@@ -51,14 +51,15 @@ If it is nil, no compression at all will be applied."
   :type '(choice (const nil) integer))
 
 (defcustom tramp-copy-size-limit 10240
-  "*The maximum file size where inline copying is preferred over an out-of-the-band copy.
-If it is nil, inline out-of-the-band copy will be used without a check."
+  "The maximum file size where inline copying is preferred over an \
+out-of-the-band copy.
+If it is nil, out-of-the-band copy will be used without a check."
   :group 'tramp
   :type '(choice (const nil) integer))
 
 ;;;###tramp-autoload
 (defcustom tramp-terminal-type "dumb"
-  "*Value of TERM environment variable for logging in to remote host.
+  "Value of TERM environment variable for logging in to remote host.
 Because Tramp wants to parse the output of the remote shell, it is easily
 confused by ANSI color escape sequences and suchlike.  Often, shell init
 files conditionalize this setup based on the TERM environment variable."
@@ -514,8 +515,8 @@ detected as prompt when being sent on echoing hosts, therefore.")
   '(tramp-default-remote-path "/bin" "/usr/bin" "/usr/sbin"
     "/usr/local/bin" "/local/bin" "/local/freeware/bin" "/local/gnu/bin"
     "/usr/freeware/bin" "/usr/pkg/bin" "/usr/contrib/bin"
-    "/opt/bin" "/opt/sbin")
-  "*List of directories to search for executables on remote host.
+    "/opt/bin" "/opt/sbin" "/opt/local/bin")
+  "List of directories to search for executables on remote host.
 For every remote host, this variable will be set buffer local,
 keeping the list of existing directories on that host.
 
@@ -542,10 +543,9 @@ as given in your `~/.profile'."
     ,(format "TERM=%s" tramp-terminal-type)
     "EMACS=t" ;; Deprecated.
     ,(format "INSIDE_EMACS='%s,tramp:%s'" emacs-version tramp-version)
-    "CDPATH=" "HISTORY=" "MAIL=" "MAILCHECK=" "MAILPATH="
+    "CDPATH=" "HISTORY=" "MAIL=" "MAILCHECK=" "MAILPATH=" "PAGER=\"\""
     "autocorrect=" "correct=")
-
-  "*List of environment variables to be set on the remote host.
+  "List of environment variables to be set on the remote host.
 
 Each element should be a string of the form ENVVARNAME=VALUE.  An
 entry ENVVARNAME= disables the corresponding environment variable,
@@ -557,7 +557,7 @@ not be set here. Instead, it should be set via `tramp-remote-path'."
   :type '(repeat string))
 
 (defcustom tramp-sh-extra-args '(("/bash\\'" . "-norc -noprofile"))
-  "*Alist specifying extra arguments to pass to the remote shell.
+  "Alist specifying extra arguments to pass to the remote shell.
 Entries are (REGEXP . ARGS) where REGEXP is a regular expression
 matching the shell file name and ARGS is a string specifying the
 arguments.
@@ -1314,8 +1314,8 @@ target of the symlink differ."
     (tramp-get-test-command vec)
     (tramp-shell-quote-argument localname)
     (tramp-get-remote-stat vec)
-    (if (eq id-format 'integer) "%u" "\"%U\"")
-    (if (eq id-format 'integer) "%g" "\"%G\"")
+    (if (eq id-format 'integer) "%ue0" "\"%U\"")
+    (if (eq id-format 'integer) "%ge0" "\"%G\"")
     (tramp-shell-quote-argument localname))))
 
 (defun tramp-sh-handle-set-visited-file-modtime (&optional time-list)
@@ -1698,8 +1698,8 @@ and gid of the corresponding user is taken.  Both parameters must be integers."
     (tramp-shell-quote-argument localname)
     (tramp-get-ls-command vec)
     (tramp-get-remote-stat vec)
-    (if (eq id-format 'integer) "%u" "\"%U\"")
-    (if (eq id-format 'integer) "%g" "\"%G\""))))
+    (if (eq id-format 'integer) "%ue0" "\"%U\"")
+    (if (eq id-format 'integer) "%ge0" "\"%G\""))))
 
 ;; This function should return "foo/" for directories and "bar" for
 ;; files.
@@ -1905,7 +1905,7 @@ tramp-sh-handle-file-name-all-completions: internal error accessing `%s': `%s'"
      'copy-file (list filename newname ok-if-already-exists keep-date)))))
 
 (defun tramp-sh-handle-copy-directory
-  (dirname newname &optional keep-date parents)
+  (dirname newname &optional keep-date parents copy-contents)
   "Like `copy-directory' for Tramp files."
   (let ((t1 (tramp-tramp-file-p dirname))
 	(t2 (tramp-tramp-file-p newname)))
@@ -2390,7 +2390,7 @@ The method used must be an out-of-band method."
 		   p v nil tramp-actions-copy-out-of-band)))
 
 	    ;; Reset the transfer process properties.
-	    (tramp-message orig-vec 6 "%s" (buffer-string))
+	    (tramp-message orig-vec 6 "\n%s" (buffer-string))
 	    (tramp-set-connection-property v "process-name" nil)
 	    (tramp-set-connection-property v "process-buffer" nil)))
 
@@ -3090,22 +3090,25 @@ Returns a file name in `tramp-auto-save-directory' for autosaving this file."
 	   'write-region
 	   (list start end localname append 'no-message lockname confirm))
 
-	(let ((modes (save-excursion (tramp-default-file-modes filename)))
-	      ;; We use this to save the value of
-	      ;; `last-coding-system-used' after writing the tmp
-	      ;; file.  At the end of the function, we set
-	      ;; `last-coding-system-used' to this saved value.  This
-	      ;; way, any intermediary coding systems used while
-	      ;; talking to the remote shell or suchlike won't hose
-	      ;; this variable.  This approach was snarfed from
-	      ;; ange-ftp.el.
-	      coding-system-used
-	      ;; Write region into a tmp file.  This isn't really
-	      ;; needed if we use an encoding function, but currently
-	      ;; we use it always because this makes the logic
-	      ;; simpler.
-	      (tmpfile (or tramp-temp-buffer-file-name
-			   (tramp-compat-make-temp-file filename))))
+	(let* ((modes (save-excursion (tramp-default-file-modes filename)))
+	       ;; We use this to save the value of
+	       ;; `last-coding-system-used' after writing the tmp
+	       ;; file.  At the end of the function, we set
+	       ;; `last-coding-system-used' to this saved value.  This
+	       ;; way, any intermediary coding systems used while
+	       ;; talking to the remote shell or suchlike won't hose
+	       ;; this variable.  This approach was snarfed from
+	       ;; ange-ftp.el.
+	       coding-system-used
+	       ;; Write region into a tmp file.  This isn't really
+	       ;; needed if we use an encoding function, but currently
+	       ;; we use it always because this makes the logic
+	       ;; simpler.  We must also set `temporary-file-directory',
+	       ;; because it could point to a remote directory.
+	       (temporary-file-directory
+		(tramp-compat-temporary-file-directory))
+	       (tmpfile (or tramp-temp-buffer-file-name
+			    (tramp-compat-make-temp-file filename))))
 
 	  ;; If `append' is non-nil, we copy the file locally, and let
 	  ;; the native `write-region' implementation do the job.
@@ -4289,6 +4292,11 @@ connection if a previous connection has died for some reason."
 	    ;; We call `tramp-get-buffer' in order to get a debug
 	    ;; buffer for messages from the beginning.
 	    (tramp-get-buffer vec)
+
+	    ;; If `non-essential' is non-nil, don't reopen a new connection.
+	    (when (and (boundp 'non-essential) (symbol-value 'non-essential))
+	      (throw 'non-essential 'non-essential))
+
 	    (tramp-with-progress-reporter
 		vec 3
 		(if (zerop (length (tramp-file-name-user vec)))

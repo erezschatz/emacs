@@ -1,3 +1,198 @@
+2012-06-26  Michael Albinus  <michael.albinus@gmx.de>
+
+	* tramp-compat.el (tramp-compat-temporary-file-directory): In
+	XEmacs, there is no standard-value for `temporary-file-directory'.
+
+2012-06-22  Michael Albinus  <michael.albinus@gmx.de>
+
+	* Makefile.in (EM): Use "-no-autoloads" instead of "-vanilla" in
+	case of XEmacs.  Suggested by Steve Youngs <steve@sxemacs.org>.
+
+	* tramp.el (tramp-drop-volume-letter): Provide an XEmacs
+	compatible declaration.
+
+	* tramp-compat.el (top): Require packages, which aren't autoloaded
+	anymore for XEmacs.  Protect call of `tramp-file-name-handler' by
+	`tramp-compat-funcall', pacifying the compiler.
+
+	* tramp-efs.el (package-get-download-sites): Declare.
+
+2012-06-21  Michael Albinus  <michael.albinus@gmx.de>
+
+	* tramp-cmds.el (tramp-append-tramp-buffers): Protect
+	`list-load-path-shadows' call.
+
+	* tramp-efs.el (top): Autoload only settings for `tramp-methods'
+	and `tramp-default-method-alist'.
+
+2012-06-20  Michael Albinus  <michael.albinus@gmx.de>
+
+	* tramp-compat.el (top): Do not require tramp-util.el and
+	tramp-vc.el anymore, it hurts at least for SXEmacs.
+
+	* tramp-sh.el (tramp-maybe-open-connection): Check also whether
+	`non-essential' is bound.
+
+2012-06-17  Michael Albinus  <michael.albinus@gmx.de>
+
+	* tramp.el (tramp-file-name-handler): Catch 'non-essential.
+
+	* tramp-sh.el (tramp-maybe-open-connection): Throw if
+	`non-essential' is non-nil.
+
+2012-06-08  Michael Albinus  <michael.albinus@gmx.de>
+
+	* tramp-compat.el (tramp-compat-temporary-file-directory): Avoid
+	infloop.
+
+2012-06-06  Michael Albinus  <michael.albinus@gmx.de>
+
+	* tramp-compat.el (tramp-compat-temporary-file-directory): Ensure,
+	that the temp directory is local.
+
+	* tramp-sh.el (tramp-sh-handle-write-region): Let-bind
+	`temporary-file-directory'.
+
+2012-06-03  Michael Albinus  <michael.albinus@gmx.de>
+
+	Version 2.2.5 released.
+
+	* tramp-compat.el (tramp-compat-condition-case-unless-debug): New
+	defmacro.
+
+	* tramp.el (tramp-file-name-handler): Use it.
+
+2012-06-01  Michael Albinus  <michael.albinus@gmx.de>
+
+	* tramp.el (tramp-file-name-handler): If `debug-on-error' is set,
+	propagate an error unchanged.
+	(tramp-check-for-regexp): Search from buffer end, in order to
+	avoid "Stack overflow in regexp matcher".
+
+2012-05-08  Michael Albinus  <michael.albinus@gmx.de>
+
+	* tramp-sh.el (tramp-do-file-attributes-with-stat)
+	(tramp-do-directory-files-and-attributes-with-stat) Return uid and
+	gid as real numbers.  They could run out of integer range on cygwin.
+
+2012-04-23  Chong Yidong <cyd@gnu.org>
+
+	* tramp.el (tramp): Fix docstring.
+
+2012-04-23  Michael Albinus  <michael.albinus@gmx.de>
+
+	* tramp-sh.el (tramp-copy-size-limit): Fix docstring.
+	(tramp-do-copy-or-rename-file-out-of-band): Better trace format.
+
+2012-04-19  Michael Albinus  <michael.albinus@gmx.de>
+
+	* tramp.el (tramp-action-password): Let-bind
+	`enable-recursive-minibuffers' to t.
+
+2012-04-19  Chong Yidong <cyd@gnu.org>
+
+	Remove * characters from the front of variable docstrings.
+
+2012-04-18  Michael Albinus  <michael.albinus@gmx.de>
+
+	* tramp-cache.el (tramp-dump-connection-properties): Let-bind
+	`print-length' and `print-level' to nil, in order to avoid
+	truncation.  Reported by Christopher Schmidt
+	<christopher@ristopher.com>.
+
+2012-04-02  Michael Albinus  <michael.albinus@gmx.de>
+
+	* tramp-gvfs.el (tramp-gvfs-send-command): Apply
+	`tramp-compat-call-process' instead of `tramp-local-call-process'.
+	Reported by Magnus Henoch <magnus.henoch@gmail.com>.
+
+2012-04-01  Chong Yidong  <cyd@gnu.org>
+
+	* tramp.el (tramp-file-name-for-operation): Rename
+	file-subdir-of-p to file-in-directory-p.
+
+2012-03-28  Michael Albinus  <michael.albinus@gmx.de>
+
+	* tramp.el (tramp-message-show-progress-reporter-message): New defvar.
+	(tramp-with-progress-reporter): Use it.  We cannot use
+	`tramp-message-show-message' here, because this suppresses also
+	error buffers.
+
+2012-03-27  Michael Albinus  <michael.albinus@gmx.de>
+
+	* tramp-compat.el (tramp-compat-copy-directory): Fix error in
+	condition-case syntax.
+
+2012-03-23  Michael Albinus  <michael.albinus@gmx.de>
+
+	* tramp.el (tramp-shell-prompt-pattern): Allow "[]" style prompts.
+	(Bug#11065)
+
+2012-03-17  Michael Albinus  <michael.albinus@gmx.de>
+
+	* tramp.el (tramp-handle-insert-file-contents): Use
+	progress-reporter for the whole scenario.
+
+2012-03-01  Michael Albinus  <michael.albinus@gmx.de>
+
+	* tramp-sh.el (tramp-remote-process-environment): Add "PAGER=\"\"".
+	Reported by Robert Lupton the Good <rhl@astro.princeton.edu>.
+
+2012-02-28  Thierry Volpiatto  <thierry.volpiatto@gmail.com>
+
+        * tramp.el (tramp-file-name-for-operation): Rename `files-equal-p'
+	to `file-equal-p'.
+
+2012-02-26  Michael Albinus  <michael.albinus@gmx.de>
+
+	* tramp.el (tramp-inodes, tramp-devices): Initialize with 0.
+	(tramp-get-inode, tramp-get-device): Use cached values.
+
+2012-02-25  Michael Albinus  <michael.albinus@gmx.de>
+
+	* tramp.el (tramp-file-name-for-operation): Add `files-equal-p'
+	and `file-subdir-of-p'.
+
+	* tramp-sh.el (tramp-sh-handle-copy-directory):
+	* tramp-smb.el (tramp-smb-handle-copy-directory): Add
+	COPY-CONTENTS argument.
+
+2012-02-16  Michael Albinus  <michael.albinus@gmx.de>
+
+	* tramp.el (tramp-error-with-buffer): Suppress buffer view, if
+	`tramp-message-show-message' is nil.
+
+	* tramp-smb.el (tramp-smb-wrong-passwd-regexp): New defconst.
+	(tramp-smb-maybe-open-connection): Handle wrong passwords.
+	(tramp-smb-handle-rename-file): Fix spelling error.
+
+2012-02-15  Glenn Morris  <rgm@gnu.org>
+
+	* tramp.el (tramp-encoding-command-interactive)
+	(tramp-local-end-of-line): Add missing :version tags to new
+	defcustoms and defgroups.
+
+2012-02-13  Michael Albinus  <michael.albinus@gmx.de>
+
+	* tramp.el (tramp-error-with-buffer): Use `tramp-get-connection-buffer'.
+
+	* tramp-compat.el (tramp-compat-copy-directory): Add optional
+	argument COPY-CONTENTS.  It is not handled yet.
+
+	* tramp-smb.el (tramp-smb-server-version)
+	(tramp-smb-actions-with-tar): New defconst.
+	(tramp-smb-action-with-tar): New defun.
+	(tramp-smb-handle-copy-directory): Implement using "tar".  By
+	this, time-stamps are preserved.
+	(tramp-smb-handle-copy-file): Handle also the case of directories.
+	(tramp-smb-handle-rename-file): Use "rename", when source and
+	target are on the same share.
+	(tramp-smb-maybe-open-connection): Use `tramp-smb-server-version'.
+
+2012-02-03  Michael Albinus  <michael.albinus@gmx.de>
+
+	* tramp-sh.el (tramp-remote-path): Add "/opt/local/bin".
+
 2012-01-27  Michael Albinus  <michael.albinus@gmx.de>
 
 	* Makefile.in (EMACS_INFO): Add variable.

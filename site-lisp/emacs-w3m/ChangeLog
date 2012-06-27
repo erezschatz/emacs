@@ -1,3 +1,78 @@
+2012-06-25  Katsumi Yamaoka  <yamaoka@jpl.org>
+
+	* w3m.el (w3m-active-region-or-url-at-point, w3m-print-this-url):
+	Try to pick #name anchor out.
+
+	* w3m-search.el (w3m-search-read-variables): Make commands that use it
+	error out when other processes run in the current w3m buffer.
+
+	* w3m.el (w3m-mode): Add description of some missing commands to doc.
+
+2012-06-20  Katsumi Yamaoka  <yamaoka@jpl.org>
+
+	* w3m.el (w3m-create-page): Safely quit session when a user hits C-g;
+	make sure to set w3m-current-url.
+
+2012-06-19  Katsumi Yamaoka  <yamaoka@jpl.org>
+
+	* w3m.el (w3m-cache-header, w3m-cache-request-header)
+	(w3m-cache-contents, w3m-cache-request-contents)
+	(w3m-cache-available-p): Canonicalize given url.
+	(w3m-show-error-information): Show as many info as possible.
+
+2012-06-18  Katsumi Yamaoka  <yamaoka@jpl.org>
+
+	* w3m-util.el (w3m-popup-buffer): Do nothing for the current buffer.
+
+	* w3m.el (w3m-history-highlight-current-url): Extend href anchor to bol.
+
+	* w3m.el (w3m-http-status-alist): New variable.
+	(w3m-http-status): New variable.
+	(w3m-w3m-retrieve): Set it.
+	(w3m-retrieve): Clear it.
+	(w3m-download, w3m-retrieve-and-render, w3m-show-error-information):
+	Show http status if download or retrieving fails.
+
+2012-06-14  Katsumi Yamaoka  <yamaoka@jpl.org>
+
+	* w3m.el (w3m-url-encode-string-2): Encode only `(' and `)'.
+
+2012-06-12  Katsumi Yamaoka  <yamaoka@jpl.org>
+
+	* w3m-proc.el (w3m-process-do-with-temp-buffer): Use labels macro again.
+	Functions that the labels form generates to be used in the outside of
+	the labels form should be prefixed with #' from now on.
+	Thanks to Michael Heerdegen and Andreas Schwab.
+
+	* w3m-proc.el (w3m-process-do-with-temp-buffer): Don't use labels macro
+	of which the spec has been changed in the most recent Emacs.
+
+2012-06-04  Katsumi Yamaoka  <yamaoka@jpl.org>
+
+	* w3m.el (w3m-expand-url): Work for scheme name containing upcase
+	letters.  Reported by Dan Jacobson <jidanni@jidanni.org>.
+
+	* w3m-util.el (w3m-force-mode-line-update): New alias.
+
+	* w3m-lnum.el (w3m-with-lnum, w3m-lnum-universal-dispatch): Use it.
+
+2012-06-03  Katsumi Yamaoka  <yamaoka@jpl.org>
+
+	* w3m.el (w3m-create-page): Improve regexp matching Google's click-
+	tracking urls.
+
+2012-05-14  Katsumi Yamaoka  <yamaoka@jpl.org>
+
+	* w3m.el (w3m-url-encode-string-2): New function.
+	(w3m-print-current-url, w3m-print-this-url, w3m-print-this-image-url):
+	Use it to encode url characters that are apt to be misidentified as
+	word boundaries.
+
+2012-04-22  Katsumi Yamaoka  <yamaoka@jpl.org>
+
+	* w3m.el (w3m-create-page): Decode url in Google's click-tracking
+	filter.
+
 2012-04-18  Andrey Kotlarski  <m00naticus@gmail.com>
 
 	* w3m-lnum.el (w3m-with-lnum, w3m-lnum-universal-dispatch):
@@ -6,7 +81,7 @@
 
 2012-04-17  Katsumi Yamaoka  <yamaoka@jpl.org>
 
-	* w3m.el (w3m-create-page): Add a filter for Google Analytics tracking
+	* w3m.el (w3m-create-page): Add a filter for Google's click-tracking
 	temporarily --- maybe this should be incorporated in w3m-filter.el.
 
 2012-04-13  Katsumi Yamaoka  <yamaoka@jpl.org>

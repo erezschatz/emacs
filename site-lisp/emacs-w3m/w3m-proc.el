@@ -477,7 +477,8 @@ evaluated in a temporary buffer."
 				 (set-buffer ,current-buffer))
 			       ,var))
 	 (let ((,var (let ((handler
-			    (cons ',post-body (cons ',post-handler handler))))
+			    (cons #',post-body
+				  (cons #',post-handler handler))))
 		       (with-current-buffer ,temp-buffer ,@form))))
 	   (if (w3m-process-p ,var)
 	       (if handler
@@ -485,7 +486,7 @@ evaluated in a temporary buffer."
 		 (w3m-process-start-process ,var))
 	     (if (w3m-process-p
 		  (setq ,var (save-current-buffer
-			       (let ((handler (cons ',post-handler handler)))
+			       (let ((handler (cons #',post-handler handler)))
 				 (,post-body ,var)))))
 		 (if handler
 		     ,var
