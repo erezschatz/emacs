@@ -210,7 +210,7 @@
 
 (defconst emacs-w3m-version
   (eval-when-compile
-    (let ((rev "$Revision: 1.1577 $"))
+    (let ((rev "$Revision: 1.1586 $"))
       (and (string-match "\\.\\([0-9]+\\) \\$\\'" rev)
 	   (setq rev (- (string-to-number (match-string 1 rev)) 1136))
 	   (format "1.4.%d" (+ rev 50)))))
@@ -3361,11 +3361,12 @@ non-nil, control chars will be represented with ^ as `cat -v' does."
   "Encode `(' and `)', apt to be misidentified as boundaries."
   (w3m-replace-in-string (w3m-replace-in-string str "(" "%28") ")" "%29"))
 
-(defun w3m-url-decode-string (str &optional coding)
+(defun w3m-url-decode-string (str &optional coding regexp)
+  (or regexp (setq regexp "%\\(?:\\([0-9a-f][0-9a-f]\\)\\|0d%0a\\)"))
   (let ((start 0)
 	(buf)
 	(case-fold-search t))
-    (while (string-match "%\\(?:\\([0-9a-f][0-9a-f]\\)\\|0d%0a\\)" str start)
+    (while (string-match regexp str start)
       (push (substring str start (match-beginning 0)) buf)
       (push (if (match-beginning 1)
 		(vector (string-to-number (match-string 1 str) 16))
@@ -4228,7 +4229,7 @@ If optional KEEP-PROPERTIES is non-nil, text property is reserved."
   (save-excursion
     (goto-char (point-min))
     ;; Character entity references are case-sensitive.
-    ;; Cf. http://www.w3.org/TR/1999/REC-html401-19991224/charset.html#h-5.3.2
+    ;; cf. http://www.w3.org/TR/1999/REC-html401-19991224/charset.html#h-5.3.2
     (let (case-fold-search start fid prop value)
       (while (re-search-forward w3m-entity-regexp nil t)
 	(setq start (match-beginning 0)
@@ -4254,7 +4255,7 @@ If optional KEEP-PROPERTIES is non-nil, text property is reserved."
   "Decode entities in the string STR."
   (save-match-data
     ;; Character entity references are case-sensitive.
-    ;; Cf. http://www.w3.org/TR/1999/REC-html401-19991224/charset.html#h-5.3.2
+    ;; cf. http://www.w3.org/TR/1999/REC-html401-19991224/charset.html#h-5.3.2
     (let ((case-fold-search) (pos 0) (buf))
       (while (string-match w3m-entity-regexp str pos)
 	(setq buf (cons (or (w3m-entity-value (match-string 1 str))
@@ -4596,8 +4597,10 @@ http://www.google.com/search?btnI=I%%27m+Feeling+Lucky&ie=UTF-8&oe=UTF-8&q="
 	     (if (string-match "\\`about:" initial)
 		 (setq initial nil)
 	       (unless (string-match "[^\000-\177]" initial)
-		 (setq initial (w3m-url-decode-string
-				initial w3m-current-coding-system))))))
+		 (setq
+		  initial
+		  (w3m-url-decode-string initial w3m-current-coding-system
+					 "%\\([2-9a-f][0-9a-f]\\)"))))))
 	  ((string= initial "")
 	   (setq initial nil)))
     (when initial
@@ -5741,7 +5744,8 @@ See RFC2397."
 	  (setq decode-string
 		(cond
 		 ((eq encode 'base64)
-		  (base64-decode-string data-string))
+		  (base64-decode-string
+		   (w3m-url-decode-string data-string 'us-ascii)))
 		 (t
 		  (w3m-url-decode-string
 		   data-string coding))))
@@ -6086,26 +6090,19 @@ w3m regards it as an incomplete <a> tag that is not closed."
   ;; `charset' is used by `w3m-w3m-expand-arguments' to generate
   ;; arguments for w3mmee and w3m-m17n from `w3m-halfdump-command-arguments'.
 
-  ;; Add name anchors that w3m can handle.  Cf. [emacs-w3m:11153]
-  ;; This section replaces
-  ;; <TAG ... id="FOO_BAR" ...>FOO BAR</TAG>
-  ;; with
-  ;; <a name="FOO_BAR"><TAG ... id="FOO_BAR" ...>FOO BAR</TAG></a>
-  ;; in the current buffer.
+  ;; Add name anchors that w3m can handle.  cf. [emacs-w3m:11153]
+  ;; This section adds ``<a name="FOO_BAR"></a>'' in front of
+  ;; ``<TAG ... id="FOO_BAR" ...>FOO BAR</TAG>'' in the current buffer.
   (goto-char (point-min))
-  (let (start tag name)
-    (while (re-search-forward "<\\([^\t\n\r >]+\\)\
+  (let (st nd name)
+    (while (re-search-forward "<\\(?:[^\t\n\r >]+\\)\
 \[\t\n\r ]+\\(?:[^\t\n\r >]+[\t\n\r ]+\\)*id=\\(\"[^\"]+\"\\)"
 			      nil t)
-      (setq start (match-beginning 0)
-	    tag (regexp-quote (match-string 1))
-	    name (match-string 2))
-      (when (looking-at (concat "[^>]*>[^<]+</" tag ">"))
-	(save-restriction
-	  (narrow-to-region (goto-char start) (match-end 0))
-	  (insert "<a name=" name ">")
-	  (goto-char (point-max))
-	  (insert "</a>")))))
+      (goto-char (setq st (match-beginning 0)))
+      (setq nd (match-end 0)
+	    name (match-string 1))
+      (insert "<a name=" name "></a>")
+      (goto-char (+ nd (- (point) st)))))
 
   (w3m-set-display-ins-del)
   (let* ((coding-system-for-read w3m-output-coding-system)
@@ -6409,24 +6406,58 @@ If so return \"text/html\", otherwise \"text/plain\"."
   ;; Select a content type.
   (unless (and (stringp type)
 	       (assoc type w3m-content-type-alist))
-    (save-window-excursion
-      (pop-to-buffer (current-buffer))
-      (delete-other-windows)
-      (ding)
-      (setq type
-	    (condition-case nil
-		(completing-read
-		 (format
-		  "%s's content type (default Download or External-View): "
-		  (file-name-nondirectory url))
-		 w3m-content-type-alist nil t)
-	      ;; The user forced terminating the session with C-g.
-	      (quit
-	       (w3m-process-stop page-buffer) ;; Needless?
-	       (with-current-buffer page-buffer
-		 (setq w3m-current-process nil))
-	       (keyboard-quit))))
-      (setf (w3m-arrived-content-type url) type)))
+    (let ((cur (current-buffer))
+	  (mb enable-multibyte-characters)
+	  dots cont)
+      (with-temp-buffer
+	(rename-buffer " *Raw Contents*" t)
+	(set-buffer-multibyte mb)
+	(save-window-excursion
+	  (pop-to-buffer (current-buffer))
+	  (delete-other-windows)
+	  (ding)
+
+	  ;; Display the raw contents briefly.
+	  (sit-for 0)
+	  (setq truncate-lines t
+		dots (make-string (/ (- (window-width) 6) 2) ?.))
+	  (with-current-buffer cur
+	    (cond ((< (count-lines (point-min) (point-max)) (window-height))
+		   (setq cont (buffer-string)))
+		  ((< (window-height) 10)
+		   (goto-char (point-min))
+		   (forward-line (max 0 (- (window-height) 2)))
+		   (setq cont
+			 (concat
+			  (buffer-substring (point-min) (point))
+			  "\n[" dots "snip" dots "]")))
+		  (t
+		   (goto-char (point-min))
+		   (forward-line (/ (- (window-height) 4) 2))
+		   (setq cont (concat (buffer-substring (point-min) (point))
+				      "\n[" dots "snip" dots "]\n\n"))
+		   (goto-char (point-max))
+		   (forward-line (/ (- 4 (window-height)) 2))
+		   (setq cont (concat
+			       cont
+			       (buffer-substring (point) (point-max)))))))
+	  (insert cont)
+	  (goto-char (point-min))
+
+	  (setq type
+		(condition-case nil
+		    (completing-read
+		     (format
+		      "%s's content type (default Download or External-View): "
+		      (file-name-nondirectory url))
+		     w3m-content-type-alist nil t)
+		  ;; The user forced terminating the session with C-g.
+		  (quit
+		   (w3m-process-stop page-buffer) ;; Needless?
+		   (with-current-buffer page-buffer
+		     (setq w3m-current-process nil))
+		   (keyboard-quit))))
+	  (setf (w3m-arrived-content-type url) type)))))
   (setq w3m-current-coding-system nil)	; Reset decoding status of this buffer.
   (setq type (w3m-prepare-content url type charset))
   (w3m-safe-decode-buffer url charset type)
@@ -7167,7 +7198,7 @@ The default name will be the original name of the image."
 If the cursor points to a link, it visits the url of the link instead
 of the url currently displayed.  The browser is defined in
 `w3m-content-type-alist' for every type of a url."
-  (interactive (list (w3m-input-url nil
+  (interactive (list (w3m-input-url "URL to view externally: "
 				    (or (w3m-anchor)
 					(unless w3m-display-inline-images
 					  (w3m-image))
@@ -10864,7 +10895,9 @@ This variable is effective only when `w3m-use-tab' is nil."
       (insert (w3m-puny-decode-url
 	       (if (string-match "[^\000-\177]" w3m-current-url)
 		   w3m-current-url
-		 (w3m-url-decode-string w3m-current-url w3m-current-coding-system))))
+		 (w3m-url-decode-string w3m-current-url
+					w3m-current-coding-system
+					"%\\([2-9a-f][0-9a-f]\\)"))))
       (w3m-add-face-property start (point) 'w3m-header-line-location-content)
       (w3m-add-text-properties start (point)
 			       `(mouse-face highlight
