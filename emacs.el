@@ -191,14 +191,18 @@
 ;;mobile org
 (setq org-mobile-directory "~/emacs/mobile/")
 (setq org-mobile-files "~/emacs/mobile/todo.org")
+
 ;;IRC
 
 (require 'erc)
 
-;;(erc :server "localhost"        :port 6667 :nick "erez")
-(erc :server "irc.freenode.net" :port 6667 :nick "erez")
-(erc :server "irc.perl.org"     :port 6667 :nick "erez")
-(erc :server "irc.oftc.net"     :port 6667 :nick "erez")
+(defun go-erc ()
+  "Connect to IRC, Instant Messaging"
+  (interactive)
+  (erc :server "localhost"        :port 6667 :nick "erez")
+  (erc :server "irc.freenode.net" :port 6667 :nick "erez")
+  (erc :server "irc.perl.org"     :port 6667 :nick "erez")
+  (erc :server "irc.oftc.net"     :port 6667 :nick "erez"))
 
 (setq erc-autojoin-channels-alist
       '(("freenode.net" "#emacs" "#conkeror")
@@ -207,6 +211,12 @@
 (erc-log-mode)
 (setq erc-log-channels-directory "~/.logs/")
 (setq erc-save-buffer-on-part t)
+
+;; status-net
+
+(require 'identica-mode)
+(setq statusnet-server "statusnet.netvertise.local")
+(setq statusnet-server-textlimit 140)
 
 ;;gnus
 
