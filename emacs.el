@@ -194,6 +194,8 @@
 
 ;;IRC
 
+(require 'oauth)
+
 (require 'erc)
 
 (defun go-erc ()
