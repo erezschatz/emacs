@@ -1,3 +1,3 @@
 *.elc
 *.orig
-site-lisp/
+./site-lisp/
