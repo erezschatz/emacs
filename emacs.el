@@ -207,8 +207,8 @@
   (erc :server "irc.oftc.net"     :port 6667 :nick "erez"))
 
 (setq erc-autojoin-channels-alist
-      '(("freenode.net" "#emacs" "#conkeror")
-        ("oftc.net" "#munin" "#suckless")))
+      '(("freenode.net" "#emacs")
+        ("oftc.net" "#suckless")))
 
 (erc-log-mode)
 (setq erc-log-channels-directory "~/.logs/")
@@ -236,7 +236,7 @@
       smtpmail-smtp-server "smtp.gmail.com"
       smtpmail-smtp-service 587)
 
-(eshell)
+(shell)
 
 ;;helper modules
 
