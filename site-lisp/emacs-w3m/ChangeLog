@@ -1,3 +1,39 @@
+2012-07-13  Katsumi Yamaoka  <yamaoka@jpl.org>
+
+	* w3m.el (w3m-input-url, w3m-header-line-insert):
+	Don't decode only control characters.
+
+2012-07-12  Katsumi Yamaoka  <yamaoka@jpl.org>
+
+	* w3m.el (w3m-input-url): Don't decode %00~%1F and %7F~%9F in url.
+
+2012-07-11  Katsumi Yamaoka  <yamaoka@jpl.org>
+
+	* w3m.el (w3m-url-decode-string): Allow optional regexp matching %**.
+	(w3m-header-line-insert): Don't decode %00~%1F and %7F~%9F in url.
+
+	* w3m.el (w3m-create-page): Show raw contents briefly, not fully, when
+	prompting a user for the content type.
+
+2012-07-10  Katsumi Yamaoka  <yamaoka@jpl.org>
+
+	* w3m.el (w3m-rendering-half-dump): Add name anchors fast.
+
+2012-07-10  Naohiro Aota  <naota@elisp.net>
+
+	* w3m.el: (w3m-data-retrieve): URL-decode data-string. It can have
+	"%2b%2d%3d" representing "/+=".
+
+2012-07-08  Katsumi Yamaoka  <yamaoka@jpl.org>
+
+	* w3m.el (w3m-rendering-half-dump): Add name anchors that w3m can
+	handle in nested tags.
+
+2012-07-02  Katsumi Yamaoka  <yamaoka@jpl.org>
+
+	* w3m.el (w3m-view-url-with-external-browser): Improve prompt string.
+	Suggested by Dan Jacobson <jidanni@jidanni.org>.
+
 2012-06-25  Katsumi Yamaoka  <yamaoka@jpl.org>
 
 	* w3m.el (w3m-active-region-or-url-at-point, w3m-print-this-url):
