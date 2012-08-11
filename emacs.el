@@ -188,17 +188,22 @@
        :default-categories ("Cricket")
        :tags-as-categories nil)))
 
-;;mobile org
-(setq org-mobile-directory "~/emacs/mobile/")
-(setq org-mobile-files "~/emacs/mobile/todo.org")
+(require 'org-latex)
+(unless (boundp 'org-export-latex-classes)
+  (setq org-export-latex-classes nil))
+(add-to-list 'org-export-latex-classes
+             '("article"
+               "\\documentclass{article}"
+               ("\\section{%s}" . "\\section*{%s}")))
+
 ;;IRC
 
 (require 'erc)
 
 ;;(erc :server "localhost"        :port 6667 :nick "erez")
-(erc :server "irc.freenode.net" :port 6667 :nick "erez")
-(erc :server "irc.perl.org"     :port 6667 :nick "erez")
-(erc :server "irc.oftc.net"     :port 6667 :nick "erez")
+;;(erc :server "irc.freenode.net" :port 6667 :nick "erez")
+;;(erc :server "irc.perl.org"     :port 6667 :nick "erez")
+;;(erc :server "irc.oftc.net"     :port 6667 :nick "erez")
 
 (setq erc-autojoin-channels-alist
       '(("freenode.net" "#emacs" "#conkeror")
@@ -224,7 +229,7 @@
       smtpmail-smtp-server "smtp.gmail.com"
       smtpmail-smtp-service 587)
 
-(eshell)
+(shell)
 
 ;;helper modules
 
