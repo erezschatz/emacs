@@ -189,9 +189,13 @@
        :default-categories ("Cricket")
        :tags-as-categories nil)))
 
-;;mobile org
-(setq org-mobile-directory "~/emacs/mobile/")
-(setq org-mobile-files "~/emacs/mobile/todo.org")
+(require 'org-latex)
+(unless (boundp 'org-export-latex-classes)
+  (setq org-export-latex-classes nil))
+(add-to-list 'org-export-latex-classes
+             '("article"
+               "\\documentclass{article}"
+               ("\\section{%s}" . "\\section*{%s}")))
 
 ;;IRC
 
