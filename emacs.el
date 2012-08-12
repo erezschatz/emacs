@@ -13,9 +13,6 @@
                           :foreground "white")
       (set-face-attribute 'tooltip nil :font "Terminus" :height 80)))
 
-(setq browse-url-browser-function 'browse-url-generic
-      browse-url-generic-program "/usr/bin/conkeror")
-
 ;;highlight current line
 (global-hl-line-mode t)
 
@@ -64,6 +61,10 @@
 (global-auto-revert-mode t)
 
 (autoload 'ibuffer "ibuffer" "List buffers." t)
+
+ (defadvice save-buffers-kill-emacs (around no-query-kill-emacs activate)
+   "Prevent annoying Active processes exist query when you quit Emacs."
+   (flet ((process-list ())) ad-do-it))
 
 ;;c
 
@@ -217,7 +218,7 @@
 ;; status-net
 
 (require 'identica-mode)
-(setq statusnet-server "statusnet.netvertise.local")
+(setq statusnet-server "statusnet.netvertise.co.il")
 (setq statusnet-server-textlimit 140)
 
 ;;gnus
