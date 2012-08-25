@@ -70,10 +70,6 @@
 
 (setq c-basic-offset 8)
 
-;;debugger
-
-(require 'dbgr)1;3201;0c
-
 ;;perl
 
 ;;map perl editing to cperl-mode
@@ -134,12 +130,9 @@
 (add-to-list 'auto-mode-alist '("\\.ya?ml$" . yaml-mode))
 
 ;;javascript
-(autoload 'js2-mode "js2-mode" nil t)
-(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
-
 (require 'json)
 
-(add-hook 'js2-mode-hook
+(add-hook 'js-mode-hook
           (lambda()
             (linum-mode t)))
 
