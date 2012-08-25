@@ -70,6 +70,10 @@
 
 (setq c-basic-offset 8)
 
+;;debugger
+
+(require 'dbgr)1;3201;0c
+
 ;;perl
 
 ;;map perl editing to cperl-mode
@@ -213,11 +217,13 @@
   (erc :server "localhost"        :port 6667 :nick "erez")
   (erc :server "irc.freenode.net" :port 6667 :nick "erez")
   (erc :server "irc.perl.org"     :port 6667 :nick "erez")
+  (erc :server "irc.mozilla.org"  :port 6667 :nick "erez")
   (erc :server "irc.oftc.net"     :port 6667 :nick "erez"))
 
 (setq erc-autojoin-channels-alist
       '(("freenode.net" "#emacs")
-        ("oftc.net" "#suckless")))
+        ("mozilla.org"  "#xulrunner")
+        ("oftc.net"     "#suckless")))
 
 (erc-log-mode)
 (setq erc-log-channels-directory "~/.logs/")
