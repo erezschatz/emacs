@@ -130,10 +130,14 @@
 (add-to-list 'auto-mode-alist '("\\.ya?ml$" . yaml-mode))
 
 ;;javascript
-(autoload #'javascript-mode "javascript" "Start javascript-mode" t)
-(add-to-list 'auto-mode-alist '("\\.js(on)?$" . javascript-mode))
+(autoload 'js2-mode "js2-mode" nil t)
+(add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 
 (require 'json)
+
+(add-hook 'js2-mode-hook
+          (lambda()
+            (linum-mode t)))
 
 ;;auctex
 (load "auctex.el" nil t t)
