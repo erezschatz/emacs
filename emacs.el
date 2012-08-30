@@ -214,7 +214,7 @@
   (erc :server "irc.oftc.net"     :port 6667 :nick "erez"))
 
 (setq erc-autojoin-channels-alist
-      '(("freenode.net" "#emacs")
+      '(("freenode.net" "#emacs" "#conkeror")
         ("mozilla.org"  "#xulrunner")
         ("oftc.net"     "#suckless")))
 
@@ -225,7 +225,7 @@
 ;; status-net
 
 (require 'identica-mode)
-(setq statusnet-server "statusnet.netvertise.co.il")
+(setq statusnet-server "identi.ca")
 (setq statusnet-server-textlimit 140)
 
 ;;gnus
