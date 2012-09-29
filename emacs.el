@@ -214,7 +214,7 @@
   (erc :server "irc.oftc.net"     :port 6667 :nick "erez"))
 
 (setq erc-autojoin-channels-alist
-      '(("freenode.net" "#emacs" "#conkeror")
+      '(("freenode.net" "#emacs" "#plan9")
         ("mozilla.org"  "#xulrunner")
         ("oftc.net"     "#suckless")))
 
