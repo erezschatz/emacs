@@ -136,6 +136,11 @@
           (lambda()
             (linum-mode t)))
 
+;;slime
+(setq inferior-lisp-program "/usr/bin/sbcl")
+(require 'slime)
+(slime-setup)
+
 ;;auctex
 (load "auctex.el" nil t t)
 (load "preview-latex.el" nil t t)
@@ -151,10 +156,6 @@
 ;;git
 (require 'magit)
 (require 'git-blame)
-
-;;fossil
-(autoload 'vc-fossil-registered "vc-fossil")
-(add-to-list 'vc-handled-backends 'Fossil)
 
 ;;tramp - Transparent Remote (file) Access, Multiple Protocol
 (require 'tramp)
@@ -226,23 +227,12 @@
 
 (require 'identica-mode)
 (setq statusnet-server "identi.ca")
-(setq statusnet-server-textlimit 140)
+(setq identica-username "erez")
 
-;;gnus
+;; twitter
 
-(setq gnus-select-method '(nntp "news.mixmin.net"))
-
-(setq gnus-select-method '(nnimap "gmail"
-				  (nnimap-address "imap.gmail.com")
-				  (nnimap-server-port 993)
-				  (nnimap-stream ssl)))
-
-(setq message-send-mail-function 'smtpmail-send-it
-      smtpmail-starttls-credentials '(("smtp.gmail.com" 587 nil nil))
-      smtpmail-auth-credentials '(("smtp.gmail.com" 587 "moonbuzz@gmail.com" nil))
-      smtpmail-default-smtp-server "smtp.gmail.com"
-      smtpmail-smtp-server "smtp.gmail.com"
-      smtpmail-smtp-service 587)
+(require 'twittering-mode)
+(setq twittering-use-master-password t)
 
 (shell)
 
