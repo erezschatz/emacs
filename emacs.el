@@ -220,7 +220,7 @@
 (setq erc-autojoin-channels-alist
       '(("freenode.net" "#emacs" "#plan9")
         ("mozilla.org"  "#xulrunner")
-        ("oftc.net"     "#suckless")))
+        ("oftc.net"     "#debian-next")))
 
 (erc-log-mode)
 (setq erc-log-channels-directory "~/.logs/")
