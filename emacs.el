@@ -102,6 +102,9 @@
 ;;load cperl-mode for test files
 (add-to-list 'auto-mode-alist '("\\.t$" . cperl-mode))
 
+;;load cperl-mode for psgi file
+(add-to-list 'auto-mode-alist '("\\.psgi$" . cperl-mode))
+
 (defun flymake-perl-init ()
   (let* ((temp-file   (flymake-init-create-temp-buffer-copy
                        'flymake-create-temp-inplace))
