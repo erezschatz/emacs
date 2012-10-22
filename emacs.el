@@ -237,7 +237,7 @@
 (require 'twittering-mode)
 (setq twittering-use-master-password t)
 
-(shell)
+(eshell)
 
 ;;helper modules
 
