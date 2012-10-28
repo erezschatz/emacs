@@ -13,6 +13,9 @@
                           :foreground "white")
       (set-face-attribute 'tooltip nil :font "Terminus" :height 80)))
 
+;;prevent suspend-frame
+(global-unset-key (kbd "C-z"))
+
 ;;highlight current line
 (global-hl-line-mode t)
 
@@ -111,7 +114,7 @@
 	 (local-file  (file-relative-name
                        temp-file
                        (file-name-directory buffer-file-name))))
-    (list "perl" (list "-wc -Ilib -I/home/erez/perl5/lib/perl5 " local-file))))
+    (list "perl" (list "-I/home/erez/perl5/lib/perl5" "-I./lib" "-wc" local-file))))
 
 ;;make cperl-mode always highlight scalar variables
 (setq cperl-highlight-variables-indiscriminately t)
