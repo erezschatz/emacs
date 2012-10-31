@@ -13,9 +13,6 @@
                           :foreground "white")
       (set-face-attribute 'tooltip nil :font "Terminus" :height 80)))
 
-;;prevent suspend-frame
-(global-unset-key (kbd "C-z"))
-
 ;;highlight current line
 (global-hl-line-mode t)
 
@@ -65,9 +62,12 @@
 
 (autoload 'ibuffer "ibuffer" "List buffers." t)
 
- (defadvice save-buffers-kill-emacs (around no-query-kill-emacs activate)
-   "Prevent annoying Active processes exist query when you quit Emacs."
-   (flet ((process-list ())) ad-do-it))
+(require 'fit-frame)
+(add-hook 'after-make-frame-functions 'fit-frame)
+
+(defadvice save-buffers-kill-emacs (around no-query-kill-emacs activate)
+  "Prevent annoying Active processes exist query when you quit Emacs."
+  (flet ((process-list ())) ad-do-it))
 
 ;;c
 
@@ -114,7 +114,8 @@
 	 (local-file  (file-relative-name
                        temp-file
                        (file-name-directory buffer-file-name))))
-    (list "perl" (list "-I/home/erez/perl5/lib/perl5" "-I./lib" "-wc" local-file))))
+    (list "perl"
+          (list "-I/home/erez/perl5/lib/perl5" "-I./lib" "-wc" local-file))))
 
 ;;make cperl-mode always highlight scalar variables
 (setq cperl-highlight-variables-indiscriminately t)
@@ -205,6 +206,9 @@
                "\\documentclass{article}"
                ("\\section{%s}" . "\\section*{%s}")))
 
+(autoload 'markdown-mode "markdown-mode.el"
+  "Major mode for editing Markdown files" t)
+
 ;;IRC
 
 (require 'oauth)
@@ -240,8 +244,6 @@
 (require 'twittering-mode)
 (setq twittering-use-master-password t)
 
-(eshell)
-
 ;;helper modules
 
 ;;Distinguish buffers of the same filename
@@ -252,7 +254,6 @@
 
 ;;Invoke M-x without the Alt key
 (global-set-key "\C-x\C-m" 'execute-extended-command)
-(global-set-key "\C-c\C-m" 'execute-extended-command)
 
 ;;Prefer backward-kill-word over Backspace
 (global-set-key "\C-w" 'backward-kill-word)
@@ -262,10 +263,8 @@
 ;; override buffer menu
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
-(setq browse-url-browser-function 'w3m-browse-url)
-(autoload 'w3m-browse-url "w3m" "Ask a WWW browser to show a URL." t)
-;; optional keyboard short-cut
-(global-set-key "\C-xm" 'browse-url-at-point)
+;;prevent suspend-frame
+(global-unset-key (kbd "C-z"))
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
