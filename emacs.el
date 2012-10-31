@@ -13,6 +13,8 @@
                           :foreground "white")
       (set-face-attribute 'tooltip nil :font "Terminus" :height 80)))
 
+(setq confirm-kill-emacs 'yes-or-no-p)
+
 ;;highlight current line
 (global-hl-line-mode t)
 
@@ -221,13 +223,10 @@
   (erc :server "localhost"        :port 6667 :nick "erez")
   (erc :server "irc.freenode.net" :port 6667 :nick "erez")
   (erc :server "irc.perl.org"     :port 6667 :nick "erez")
-  (erc :server "irc.mozilla.org"  :port 6667 :nick "erez")
   (erc :server "irc.oftc.net"     :port 6667 :nick "erez"))
 
 (setq erc-autojoin-channels-alist
-      '(("freenode.net" "#emacs" "#plan9")
-        ("mozilla.org"  "#xulrunner")
-        ("oftc.net"     "#debian-next")))
+      '(("freenode.net" "#emacs" "#plan9" "#archlinux"))
 
 (erc-log-mode)
 (setq erc-log-channels-directory "~/.logs/")
