@@ -226,7 +226,7 @@
   (erc :server "irc.oftc.net"     :port 6667 :nick "erez"))
 
 (setq erc-autojoin-channels-alist
-      '(("freenode.net" "#emacs" "#plan9" "#archlinux"))
+      '(("freenode.net" "#emacs" "#plan9" "#archlinux")))
 
 (erc-log-mode)
 (setq erc-log-channels-directory "~/.logs/")
