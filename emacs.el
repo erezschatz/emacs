@@ -218,8 +218,8 @@
 (require 'erc)
 
 (setq erc-autojoin-channels-alist
-      '(("freenode.net" "#emacs" "#plan9" "#archlinux"))
-      '(("gnome.net"    "#gnome-shell")))
+      '(("freenode.net" "#emacs" "#plan9" "#archlinux")
+      ("gnome.net" "#gnome-shell")))
 
 (erc-log-mode)
 (setq erc-log-channels-directory "~/.logs/")
