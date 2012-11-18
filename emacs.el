@@ -1,4 +1,5 @@
-(eval-when-compile (require 'cl))
+(require 'cl)
+(defvar *emacs-load-start* (current-time))
 
 (server-start)
 
@@ -113,7 +114,7 @@
 (defun flymake-perl-init ()
   (let* ((temp-file   (flymake-init-create-temp-buffer-copy
                        'flymake-create-temp-inplace))
-	 (local-file  (file-relative-name
+        (local-file  (file-relative-name
                        temp-file
                        (file-name-directory buffer-file-name))))
     (list "perl"
@@ -123,20 +124,23 @@
 (setq cperl-highlight-variables-indiscriminately t)
 
 ;;load tt mode
-(require 'tt-mode)
-(add-to-list 'auto-mode-alist'("\\.tt[0-9]?\\'" . tt-mode))
+(eval-after-load "tt-mode"
+  (add-to-list 'auto-mode-alist'("\\.tt[0-9]?\\'" . tt-mode)))
 
 ;;perltidy
 (require 'perltidy)
 
 ;;pod-mode
-(require 'pod-mode)
-(add-to-list 'auto-mode-alist '("\\.pod$" . pod-mode))
-(add-hook 'pod-mode-hook 'font-lock-mode)
+(eval-after-load "pod-mode"
+  '(progn
+     (add-to-list 'auto-mode-alist '("\\.pod$" . pod-mode))
+     (add-hook 'pod-mode-hook 'font-lock-mode)))
 
 ;;yaml
-(require 'yaml-mode)
-(add-to-list 'auto-mode-alist '("\\.ya?ml$" . yaml-mode))
+(eval-after-load "yaml-mode"
+  (add-to-list 'auto-mode-alist '("\\.ya?ml$" . yaml-mode)))
+
+(require 'mmm-mode)
 
 ;;javascript
 (require 'json)
@@ -147,6 +151,7 @@
 
 ;;slime
 (setq inferior-lisp-program "/usr/bin/sbcl")
+
 (require 'slime)
 (slime-setup)
 
@@ -170,14 +175,14 @@
 (require 'tramp)
 
 ;;org-mode
-(require 'org-install)
-(add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
-(global-set-key "\C-cl" 'org-store-link)
-(global-set-key "\C-cc" 'org-capture)
-(global-set-key "\C-ca" 'org-agenda)
-(global-set-key "\C-cb" 'org-iswitchb)
-
-(setq org-agenda-files (quote ("~/org")))
+(eval-after-load "org-install"
+  '(progn
+     (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
+     (global-set-key "\C-cl" 'org-store-link)
+     (global-set-key "\C-cc" 'org-capture)
+     (global-set-key "\C-ca" 'org-agenda)
+     (global-set-key "\C-cb" 'org-iswitchb)
+     (setq org-agenda-files (quote ("~/org")))))
 
 ;;automatically change to DONE when all children are done
 (defun org-summary-todo (n-done n-not-done)
@@ -190,57 +195,58 @@
 ;;Fontifying Code Buffers
 (setq org-src-fontify-natively t)
 
-(require 'org2blog)
+(eval-after-load "org2blog"
+  (setq org2blog/wp-blog-alist
+        '(("Repetition, Change, Contrast"
+           :url "http://repeatchange.wordpress.com"
+           :username "erez"
+           :default-title ""
+           :default-categories ("Cricket")
+           :tags-as-categories nil))))
 
-(setq org2blog/wp-blog-alist
-    '(("Repetition, Change, Contrast"
-       :url "http://repeatchange.wordpress.com"
-       :username "erez"
-       :default-title ""
-       :default-categories ("Cricket")
-       :tags-as-categories nil)))
-
-(require 'org-latex)
-(unless (boundp 'org-export-latex-classes)
-  (setq org-export-latex-classes nil))
-(add-to-list 'org-export-latex-classes
-             '("article"
-               "\\documentclass{article}"
-               ("\\section{%s}" . "\\section*{%s}")))
+(eval-after-load "org-latex"
+  '(progn
+     (unless (boundp 'org-export-latex-classes)
+       (setq org-export-latex-classes nil))
+     (add-to-list 'org-export-latex-classes
+                  '("article"
+                    "\\documentclass{article}"
+                    ("\\section{%s}" . "\\section*{%s}")))))
 
 (autoload 'markdown-mode "markdown-mode.el"
   "Major mode for editing Markdown files" t)
 
 ;;IRC
 
-(require 'oauth)
+(eval-after-load "erc"
+'(progn
+   (setq erc-autojoin-channels-alist
+         '(("freenode.net" "#emacs" "#plan9" "#archlinux")
+           ("gnome.net" "#gnome-shell")))
 
-(require 'erc)
-
-(setq erc-autojoin-channels-alist
-      '(("freenode.net" "#emacs" "#plan9" "#archlinux")
-      ("gnome.net" "#gnome-shell")))
-
-(erc-log-mode)
-(setq erc-log-channels-directory "~/.logs/")
-(setq erc-save-buffer-on-part t)
+   (erc-log-mode)
+   (setq erc-log-channels-directory "~/.logs/")
+   (setq erc-save-buffer-on-part t)))
 
 ;; status-net
 
-(require 'identica-mode)
-(setq statusnet-server "identi.ca")
-(setq identica-username "erez")
+(require 'oauth)
+
+(eval-after-load 'identica-mode
+  '(progn
+     (setq statusnet-server "identi.ca")
+     (setq identica-username "erez")))
 
 ;; twitter
 
-(require 'twittering-mode)
-(setq twittering-use-master-password t)
+(eval-after-load "twittering-mode"
+  (setq twittering-use-master-password t))
 
 ;;helper modules
 
 ;;Distinguish buffers of the same filename
-(require 'uniquify)
-(setq uniquify-buffer-name-style 'post-forward-angle-brackets)
+(eval-after-load "uniquify"
+  (setq uniquify-buffer-name-style 'post-forward-angle-brackets))
 
 ;;keyboard remapping
 
@@ -272,3 +278,9 @@
  ;; If there is more than one, they won't work right.
  '(cperl-hash-face ((t (:background "navy" :foreground "Red" :weight bold))))
  '(hl-line ((t (:inverse-video t)))))
+
+;; rest of your .emacs goes here
+
+(message "My .emacs loaded in %ds"
+         (destructuring-bind (hi lo ms) (current-time)
+           (- (+ hi lo) (+ (first *emacs-load-start*) (second *emacs-load-start*)))))
