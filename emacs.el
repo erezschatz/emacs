@@ -1,5 +1,4 @@
 (require 'cl)
-(defvar *emacs-load-start* (current-time))
 
 (server-start)
 
@@ -248,6 +247,8 @@
 (eval-after-load "uniquify"
   (setq uniquify-buffer-name-style 'post-forward-angle-brackets))
 
+(eshell)
+
 ;;keyboard remapping
 
 ;;Invoke M-x without the Alt key
@@ -264,6 +265,7 @@
 ;;prevent suspend-frame
 (global-unset-key (kbd "C-z"))
 
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -278,9 +280,3 @@
  ;; If there is more than one, they won't work right.
  '(cperl-hash-face ((t (:background "navy" :foreground "Red" :weight bold))))
  '(hl-line ((t (:inverse-video t)))))
-
-;; rest of your .emacs goes here
-
-(message "My .emacs loaded in %ds"
-         (destructuring-bind (hi lo ms) (current-time)
-           (- (+ hi lo) (+ (first *emacs-load-start*) (second *emacs-load-start*)))))
