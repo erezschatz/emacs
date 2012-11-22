@@ -85,9 +85,9 @@
  (append auto-mode-alist interpreter-mode-alist))
 
 ;;cperl indents
-(setq cperl-indent-level 4
-      cperl-close-paren-offset -4
-      cperl-continued-statement-offset 4
+(setq cperl-indent-level 8
+      cperl-close-paren-offset -8
+      cperl-continued-statement-offset 8
       cperl-indent-parens-as-block t
       cperl-tab-always-indent t)
 
@@ -117,7 +117,7 @@
                        temp-file
                        (file-name-directory buffer-file-name))))
     (list "perl"
-          (list "-I/home/erez/perl5/lib/perl5" "-I./lib" "-wc" local-file))))
+          (list "-I/home/erez/.perl5/lib/perl5" "-I./lib" "-wc" local-file))))
 
 ;;make cperl-mode always highlight scalar variables
 (setq cperl-highlight-variables-indiscriminately t)
