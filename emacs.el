@@ -117,7 +117,7 @@
                        temp-file
                        (file-name-directory buffer-file-name))))
     (list "perl"
-          (list "-I/home/erez/.perl5/lib/perl5" "-I./lib" "-wc" local-file))))
+          (list "-I/home/erez/\.perl5/lib/perl5" "-I./lib" "-wc" local-file))))
 
 ;;make cperl-mode always highlight scalar variables
 (setq cperl-highlight-variables-indiscriminately t)
@@ -231,21 +231,20 @@
 
 (require 'oauth)
 
-(eval-after-load 'identica-mode
-  '(progn
-     (setq statusnet-server "identi.ca")
-     (setq identica-username "erez")))
+(require 'identica-mode)
+(setq statusnet-server "identi.ca")
+(setq identica-username "erez")
 
 ;; twitter
 
-(eval-after-load "twittering-mode"
-  (setq twittering-use-master-password t))
+(require 'twittering-mode)
+(setq twittering-use-master-password t)
 
 ;;helper modules
 
 ;;Distinguish buffers of the same filename
-(eval-after-load "uniquify"
-  (setq uniquify-buffer-name-style 'post-forward-angle-brackets))
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'post-forward-angle-brackets)
 
 (eshell)
 
