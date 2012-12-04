@@ -110,21 +110,37 @@
 ;;load cperl-mode for psgi file
 (add-to-list 'auto-mode-alist '("\\.psgi$" . cperl-mode))
 
+(defun flymake-create-temp-intemp (file-name prefix)
+  (unless (stringp file-name)
+    (error "Invalid file-name"))
+  (or prefix
+      (setq prefix "flymake"))
+  (let* ((name (concat
+                (file-name-nondirectory
+                 (file-name-sans-extension file-name))
+                "_" prefix))
+         (ext  (concat "." (file-name-extension file-name)))
+         (temp-name (make-temp-file name nil ext)))
+    (flymake-log 3 "create-temp-intemp: file=%s temp=%s" file-name temp-name)
+    temp-name))
+
+(setq temporary-file-directory "~/.emacs.d/tmp/")
+
 (defun flymake-perl-init ()
   (let* ((temp-file   (flymake-init-create-temp-buffer-copy
-                       'flymake-create-temp-inplace))
+                       'flymake-create-temp-intemp))
         (local-file  (file-relative-name
                        temp-file
                        (file-name-directory buffer-file-name))))
     (list "perl"
-          (list "-I/home/erez/\.perl5/lib/perl5" "-I./lib" "-wc" local-file))))
+          (list "-I/home/erez/.perl5/lib/perl5" "-I./lib" "-wc" local-file))))
 
 ;;make cperl-mode always highlight scalar variables
 (setq cperl-highlight-variables-indiscriminately t)
 
 ;;load tt mode
-(eval-after-load "tt-mode"
-  (add-to-list 'auto-mode-alist'("\\.tt[0-9]?\\'" . tt-mode)))
+(require 'tt-mode)
+(add-to-list 'auto-mode-alist'("\\.tt[0-9]?$" . tt-mode))
 
 ;;perltidy
 (require 'perltidy)
@@ -147,6 +163,10 @@
 (add-hook 'js-mode-hook
           (lambda()
             (linum-mode t)))
+
+;;php
+(load-file "~/confemacs/site-lisp/php-mode-improved.el")
+(require 'php-mode)
 
 ;;slime
 (setq inferior-lisp-program "/usr/bin/sbcl")
