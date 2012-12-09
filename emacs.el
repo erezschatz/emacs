@@ -75,6 +75,8 @@
 
 (setq c-basic-offset 8)
 
+(require 'yasnippet)
+
 ;;perl
 
 ;;map perl editing to cperl-mode
@@ -100,7 +102,8 @@
           (lambda()
             (progn
               (linum-mode t)
-              (flymake-mode t))))
+              (flymake-mode t)
+              (yas-minor-mode))))
 
 (global-set-key (kbd "C-h P") 'perldoc)
 
@@ -133,7 +136,7 @@
                        temp-file
                        (file-name-directory buffer-file-name))))
     (list "perl"
-          (list "-I/home/erez/.perl5/lib/perl5" "-I./lib" "-wc" local-file))))
+          (list "-I/home/erez/.perl5/lib/perl5" "-Ilib" "-wc" local-file))))
 
 ;;make cperl-mode always highlight scalar variables
 (setq cperl-highlight-variables-indiscriminately t)
