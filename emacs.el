@@ -1,6 +1,9 @@
 (require 'cl)
 
-(server-start)
+;;no tool bar, no menu bar, no scrollbar
+(if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
+(if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
+(if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
 
 ;;X system only
 (if window-system
@@ -20,15 +23,6 @@
 
 ;;disable tabs
 (setq-default indent-tabs-mode nil)
-
-;;no tool bar, no menu bar, no scrollbar
-(if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
-(if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
-(if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
-
-;;don't display the intro page
-(setq inhibit-default-init nil)
-(setq inhibit-startup-screen t)
 
 ;;set title to buffer name
 (setq frame-title-format "%b")
@@ -61,6 +55,10 @@
 
 ;;automatically revert buffer
 (global-auto-revert-mode t)
+
+;; Also auto refresh dired, but be quiet about it
+(setq global-auto-revert-non-file-buffers t)
+(setq auto-revert-verbose nil)
 
 (autoload 'ibuffer "ibuffer" "List buffers." t)
 
@@ -168,7 +166,7 @@
             (linum-mode t)))
 
 ;;php
-(load-file "~/confemacs/site-lisp/php-mode-improved.el")
+(load-file "~/emacs/site-lisp/php-mode-improved.el")
 (require 'php-mode)
 
 ;;slime
@@ -190,8 +188,27 @@
 (global-set-key (kbd "\C-x\C-a") 'ack)
 
 ;;git
+
 (require 'magit)
 (require 'git-blame)
+
+;; full screen magit-status
+;; http://whattheemacsd.com//setup-magit.el-01.html
+;; This code makes magit-status run alone in the frame,
+;; and then restores the old window configuration when you quit out of magit.
+
+(defadvice magit-status (around magit-fullscreen activate)
+  (window-configuration-to-register :magit-fullscreen)
+  ad-do-it
+  (delete-other-windows))
+
+(defun magit-quit-session ()
+  "Restores the previous window configuration and kills the magit buffer"
+  (interactive)
+  (kill-buffer)
+  (jump-to-register :magit-fullscreen))
+
+(define-key magit-status-mode-map (kbd "q") 'magit-quit-session)
 
 ;;tramp - Transparent Remote (file) Access, Multiple Protocol
 (require 'tramp)
@@ -269,6 +286,9 @@
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'post-forward-angle-brackets)
 
+(unless (server-running-p)
+  (server-start))
+
 (eshell)
 
 ;;keyboard remapping
@@ -287,6 +307,9 @@
 ;;prevent suspend-frame
 (global-unset-key (kbd "C-z"))
 
+;;don't display the intro page
+(setq inhibit-default-init nil)
+(setq inhibit-startup-screen t)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
