@@ -12,4 +12,4 @@
 ;;prevent suspend-frame
 (global-unset-key (kbd "C-z"))
 
-(provide 'key-bindings)
+(provide 'key-binding)
