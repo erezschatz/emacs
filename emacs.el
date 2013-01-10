@@ -86,6 +86,9 @@
 (require 'fit-frame)
 (add-hook 'after-make-frame-functions 'fit-frame)
 
+;; highlight 80th column
+(require 'fill-column-indicator)
+
 ;; Language modules
 
 ;;c

@@ -55,7 +55,7 @@
                        temp-file
                        (file-name-directory buffer-file-name))))
     (list "perl"
-          (list "-I/home/erez/.perl5/lib/perl5" "-Ilib" "-wc" local-file))))
+          (list "-I/home/erez/.perl5/lib/perl5" "-I./lib/" "-wc" local-file))))
 
 ;;make cperl-mode always highlight scalar variables
 (setq cperl-highlight-variables-indiscriminately t)
