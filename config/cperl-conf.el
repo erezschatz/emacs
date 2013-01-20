@@ -21,8 +21,7 @@
           (lambda()
             (progn
               (linum-mode t)
-              (flymake-mode t)
-              (yas-minor-mode))))
+              (flymake-mode t))))
 
 (global-set-key (kbd "C-h P") 'perldoc)
 
