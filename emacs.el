@@ -87,7 +87,7 @@
 (add-hook 'after-make-frame-functions 'fit-frame)
 
 ;; highlight 80th column
-(require 'fill-column-indicator)
+;;(require 'fill-column-indicator)
 
 ;; Language modules
 
@@ -107,9 +107,9 @@
             (linum-mode t)))
 
 ;;php
-(load-file "~/emacs/site-lisp/php-mode-improved.el")
-(require 'php-mode)
-(require 'mmm-mode)
+;;(load-file "~/emacs/site-lisp/php-mode-improved.el")
+;;(require 'php-mode)
+;;(require 'mmm-mode)
 
 ;;slime
 (setq inferior-lisp-program "/usr/bin/sbcl")
