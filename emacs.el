@@ -116,6 +116,14 @@
 (require 'slime)
 (slime-setup)
 
+;; android development
+
+(require 'android-mode)
+(setq android-mode-sdk-dir "~/adt-bundle-linux-x86/sdk/")
+(add-hook 'gud-mode-hook
+          (lambda ()
+            (add-to-list 'gud-jdb-classpath "/home/erez/adt-bundle-linux-x86/sdk/platforms/android-17/android.jar")))
+
 ;; auctex
 (load "auctex.el" nil t t)
 (load "preview-latex.el" nil t t)
