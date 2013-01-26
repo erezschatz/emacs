@@ -27,4 +27,18 @@
                     "\\documentclass{article}"
                     ("\\section{%s}" . "\\section*{%s}")))))
 
+;; org2blog
+
+(require 'org2blog-autoloads)
+
+(require 'netrc)
+(setq blog (netrc-machine (netrc-parse "~/.netrc") "wordpress" t))
+(setq org2blog/wp-blog-alist
+      '(("wordpress"
+         :url "http://repeatchange.wordpress.com/xmlrpc.php"
+         :username (netrc-get blog "login")
+         :default-title ""
+         :default-categories ("")
+         :password (netrc-get blog "password"))))
+
 (provide 'org-mode-conf)
