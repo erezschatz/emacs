@@ -10,11 +10,11 @@
     (progn
       ;; set default font
       (set-face-attribute 'default nil
-                          :font "Terminus"
+                          :font "Tamsyn"
                           :height 80
                           :background "black"
                           :foreground "white")
-      (set-face-attribute 'tooltip nil :font "Terminus" :height 80)))
+      (set-face-attribute 'tooltip nil :font "Tamsyn" :height 80)))
 
 ;; don't display the intro page
 (setq inhibit-default-init nil)
