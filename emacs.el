@@ -105,11 +105,6 @@
           (lambda()
             (linum-mode t)))
 
-;; php
-(load-file "~/emacs/site-lisp/php-mode-improved.el")
-(require 'php-mode)
-(require 'mmm-mode)
-
 ;; slime
 (setq inferior-lisp-program "/usr/bin/sbcl")
 
