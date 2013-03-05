@@ -113,6 +113,8 @@
           (lambda()
             (linum-mode t)))
 
+(setq js2-basic-offset 4)
+
 ;; slime
 (setq inferior-lisp-program "/usr/bin/sbcl")
 
