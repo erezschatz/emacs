@@ -100,9 +100,10 @@
 
 ;; javascript
 (require 'json)
+(add-to-list 'auto-mode-alist '("\\.json\\'" . json-mode))
 
 (autoload 'js2-mode "js2-mode" nil t)
-(add-to-list 'auto-mode-alist '("\\.js\\'" . js2-mode))
+(add-to-list 'auto-mode-alist '("\\.js$\\'" . js2-mode))
 
 (add-hook 'js-mode-hook
           (lambda()
@@ -120,12 +121,6 @@
 
 (require 'slime)
 (slime-setup)
-
-(autoload 'vala-mode "vala-mode" "Major mode for editing Vala code." t)
-(add-to-list 'auto-mode-alist '("\\.vala$" . vala-mode))
-(add-to-list 'auto-mode-alist '("\\.vapi$" . vala-mode))
-(add-to-list 'file-coding-system-alist '("\\.vala$" . utf-8))
-(add-to-list 'file-coding-system-alist '("\\.vapi$" . utf-8))
 
 ;; android development
 
