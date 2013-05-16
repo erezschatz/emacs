@@ -1,4 +1,4 @@
-(require 'cl)
+(require 'cl-lib)
 
 ;; no tool bar, no menu bar, no scrollbar
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
@@ -10,11 +10,11 @@
     (progn
       ;; set default font
       (set-face-attribute 'default nil
-                          :font "Tamsyn"
+                          :font "Terminus"
                           :height 80
                           :background "black"
                           :foreground "white")
-      (set-face-attribute 'tooltip nil :font "Tamsyn" :height 80)))
+      (set-face-attribute 'tooltip nil :font "Terminus" :height 80)))
 
 ;; don't display the intro page
 (setq inhibit-default-init nil)
@@ -124,13 +124,13 @@
 
 ;; android development
 
-(require 'android-mode)
-(setq android-mode-sdk-dir "~/dev/adt-bundle-linux-x86/sdk/")
-(add-hook 'gud-mode-hook
-          (lambda ()
-            (add-to-list
-             'gud-jdb-classpath
-             "~/dev/adt-bundle-linux-x86/sdk/platforms/android-17/android.jar")))
+;; (require 'android-mode)
+;; (setq android-mode-sdk-dir "~/dev/adt-bundle-linux-x86/sdk/")
+;; (add-hook 'gud-mode-hook
+;;           (lambda ()
+;;             (add-to-list
+;;              'gud-jdb-classpath
+;;              "~/dev/adt-bundle-linux-x86/sdk/platforms/android-17/android.jar")))
 
 ;; auctex
 (load "auctex.el" nil t t)

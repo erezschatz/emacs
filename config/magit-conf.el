@@ -1,5 +1,5 @@
 (require 'magit)
-(require 'git-blame)
+;;(require 'git-blame)
 
 ;; full screen magit-status
 ;; http://whattheemacsd.com//setup-magit.el-01.html
