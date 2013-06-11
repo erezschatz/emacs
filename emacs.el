@@ -122,15 +122,13 @@
 (require 'slime)
 (slime-setup)
 
-;; android development
+;; erlang
 
-;; (require 'android-mode)
-;; (setq android-mode-sdk-dir "~/dev/adt-bundle-linux-x86/sdk/")
-;; (add-hook 'gud-mode-hook
-;;           (lambda ()
-;;             (add-to-list
-;;              'gud-jdb-classpath
-;;              "~/dev/adt-bundle-linux-x86/sdk/platforms/android-17/android.jar")))
+(setq load-path (cons  "/usr/lib/erlang/lib/tools-2.6.7/emacs"
+                       load-path))
+(setq erlang-root-dir "/usr/lib/erlang")
+(setq exec-path (cons "/usr/lib/erlang/bin" exec-path))
+(require 'erlang-start)
 
 ;; auctex
 (load "auctex.el" nil t t)
