@@ -165,8 +165,17 @@
    (setq erc-log-channels-directory "~/.logs/")
    (setq erc-save-buffer-on-part t)))
 
+;; twitter
+
+(require 'twittering-mode)
+(setq twittering-use-master-password t)
+
+;; Server
+
 (unless (server-running-p)
   (server-start))
+
+;; shell
 
 (eshell)
 
