@@ -136,14 +136,6 @@
 
 ;; development tools modules
 
-;; full-ack
-(autoload 'ack-same "full-ack" nil t)
-(autoload 'ack "full-ack" nil t)
-(autoload 'ack-find-same-file "full-ack" nil t)
-(autoload 'ack-find-file "full-ack" nil t)
-(setq ack-executable (executable-find "/home/erez/perl5/bin/ack"))
-(global-set-key (kbd "\C-x\C-a") 'ack)
-
 ;; git
 (require 'magit-conf)
 
@@ -158,7 +150,7 @@
 (eval-after-load "erc"
 '(progn
    (setq erc-autojoin-channels-alist
-         '(("freenode.net" "#emacs" "#plan9" "#archlinux")
+         '(("freenode.net" "#emacs")
            ("gnome.net" "#gnome-shell")))
 
    (erc-log-mode)
