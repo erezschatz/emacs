@@ -109,7 +109,6 @@
           (lambda()
             (linum-mode t)))
 
-
 (add-hook 'js2-mode-hook
           (lambda()
             (linum-mode t)))
@@ -161,6 +160,7 @@
 
 (require 'twittering-mode)
 (setq twittering-use-master-password t)
+(twit)
 
 ;; Server
 
