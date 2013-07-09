@@ -12,4 +12,7 @@
 ;;prevent suspend-frame
 (global-unset-key (kbd "C-z"))
 
+;; hop between frames
+(global-set-key "\C-x" [next] 'other-frame)
+
 (provide 'key-binding)

@@ -144,23 +144,9 @@
 (autoload 'markdown-mode "markdown-mode.el"
   "Major mode for editing Markdown files" t)
 
-;; IRC
+;; IRC, IM and twitter
 
-(eval-after-load "erc"
-'(progn
-   (setq erc-autojoin-channels-alist
-         '(("freenode.net" "#emacs")
-           ("gnome.net" "#gnome-shell")))
-
-   (erc-log-mode)
-   (setq erc-log-channels-directory "~/.logs/")
-   (setq erc-save-buffer-on-part t)))
-
-;; twitter
-
-(require 'twittering-mode)
-(setq twittering-use-master-password t)
-(twit)
+(require 'social-conf)
 
 ;; Server
 
@@ -168,7 +154,8 @@
   (server-start))
 
 ;; shell
-
+(require 'shell-switcher)
+(setq shell-switcher-mode t)
 (eshell)
 
 (custom-set-variables
