@@ -1,5 +1,5 @@
 # upgrade system
-alias upgrade='sudo apt-get update && sudo apt-get upgrade'
+alias upgrade='sudo apt-get update && sudo apt-get dist-upgrade'
 
 function cpanupdate {
     for i in $(cpan-outdated --local-lib-contained=/home/erez/.perl5/); do
@@ -16,7 +16,7 @@ alias upall='upgrade; cpanupdate; got update'
 
 # routing
 
-~/.route.sh
+source ~/.route.sh
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
@@ -47,8 +47,10 @@ function cpam {
          cpanm $module
 }
 
+# todo: check for -M stuff to add modules
 function perlm {
-    perl -MModern::Perl -e
+	echo $1
+    perl -MModern::Perl -e '$1'
 }
 
 alias perlc='perl -MModern::Perl -c '
