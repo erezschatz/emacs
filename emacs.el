@@ -82,8 +82,19 @@
 ;;tramp - Transparent Remote (file) Access, Multiple Protocol
 (require 'tramp)
 
+;; frame commands
+
 (require 'fit-frame)
+(setq fit-frame-min-width 82)
 (add-hook 'after-make-frame-functions 'fit-frame)
+
+(defun run-command-other-frame (command)
+  "Run COMMAND in a new frame."
+  (interactive "CC-x 5 M-x ")
+  (select-frame (new-frame))
+  (call-interactively command)
+  (fit-frame))
+(global-set-key "\C-x5\M-x" 'run-command-other-frame)
 
 ;; highlight 80th column
 (require 'fill-column-indicator)
@@ -156,7 +167,9 @@
 ;; shell
 (require 'shell-switcher)
 (setq shell-switcher-mode t)
-(eshell)
+
+;; opens shell for switcher
+(shell-switcher-switch-buffer)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.

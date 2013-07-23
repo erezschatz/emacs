@@ -20,6 +20,11 @@
 
 (require 'twittering-mode)
 (setq twittering-use-master-password t)
+
+(add-hook 'twittering-edit-mode-hook
+          (lambda ()
+            (ispell-minor-mode) (flyspell-mode)))
+
 (twit)
 
 (provide 'social-conf)
