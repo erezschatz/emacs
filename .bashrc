@@ -76,7 +76,7 @@ if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
-if [ -f ~/.git_term ]; then
+if [ -f ~/.git_term -a $TERM != 'dumb' ]; then
     . ~/.git_term
 fi
 
