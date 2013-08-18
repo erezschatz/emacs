@@ -78,6 +78,8 @@ fi
 
 if [ -f ~/.git_term -a $TERM != 'dumb' ]; then
     . ~/.git_term
+else
+	unset PROMPT_COMMAND
 fi
 
 # enable programmable completion features (you don't need to enable

@@ -7,9 +7,9 @@
 #
 # See video demo of this at http://vimeo.com/15789794
 #
-# To enable save as .bash_prompt in $HOME and add to .bashrc:
+# To enable save as .git_term in $HOME and add to .bashrc:
 #
-# . ~/.bash_prompt
+# . ~/.git_term
 #
 # Pedro Melo, <melo@simplicidade.org>
 #
