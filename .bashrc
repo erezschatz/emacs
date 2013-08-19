@@ -78,8 +78,11 @@ fi
 
 if [ -f ~/.git_term -a $TERM != 'dumb' ]; then
     . ~/.git_term
+	EDITOR=nano 
 else
 	unset PROMPT_COMMAND
+	EDITOR=E
+	unset FCEDIT VISUAL
 fi
 
 # enable programmable completion features (you don't need to enable
@@ -95,7 +98,16 @@ fi
 
 eval $(perl -I$HOME/.perl5/lib/perl5 -Mlocal::lib=$HOME/.perl5)
 
-PLAN9=/home/erez/plan9 export PLAN9
-PATH=$PATH:$PLAN9/bin export PATH
+# plan9 stuff
 
-EDITOR=nano
+PLAN9=/home/erez/plan9 
+PATH=$PATH:$PLAN9/bin
+
+GS_FONTPATH=$PLAN9/postscript/font 
+
+# Default font for Plan 9 programs.
+font=$PLAN9/font/fixed/unicode.6x13.font
+
+BROWSER=firefox
+
+export EDITOR BROWSER font GS_FONTPATH PLAN9 PATH
