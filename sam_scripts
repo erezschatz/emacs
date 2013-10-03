@@ -9,6 +9,9 @@ change to for(var i = 0, l = foo.length; i < l...
 return distinct line numbers
 ,x/^.*$/g/<search term>/=
 
+from sam cheat sheet
+http://sam.cat-v.org/cheatsheet/
+
 strip <cr> from all files
 X/.*/,x/<cr>/d
 
@@ -18,16 +21,17 @@ x/ˆ/ .,/0d
 goto the 10th column in the current line
 -/ˆ/+#10 
 
--0+,+0- 
 round dot down to whole lines only
+-0+,+0- 
 
-,x/ +/ v/ˆ/ c/ /
 compress runs of spaces, leaving indentation
+,x/ +/ v/ˆ/ c/ /
 
-s/"([ˆ"]*)"/‘‘1’’/
 replace "hello" with ‘‘hello’’ in selection
+s/"([ˆ"]*)"/‘‘1’’/
 
-f <nl> set current file-name to null
+set current file-name to null
+f <nl> 
 
 < echo ""
 insert ascii code xxx at current pos
@@ -37,6 +41,7 @@ count lines in file
 
 /text/+-p
 highlight the lines containing <pat> 
+
 -/text/
 search for text backwards
 
@@ -48,6 +53,7 @@ grep for text
 
 .x/<pat>/ c/<rep>/
 search for <pat> and replace with <rep> 
+
 B < echo *.c
 add all the C files in current dir to file list
 
@@ -97,11 +103,9 @@ remove out all up-to-date files
 sort current file
 
 ,x/ˆTODAY$/ < date
-replace TODAY
+replace TODAY on with the output of date
 
-on with the output of date
 ,x/Plan9/ | tr a-z A-Z
-
 replace all instances of Plan9 with upper case
 
 ,t "junk.c" 0
@@ -119,7 +123,7 @@ swap fred for jim in file
 	g/jim/ v/..../ c/fred/
 }
 
-replace one line with the one before it
-,x/.*\n.\n/{
-	
+find pairs of lines, replace order
+,x/.+\n.+/{
+		
 }
