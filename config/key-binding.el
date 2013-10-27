@@ -13,11 +13,11 @@
 (global-unset-key (kbd "C-z"))
 
 ;; hop between frames
-(global-set-key "\C-x" [next] 'other-frame)
+;;(global-set-key "\C-x" ['other-frame)
 
 (defun ispell-check-mode ()
-  lambda ()
-  (ispell-minor-mode) (flyspell-mode))
-(global-set-key "\C-z" ispell-check-mode)
+  (lambda ()
+  (ispell-minor-mode) (flyspell-mode)))
+(global-set-key "\C-z" 'ispell-check-mode)
 
 (provide 'key-binding)

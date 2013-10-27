@@ -133,14 +133,6 @@
 (require 'slime)
 (slime-setup)
 
-;; erlang
-
-(setq load-path (cons  "/usr/lib/erlang/lib/tools-2.6.7/emacs"
-                       load-path))
-(setq erlang-root-dir "/usr/lib/erlang")
-(setq exec-path (cons "/usr/lib/erlang/bin" exec-path))
-(require 'erlang-start)
-
 ;; auctex
 (load "auctex.el" nil t t)
 (load "preview-latex.el" nil t t)
@@ -173,13 +165,24 @@
 ;; opens shell for switcher
 (shell-switcher-switch-buffer)
 
- (setq browse-url-browser-function 'w3m-browse-url)
- (autoload 'w3m-browse-url "w3m" "Ask a WWW browser to show a URL." t)
+(add-hook 'eshell-mode-hook
+          (lambda ()
+            (local-set-key (kbd "C-c h")
+                           (lambda ()
+                             (interactive)
+                             (insert
+                              (ido-completing-read
+                               "Eshell history: "
+                               (delete-dups
+                                (ring-elements eshell-history-ring))))))
+            (local-set-key (kbd "C-c C-h") 'eshell-list-history)))
 
 ;; because I'm lazy to reformat these
 
 (custom-set-variables)
 
 (custom-set-faces
- '(cperl-hash-face ((t (:background "navy" :foreground "Red" :weight bold))))
- '(hl-line ((t (:inverse-video t)))))
+ '(cperl-hash-face
+   ((t (:background "navy" :foreground "Red" :weight bold))))
+ '(hl-line
+((t (:inverse-video t)))))
