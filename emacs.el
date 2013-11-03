@@ -140,7 +140,7 @@
 ;; development tools modules
 
 ;; git
-(require 'magit-conf)
+;; (require 'magit-conf)
 
 ;; org-mode
 (require 'org-mode-conf)
@@ -155,7 +155,7 @@
 
 ;; Server, Shell, Browser
 
-(unless (server-running-p)
+(unless (fboundp 'server-running-p)
   (server-start))
 
 ;; shell
