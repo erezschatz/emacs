@@ -47,6 +47,11 @@ function upplan9 {
 
 alias upall='upgrade; cpanupdate; got update; upplan9'
 
+function delete {
+	sudo apt-get purge $1
+	sudo apt-get autoremove --purge
+	sudo apt-get remove --purge $(deborphan)
+}
 
 # common linux tools
 
@@ -72,6 +77,7 @@ alias bd=". /home/erez/dev/bd/bd -s"
 alias btsync="$HOME/btsync/btsync"
 alias node='nodejs'
 alias js='js17'
+alias kiwi="$HOME/dev/KiwiIRC/kiwi start"
 
 # possible fonts
 
