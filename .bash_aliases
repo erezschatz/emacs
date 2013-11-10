@@ -16,7 +16,7 @@ function upgrade {
 	name=$(uname -a)
 	if [[ $name =~ Ubuntu ]]; then
 		sudo apt-get update && sudo apt-get dist-upgrade
-	elif [ $name =~ ARCH ]; then
+	elif [[ $name =~ ARCH ]]; then
 		sudo pacman -Syu
 	else 
 		echo "Unknown operating system uname $name"
@@ -24,6 +24,8 @@ function upgrade {
 }
 
 function cpanupdate {
+	echo "begin updating cpan modules"
+
 	modules=$(cpan-outdated --local-lib-contained=/home/erez/.perl5/)
 
 	for i in ${modules[@]}; do
@@ -36,6 +38,7 @@ function cpanupdate {
     	done
 
 	cpanm $modules
+	echo
 }
 
 function upplan9 {
@@ -43,7 +46,10 @@ function upplan9 {
 	cd $PLAN9
 	hg pull -u
 	cd $current
+	echo
 }
+
+function update {
 
 alias upall='upgrade; cpanupdate; got update; upplan9'
 
