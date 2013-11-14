@@ -49,8 +49,6 @@ function upplan9 {
 	echo
 }
 
-function update {
-
 alias upall='upgrade; cpanupdate; got update; upplan9'
 
 
