@@ -1,3 +1,5 @@
+# There are exactly eighty characters in this line, including the # at the start
+
 # Default stuff, came with OS sometimes back, may be good for something
 
 # enable color support of ls and also add handy aliases
@@ -8,7 +10,6 @@ if [ -x /usr/bin/dircolors ]; then
     alias fgrep='fgrep --color=auto'
     alias egrep='egrep --color=auto'
 fi
-
 
 # System upgrade commands
 
@@ -23,21 +24,6 @@ function upgrade {
 	fi
 }
 
-function cpanupdate {
-	modules=$(cpan-outdated --local-lib-contained=/home/erez/.perl5/)
-
-	for i in ${modules[@]}; do
-        	if [[ $i =~ IDOPEREL ]]; then
-			modules=( "${modules[0]/$i}" )
-        	elif [[ $i =~ cpanminus ]]; then
-			cpanm $i;
-			modules=( "${modules[0]/$i}" )			
-       		fi;
-    	done
-
-	cpanm $modules
-}
-
 function upplan9 {
 	current=$(pwd)
 	cd $PLAN9
@@ -50,7 +36,9 @@ alias upall='upgrade; cpanupdate; got update; upplan9'
 function delete {
 	sudo apt-get purge $1
 	sudo apt-get autoremove --purge
-	sudo apt-get remove --purge $(deborphan)
+#	while; do		
+#		sudo apt-get remove --purge $(deborphan)
+#	done
 }
 
 # common linux tools
@@ -85,8 +73,6 @@ alias kiwi="$HOME/dev/KiwiIRC/kiwi start"
 #            /fixed/unicode.6x13.font
 #            /fixed/unicode.7x13B.font
 
-# want to check for 80 characters?
-# There are exactly eighty characters in this line, including the # at the start
 function acme {
 	nohup acme \
 		-f $PLAN9/font/fixed/unicode.6x13.font \
@@ -95,7 +81,6 @@ function acme {
 }
 
 alias dentro='firefox -app /home/erez/dev/dentro/application.ini &'
-
 
 # Perl and CPAN
 
@@ -114,5 +99,37 @@ function perlm {
    	perl -MModern::Perl -e "$1"
 }
 
+# takes C/CH/CHALK/Hop-Scotch-1.2345.tar.gz and checks if
+# mversion for Hop::Scotch is 1,2345
+
+function same_mversion {
+	input=${1##*/}
+	input=${input%%.tar.gz}
+	module=${input%-*}
+	module=${module/-/::}
+	return echo $(mversion $module)"<"${input##*-} | bc
+}
+
 # compile under Modern::Perl
 alias perlc='perl -MModern::Perl -wc '
+
+# gets all (local) libraries that report found update using cpan-outdated
+# check if not cpanminus, specific creators or mversion repeats same version
+# deletes these items from array and runs them through cpanminus
+function cpanupdate {
+	modules=$(cpan-outdated --local-lib-contained=/home/erez/.perl5/)
+
+	for i in ${modules[@]}; do
+        	if [[ $i =~ IDOPEREL ]]; then
+			modules=( "${modules[0]/$i}" )
+        	elif [[ $i =~ cpanminus ]]; then
+			cpanm $i;
+			modules=( "${modules[0]/$i}" )
+		elif same_mversion $i; then
+			modules=( "${modules[0]/$i}" )	
+       		fi;
+    	done
+
+	cpanm $modules
+}
+

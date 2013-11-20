@@ -1,0 +1,6 @@
+startup_message off
+
+escape ^Zz
+
+# use X scrolling
+termcapinfo xterm* ti@:te@
