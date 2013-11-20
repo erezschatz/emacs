@@ -29,7 +29,8 @@ fi
 
 # checks if its running under acme/emacs
 if [ -f ~/.git_term -a $TERM != 'dumb' ]; then
-    . ~/.git_term
+	source /usr/share/git/completion/git-prompt.sh
+	. ~/.git_term
 	EDITOR=nano 
 else
 	unset PROMPT_COMMAND

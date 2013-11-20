@@ -11,13 +11,14 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
+
 # System upgrade commands
 
 function upgrade {
 	name=$(uname -a)
 	if [[ $name =~ Ubuntu ]]; then
 		sudo apt-get update && sudo apt-get dist-upgrade
-	elif [ $name =~ ARCH ]; then
+	elif [[ $name =~ ARCH ]]; then
 		sudo pacman -Syu
 	else 
 		echo "Unknown operating system uname $name"
@@ -29,6 +30,7 @@ function upplan9 {
 	cd $PLAN9
 	hg pull -u
 	cd $current
+	echo
 }
 
 alias upall='upgrade; cpanupdate; got update; upplan9'
@@ -73,6 +75,8 @@ alias kiwi="$HOME/dev/KiwiIRC/kiwi start"
 #            /fixed/unicode.6x13.font
 #            /fixed/unicode.7x13B.font
 
+# want to check for 80 characters?
+# There are exactly eighty characters in this line, including the # at the start
 function acme {
 	nohup acme \
 		-f $PLAN9/font/fixed/unicode.6x13.font \
@@ -81,6 +85,7 @@ function acme {
 }
 
 alias dentro='firefox -app /home/erez/dev/dentro/application.ini &'
+
 
 # Perl and CPAN
 
