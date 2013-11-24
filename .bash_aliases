@@ -11,7 +11,6 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
-
 # System upgrade commands
 
 function upgrade {
@@ -81,7 +80,6 @@ function acme {
 
 alias sam='nohup /home/erez/plan9/bin/sam > /dev/null 2>&1 &'
 alias dentro='firefox -app /home/erez/dev/dentro/application.ini &'
-
 
 # Perl and CPAN
 

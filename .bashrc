@@ -26,7 +26,6 @@ if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
-
 # checks if its running under acme/emacs
 if [ -f ~/.git_term -a $TERM != 'dumb' ]; then
 	source /usr/share/git/completion/git-prompt.sh
