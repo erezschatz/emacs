@@ -59,9 +59,6 @@ function les {
 
 alias ll='ls -alF --color'
 
-# from https://github.com/vigneshwaranr/bd
-alias bd=". /home/erez/dev/bd/bd -s"
-
 # personal tools
 
 alias btsync="$HOME/btsync/btsync"
@@ -75,8 +72,6 @@ alias kiwi="$HOME/dev/KiwiIRC/kiwi start"
 #            /fixed/unicode.6x13.font
 #            /fixed/unicode.7x13B.font
 
-# want to check for 80 characters?
-# There are exactly eighty characters in this line, including the # at the start
 function acme {
 	nohup acme \
 		-f $PLAN9/font/fixed/unicode.6x13.font \
@@ -84,6 +79,7 @@ function acme {
 	>/dev/null 2>&1 &
 }
 
+alias sam='nohup /home/erez/plan9/bin/sam > /dev/null 2>&1 &'
 alias dentro='firefox -app /home/erez/dev/dentro/application.ini &'
 
 
