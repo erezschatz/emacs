@@ -11,7 +11,7 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
-# System upgrade commands
+# packages maintenance commands
 
 function upgrade {
 	name=$(uname -a)
@@ -58,7 +58,7 @@ function les {
 
 alias ll='ls -alF --color'
 
-# personal tools
+# tools
 
 alias btsync="$HOME/btsync/btsync"
 alias node='nodejs'
@@ -83,6 +83,8 @@ alias dentro='firefox -app /home/erez/dev/dentro/application.ini &'
 
 # Perl and CPAN
 
+alias cpan='cpanm'
+
 # Copy module file name from "Can't locate Hop/Scotch.pm in @INC"
 # $ cpam Hop/Scotch.pm
 # --> Working on Hop::Scotch
@@ -99,14 +101,20 @@ function perlm {
 }
 
 # takes C/CH/CHALK/Hop-Scotch-1.2345.tar.gz and checks if
-# mversion for Hop::Scotch is 1,2345
+# mversion for Hop::Scotch is smaller than 1.2345
 
 function same_mversion {
+	# remove path to file name, remove extention
 	input=${1##*/}
 	input=${input%%.tar.gz}
+
+	# trim version number and replace '-' with '::'
 	module=${input%-*}
 	module=${module/-/::}
-	return echo $(mversion $module)"<"${input##*-} | bc
+
+	
+	output=$(echo $(mversion $module) '<' ${input##*-} | bc -l)
+	return $output;
 }
 
 # compile under Modern::Perl
@@ -115,6 +123,7 @@ alias perlc='perl -MModern::Perl -wc '
 # gets all (local) libraries that report found update using cpan-outdated
 # check if not cpanminus, specific creators or mversion repeats same version
 # deletes these items from array and runs them through cpanminus
+
 function cpanupdate {
 	modules=$(cpan-outdated --local-lib-contained=/home/erez/.perl5/)
 
@@ -124,11 +133,15 @@ function cpanupdate {
         	elif [[ $i =~ cpanminus ]]; then
 			cpanm $i;
 			modules=( "${modules[0]/$i}" )
-		elif same_mversion $i; then
-			modules=( "${modules[0]/$i}" )	
-       		fi;
+		else 
+			result=$(same_mversion $i)
+			echo $result
+			if [ $result -eq 1 ]; then
+				modules=( "${modules[0]/$i}" )
+			fi
+       		fi
     	done
 
-	cpanm $modules
+	#cpanm $modules
 }
 
