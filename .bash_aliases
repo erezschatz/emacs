@@ -32,7 +32,7 @@ function upplan9 {
 	echo
 }
 
-alias upall='upgrade; cpanupdate; got update; upplan9'
+alias upall='upgrade; cpanupdate; gpull $HOME/dev/; upplan9'
 
 function delete {
 	sudo apt-get purge $1
@@ -61,9 +61,7 @@ alias ll='ls -alF --color'
 # tools
 
 alias btsync="$HOME/btsync/btsync"
-alias node='nodejs'
 alias js='js17'
-alias kiwi="$HOME/dev/KiwiIRC/kiwi start"
 
 # possible fonts
 
@@ -124,6 +122,8 @@ alias perlc='perl -MModern::Perl -wc '
 # check if not cpanminus, specific creators or mversion repeats same version
 # deletes these items from array and runs them through cpanminus
 
+# TODO: This doesn't work
+
 function cpanupdate {
 	modules=$(cpan-outdated --local-lib-contained=/home/erez/.perl5/)
 
@@ -143,5 +143,26 @@ function cpanupdate {
     	done
 
 	#cpanm $modules
+}
+
+# git
+
+function gpull {
+	if [ $1 -ne '' ]; then
+		for $i in $(ls $1); do
+			cd $1'/'$i
+			branch=$(__git_ps1 "%s")
+			if
+		done;
+	else
+		branch=$(__git_ps1 "%s")
+		pull_master_from $branch
+	fi;
+
+}
+
+function pull_master_from {
+	git checkout master && git pull
+	git checkout $1
 }
 
