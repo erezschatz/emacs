@@ -148,21 +148,23 @@ function cpanupdate {
 # git
 
 function gpull {
-	if [ $1 -ne '' ]; then
+	if [ ! -z "$1" ]; then
 		for $i in $(ls $1); do
 			cd $1'/'$i
-			branch=$(__git_ps1 "%s")
-			if
-		done;
+			pull_master_from $branch
+		done
 	else
-		branch=$(__git_ps1 "%s")
+
 		pull_master_from $branch
 	fi;
 
 }
 
 function pull_master_from {
-	git checkout master && git pull
-	git checkout $1
+	branch=$(__git_ps1 "%s")
+	if [ ! -z "$branch" ]; then
+		git checkout master && git pull
+		git checkout $branch
+	fi
 }
 
