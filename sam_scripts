@@ -1,3 +1,4 @@
+
 find all for(var i = 0; i < foo.length...
 change to for(var i = 0, l = foo.length; i < l...
 
@@ -127,3 +128,6 @@ find pairs of lines, replace order
 ,x/.+\n.+/{
 		
 }
+
+bash remove dangling semicolons
+,x/[^;];$/x/;$/d

@@ -51,9 +51,9 @@ function les {
 		elif [ -f "${i}}" ]; then		
 			less $i
 		else 
-			echo "${i} is not valid";
+			echo "${i} is not valid"
 		fi
-	done;
+	done
 }
 
 alias ll='ls -alF --color'
@@ -76,7 +76,7 @@ function acme {
 	>/dev/null 2>&1 &
 }
 
-alias sam='nohup /home/erez/plan9/bin/sam > /dev/null 2>&1 &'
+alias Sam='nohup /home/erez/plan9/bin/sam > /dev/null 2>&1 &'
 alias dentro='firefox -app /home/erez/dev/dentro/application.ini &'
 
 # Perl and CPAN
@@ -110,9 +110,8 @@ function same_mversion {
 	module=${input%-*}
 	module=${module/-/::}
 
-	
 	output=$(echo $(mversion $module) '<' ${input##*-} | bc -l)
-	return $output;
+	return $output
 }
 
 # compile under Modern::Perl
@@ -122,8 +121,6 @@ alias perlc='perl -MModern::Perl -wc '
 # check if not cpanminus, specific creators or mversion repeats same version
 # deletes these items from array and runs them through cpanminus
 
-# TODO: This doesn't work
-
 function cpanupdate {
 	modules=$(cpan-outdated --local-lib-contained=/home/erez/.perl5/)
 
@@ -131,18 +128,17 @@ function cpanupdate {
         	if [[ $i =~ IDOPEREL ]]; then
 			modules=( "${modules[0]/$i}" )
         	elif [[ $i =~ cpanminus ]]; then
-			cpanm $i;
+			cpanm $i
 			modules=( "${modules[0]/$i}" )
 		else 
 			result=$(same_mversion $i)
-			echo $result
-			if [ $result -eq 1 ]; then
+			if [ $result -eq 0 ]; then
 				modules=( "${modules[0]/$i}" )
 			fi
        		fi
     	done
 
-	#cpanm $modules
+	cpanm $modules
 }
 
 # git
@@ -156,7 +152,7 @@ function gpull {
 	else
 
 		pull_master_from $branch
-	fi;
+	fi
 
 }
 
