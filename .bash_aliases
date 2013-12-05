@@ -76,7 +76,11 @@ function acme {
 	>/dev/null 2>&1 &
 }
 
-alias Sam='nohup /home/erez/plan9/bin/sam > /dev/null 2>&1 &'
+if [ -r $HOME/.samcmds ]; then
+	touch $HOME/.samcmds
+fi
+alias Sam='nohup /home/erez/plan9/bin/sam .samcmds > /dev/null 2>&1 &'
+
 alias dentro='firefox -app /home/erez/dev/dentro/application.ini &'
 
 # Perl and CPAN
