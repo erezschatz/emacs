@@ -62,7 +62,7 @@ _update_prompt () {
   fi
 
   ## Color git status if any
-  branch=`__git_ps1 "(%s)"`
+  branch=$(__git_ps1 "(%s)")
   if [ -n "$branch" ] ; then
     if [ -z "$_dumb_prompt" ]; then
       ## Assumes that untracked files are always listed after modified ones
