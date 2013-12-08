@@ -136,7 +136,7 @@ function cpanupdate {
 			modules=( "${modules[0]/$i}" )
 		else 
 			result=$(same_mversion $i)
-			if [ $result -eq 0 ]; then
+			if [ ! -z "$result" ] && [ $result -eq 0 ]; then
 				modules=( "${modules[0]/$i}" )
 			fi
        		fi
