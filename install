@@ -1,7 +1,7 @@
 #!/bin/bash
 
 for i in $(ls -a); do 
-	if [[ $i =~ ^\.[^\.] ]]; then 
+	if [[ -f $i && $i =~ ^\.[^\.] ]]; then 
 		mv $i ~/ && ln ~/$i; 
 	fi; 
 done
