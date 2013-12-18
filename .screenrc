@@ -18,6 +18,6 @@ bind 'q' quit
 # windows generation, this for current project
 # syntax: screen -t label order command
 screen -t local 0
-screen -t mongodb 2 ssh -L 27017:localhost:27017 erezsc@clamps
-screen -t gearman 1 sudo ssh -L 4730:localhost:4730 erezsc@clamps
+screen -t mongodb 2 bash
+screen -t gearman 1 bash
 

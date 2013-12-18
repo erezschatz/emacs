@@ -1,6 +1,6 @@
 
 # takes C/CH/CHALK/Hop-Scotch-1.2345.tar.gz and checks if
-# mversion for Hop::Scotch is smaller than 1.2345
+# mversion for Hop::Scotch is smaller or equal to 1.2345
 
 function same_mversion {
 	# remove path to file name, remove extention
@@ -30,8 +30,16 @@ function cpam {
 # todo: check for -M stuff to add modules
 
 function perlm {
-	# code=pop params
-   	perl -MModern::Perl -e $1
+	params=( "$@" )
+
+	code=${params[${#params[@]}-1]}
+	unset params[${#params[@]}-1]
+
+	for (( i = 0 ; i < ${#params[@]} ; i++ )) do
+		params[$i]=-M${params[$i]}
+	done
+
+   	perl -MModern::Perl ${params[@]} -e $code
 }
 
 # compile under Modern::Perl
