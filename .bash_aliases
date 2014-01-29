@@ -32,7 +32,7 @@ function upplan9 {
 	echo
 }
 
-alias upall='upgrade; cpanupdate; gpull $HOME/dev/; upplan9'
+alias upall='upgrade; cpanupdate; upplan9'
 
 function delete {
 	sudo apt-get purge $1
@@ -47,8 +47,8 @@ function delete {
 function les {
 	for i in $@; do
 		if   [ -d "${i}" ]; then
-			ls --color=auto $i
-		elif [ -f "${i}}" ]; then		
+			ll $i
+		elif [ -f "${i}" ]; then		
 			less $i
 		else 
 			echo "${i} is not valid"
@@ -56,7 +56,7 @@ function les {
 	done
 }
 
-alias ll='ls -alF --color'
+alias ll='ls -alhF --color'
 
 # tools
 
@@ -69,7 +69,14 @@ alias js='js17'
 #            /fixed/unicode.6x13.font
 #            /fixed/unicode.7x13B.font
 
-function acme {
+function acmep {
+	nohup acme \
+		-f $PLAN9/font/pelm/unicode.8.font \
+		-m /mnt/acme -l /home/erez/acme.dump \
+	>/dev/null 2>&1 &
+}
+
+function Acme {
 	nohup acme \
 		-f $PLAN9/font/fixed/unicode.6x13.font \
 		-m /mnt/acme -l /home/erez/acme.dump \

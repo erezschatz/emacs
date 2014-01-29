@@ -12,7 +12,7 @@ function same_mversion {
 	module=${module/-/::}
 
 	output=$(echo $(mversion $module) '<' ${input##*-} | bc -l)
-	return $output
+	echo $output
 }
 
 alias cpan='cpanm'
@@ -53,18 +53,17 @@ function cpanupdate {
 	modules=$(cpan-outdated --local-lib-contained=/home/erez/.perl5/)
 
 	for i in ${modules[@]}; do
-        	if [[ $i =~ IDOPEREL ]]; then
-			modules=( "${modules[0]/$i}" )
-        	elif [[ $i =~ cpanminus ]]; then
+		if [[ $i =~ cpanminus ]]; then
 			cpanm $i
 			modules=( "${modules[0]/$i}" )
-		else 
+		else
 			result=$(same_mversion $i)
-			if [ $result -eq 0 ]; then
+			if [[ -z $result || $result -eq 0 ]]; then
 				modules=( "${modules[0]/$i}" )
 			fi
-       		fi
-    	done
+       	fi
+    done
 
+	# check if $modules empty, or
 	cpanm $modules
 }

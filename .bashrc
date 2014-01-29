@@ -27,15 +27,13 @@ if [ -f ~/.bash_aliases ]; then
 fi
 
 # checks if its running under acme/emacs
-if [ -f ~/.git_term -a $TERM != 'dumb' ]; then
-	source /usr/share/git/completion/git-prompt.sh
-	. ~/.git_term
-	EDITOR=nano 
-else
+#if [ -f ~/.git_term -a $TERM != 'dumb' ]; then
+#	source /usr/share/git/completion/git-prompt.sh
+#	. ~/.git_term
+#else
 	unset PROMPT_COMMAND
-	EDITOR=E
 	unset FCEDIT VISUAL
-fi
+#fi
 
 # enable programmable completion features
 if ! shopt -oq posix; then
@@ -70,5 +68,6 @@ if [ -f $HOME/.route.sh ]; then
 fi
 
 BROWSER=firefox
+EDITOR=nano
 
 export EDITOR BROWSER font GS_FONTPATH PLAN9 PATH
