@@ -78,7 +78,8 @@ function acmep {
 
 function Acme {
 	nohup acme \
-		-f $PLAN9/font/fixed/unicode.6x13.font \
+		-F $PLAN9/font/fixed/unicode.6x13.font \
+		-f $PLAN9/font//lucsans/unicode.7.font \
 		-m /mnt/acme -l /home/erez/acme.dump \
 	>/dev/null 2>&1 &
 }

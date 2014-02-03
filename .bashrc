@@ -68,6 +68,6 @@ if [ -f $HOME/.route.sh ]; then
 fi
 
 BROWSER=firefox
-EDITOR=nano
+EDITOR=E
 
 export EDITOR BROWSER font GS_FONTPATH PLAN9 PATH

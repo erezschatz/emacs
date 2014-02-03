@@ -9,7 +9,7 @@ function same_mversion {
 
 	# trim version number and replace '-' with '::'
 	module=${input%-*}
-	module=${module/-/::}
+	module=${module//-/::}
 
 	output=$(echo $(mversion $module) '<' ${input##*-} | bc -l)
 	echo $output
