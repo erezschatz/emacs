@@ -61,7 +61,6 @@ alias ll='ls -alhF --color'
 # tools
 
 alias btsync="$HOME/btsync/btsync"
-alias js='js17'
 
 # possible fonts
 
@@ -78,8 +77,7 @@ function acmep {
 
 function Acme {
 	nohup acme \
-		-F $PLAN9/font/fixed/unicode.6x13.font \
-		-f $PLAN9/font//lucsans/unicode.7.font \
+		-f $PLAN9/font/fixed/unicode.6x13.font \
 		-m /mnt/acme -l /home/erez/acme.dump \
 	>/dev/null 2>&1 &
 }
