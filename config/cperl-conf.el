@@ -32,24 +32,5 @@
 ;; make cperl-mode always highlight scalar variables
 (setq cperl-highlight-variables-indiscriminately t)
 
-;; load tt mode
-(require 'tt-mode)
-(add-to-list 'auto-mode-alist'("\\.tt[0-9]?$" . tt-mode))
-
-;; perltidy
-(require 'perltidy)
-
-;; pod-mode
-(eval-after-load "pod-mode"
-  '(progn
-     (add-to-list 'auto-mode-alist '("\\.pod$" . pod-mode))
-     (add-hook 'pod-mode-hook 'font-lock-mode)))
-
-;; yaml
-(eval-after-load "yaml-mode"
-  (add-to-list 'auto-mode-alist '("\\.ya?ml$" . yaml-mode)))
-
-;; less
-(require 'less-css-mode)
 
 (provide 'cperl-conf)

@@ -128,14 +128,14 @@
 (setq js2-basic-offset 4)
 
 ;; slime
-(setq inferior-lisp-program "/usr/bin/sbcl")
+;;(setq inferior-lisp-program "/usr/bin/sbcl")
 
-(require 'slime)
-(slime-setup)
+;;(require 'slime)
+;;(slime-setup)
 
 ;; auctex
-(load "auctex.el" nil t t)
-(load "preview-latex.el" nil t t)
+;;(load "auctex.el" nil t t)
+;;(load "preview-latex.el" nil t t)
 
 ;; development tools modules
 
@@ -145,12 +145,12 @@
 ;; org-mode
 (require 'org-mode-conf)
 
-(autoload 'markdown-mode "markdown-mode.el"
-  "Major mode for editing Markdown files" t)
+;;(autoload 'markdown-mode "markdown-mode.el"
+;;  "Major mode for editing Markdown files" t)
 
 ;; IRC, IM and twitter
 
-(require 'social-conf)
+;;(require 'social-conf)
 
 
 ;; Server, Shell, Browser
