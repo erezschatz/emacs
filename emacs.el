@@ -15,7 +15,6 @@
                           :background "black"
                           :foreground "white")
       (set-face-attribute 'tooltip nil :font "Terminus" :height 80)))
-
 ;; don't display the intro page
 (setq inhibit-default-init nil)
 (setq inhibit-startup-screen t)
@@ -66,7 +65,7 @@
 ;; try to kill emacs in most straightforward way possible
 (defadvice save-buffers-kill-emacs (around no-query-kill-emacs activate)
   "Prevent annoying Active processes exist query when you quit Emacs."
-  (flet ((process-list ())) ad-do-it))
+  (let ((process-list ())) ad-do-it))
 (setq confirm-kill-emacs 'yes-or-no-p)
 
 ;;keyboard remapping
@@ -128,30 +127,26 @@
 (setq js2-basic-offset 4)
 
 ;; slime
-;;(setq inferior-lisp-program "/usr/bin/sbcl")
+(setq inferior-lisp-program "/usr/bin/sbcl")
 
-;;(require 'slime)
-;;(slime-setup)
+(require 'slime)
+(slime-setup)
 
 ;; auctex
-;;(load "auctex.el" nil t t)
-;;(load "preview-latex.el" nil t t)
+(load "auctex.el" nil t t)
+(load "preview-latex.el" nil t t)
 
 ;; development tools modules
 
 ;; git
-;; (require 'magit-conf)
+(require 'magit-conf)
 
 ;; org-mode
 (require 'org-mode-conf)
 
-;;(autoload 'markdown-mode "markdown-mode.el"
-;;  "Major mode for editing Markdown files" t)
-
 ;; IRC, IM and twitter
 
 ;;(require 'social-conf)
-
 
 ;; Server, Shell, Browser
 
