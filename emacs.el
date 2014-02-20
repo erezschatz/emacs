@@ -153,7 +153,8 @@
 (unless (fboundp 'server-running-p)
   (server-start))
 
-(require 'eww)
+(require 'w3m-load)
+(require 'mime-w3m)
 
 ;; because I'm lazy to reformat these
 
