@@ -148,29 +148,12 @@
 
 ;;(require 'social-conf)
 
-;; Server, Shell, Browser
+;; Server, Browser
 
 (unless (fboundp 'server-running-p)
   (server-start))
 
-;; shell
-(require 'shell-switcher)
-(setq shell-switcher-mode t)
-
-;; opens shell for switcher
-(shell-switcher-switch-buffer)
-
-(add-hook 'eshell-mode-hook
-          (lambda ()
-            (local-set-key (kbd "C-c h")
-                           (lambda ()
-                             (interactive)
-                             (insert
-                              (ido-completing-read
-                               "Eshell history: "
-                               (delete-dups
-                                (ring-elements eshell-history-ring))))))
-            (local-set-key (kbd "C-c C-h") 'eshell-list-history)))
+(require 'eww)
 
 ;; because I'm lazy to reformat these
 

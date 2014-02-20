@@ -9,11 +9,11 @@
 ;; override buffer menu
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
+;; force tab
+(global-set-key (kbd "C-<tab>") 'tab-to-tab-stop)
+
 ;;prevent suspend-frame
 (global-unset-key (kbd "C-z"))
-
-;; hop between frames
-;;(global-set-key "\C-x" ['other-frame)
 
 (defun ispell-check-mode ()
   (lambda ()
