@@ -65,7 +65,7 @@
 ;; try to kill emacs in most straightforward way possible
 (defadvice save-buffers-kill-emacs (around no-query-kill-emacs activate)
   "Prevent annoying Active processes exist query when you quit Emacs."
-  (let ((process-list ())) ad-do-it))
+  (flet ((process-list ())) ad-do-it))
 (setq confirm-kill-emacs 'yes-or-no-p)
 
 ;;keyboard remapping
@@ -154,7 +154,7 @@
   (server-start))
 
 (require 'w3m-load)
-(require 'mime-w3m)
+;;(require 'mime-w3m)
 
 ;; because I'm lazy to reformat these
 
