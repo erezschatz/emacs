@@ -32,7 +32,7 @@ function upplan9 {
 	echo
 }
 
-alias upall='upgrade; cpanupdate; upplan9'
+alias upall='upgrade; cpanupdate; got update; upplan9'
 
 function delete {
 	sudo apt-get purge $1
