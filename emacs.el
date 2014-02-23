@@ -148,6 +148,8 @@
 
 ;;(require 'social-conf)
 
+(require 'elfeed-conf)
+
 ;; Server, Browser
 
 (unless (fboundp 'server-running-p)

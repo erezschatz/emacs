@@ -40,3 +40,7 @@ cd ..
 # magit
 git clone https://github.com/magit/git-modes.git
 git clone git://github.com/magit/magit.git
+
+# elfeed
+
+git clone https://github.com/skeeto/elfeed.git
