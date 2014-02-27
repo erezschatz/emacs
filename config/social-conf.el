@@ -16,15 +16,15 @@
   (interactive)
   (erc :server "localhost" :port 6667 :nick "erez"))
 
-;; twitter
+;; ;; twitter
 
-(require 'twittering-mode)
-(setq twittering-use-master-password t)
+;; (require 'twittering-mode)
+;; (setq twittering-use-master-password t)
 
-(add-hook 'twittering-edit-mode-hook
-          (lambda ()
-            (ispell-minor-mode) (flyspell-mode)))
+;; (add-hook 'twittering-edit-mode-hook
+;;           (lambda ()
+;;             (ispell-minor-mode) (flyspell-mode)))
 
-(twit)
+;; (twit)
 
 (provide 'social-conf)

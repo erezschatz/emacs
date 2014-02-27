@@ -5,8 +5,8 @@
 # git
 # sbcl
 # LaTeX
-# cvs
 # autoconf
+# bitlbee
 
 mkdir site-lisp
 cd site-lisp
@@ -14,22 +14,12 @@ cd site-lisp
 #fit-frame
 wget http://www.emacswiki.org/emacs-en/download/fit-frame.el
 
-#w3m
-cvs -d :pserver:anonymous@cvs.namazu.org:/storage/cvsroot login
-# hit enter?
-cvs -d :pserver:anonymous@cvs.namazu.org:/storage/cvsroot co emacs-w3m
-cd emacs-w3m
-autoconf
-./configure
-make
-cd ..
-
 git clone https://github.com/alpaker/Fill-Column-Indicator.git
 git clone git://git.savannah.gnu.org/tramp.git
 git clone git://orgmode.org/org-mode.git
 git clone https://github.com/slime/slime.git
 
-#auctex
+# auctex
 git clone git://git.savannah.gnu.org/auctex.git
 cd auctex
 ./autogen.sh
@@ -41,6 +31,7 @@ cd ..
 git clone https://github.com/magit/git-modes.git
 git clone git://github.com/magit/magit.git
 
-# elfeed
-
-git clone https://github.com/skeeto/elfeed.git
+# gas-mode
+wget http://www.hczim.de/software/gas-mode.el-1.10.gz
+gunzip gas-mode.el-1.10.gz
+mv gas-mode.el-1.10 gas-mode.el

@@ -6,9 +6,9 @@
  (append auto-mode-alist interpreter-mode-alist))
 
 ;; cperl indents
-(setq cperl-indent-level 8
-      cperl-close-paren-offset -8
-      cperl-continued-statement-offset 8
+(setq cperl-indent-level 2
+      cperl-close-paren-offset -2
+      cperl-continued-statement-offset 2
       cperl-indent-parens-as-block t
       cperl-tab-always-indent t)
 

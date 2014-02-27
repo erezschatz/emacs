@@ -50,6 +50,8 @@
 ;; set emerge to ignore whitespace diff
 (setq emerge-diff-options "--ignore-all-space")
 
+(setq tab-stop-list
+      '(2 4 6 8 10 12 14 16 18 20 22 24 26 28 30 32 34 36 38 40))
 ;; delete trailing whitespaces
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
@@ -136,6 +138,10 @@
 (load "auctex.el" nil t t)
 (load "preview-latex.el" nil t t)
 
+;; assembly
+(require 'gas-mode)
+(add-to-list 'auto-mode-alist '("\\.a?[sS]\\'" . gas-mode))
+
 ;; development tools modules
 
 ;; git
@@ -144,19 +150,14 @@
 ;; org-mode
 (require 'org-mode-conf)
 
-;; IRC, IM and twitter
+;; IRC, IM
 
-;;(require 'social-conf)
-
-(require 'elfeed-conf)
+(require 'social-conf)
 
 ;; Server, Browser
 
 (unless (fboundp 'server-running-p)
   (server-start))
-
-(require 'w3m-load)
-;;(require 'mime-w3m)
 
 ;; because I'm lazy to reformat these
 
