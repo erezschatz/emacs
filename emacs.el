@@ -147,6 +147,11 @@
 ;; git
 (require 'magit-conf)
 
+;; flymake
+
+;; Use the system temporary directory for temp files
+(setq flymake-run-in-place nil)
+
 ;; org-mode
 (require 'org-mode-conf)
 

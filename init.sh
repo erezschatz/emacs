@@ -35,3 +35,7 @@ git clone git://github.com/magit/magit.git
 wget http://www.hczim.de/software/gas-mode.el-1.10.gz
 gunzip gas-mode.el-1.10.gz
 mv gas-mode.el-1.10 gas-mode.el
+
+# flymake
+
+git clone https://github.com/illusori/emacs-flymake.git
