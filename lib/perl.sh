@@ -50,20 +50,21 @@ alias perlc='perl -MModern::Perl -wc '
 # deletes these items from array and runs them through cpanminus
 
 function cpanupdate {
-	modules=$(cpan-outdated --local-lib-contained=/home/erez/.perl5/)
+    modules=$(cpan-outdated --local-lib-contained=/home/erez/.perl5/)
 
-	for i in ${modules[@]}; do
-		if [[ $i =~ cpanminus ]]; then
-			cpanm $i
-			modules=( "${modules[0]/$i}" )
-		else
-			result=$(same_mversion $i)
-			if [[ -z $result || $result -eq 0 ]]; then
-				modules=( "${modules[0]/$i}" )
-			fi
+    for i in ${modules[@]}; do
+	if [[ $i =~ cpanminus ]]; then
+	    cpanm $i
+	    modules=( "${modules[0]/$i}" )
+	else
+	    result=$(same_mversion $i)
+	    if [[ -z $result || $result -eq 0 ]]; then
+		modules=( "${modules[0]/$i}" )
+	    fi
        	fi
     done
 
-	# check if $modules empty, or
-	cpanm $modules
+    if [ ${#errors[@]} -ne 0 ]; then
+        cpanm $modules
+    fi
 }
