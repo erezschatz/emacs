@@ -39,3 +39,7 @@ mv gas-mode.el-1.10 gas-mode.el
 # flymake
 
 git clone https://github.com/illusori/emacs-flymake.git
+
+# twitter
+
+git clone https://github.com/hayamiz/twittering-mode.git
