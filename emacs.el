@@ -64,6 +64,16 @@
 
 (autoload 'ibuffer "ibuffer" "List buffers." t)
 
+;; open files from dired in other frames
+;; http://www.emacswiki.org/emacs/DiredFindFileOtherFrame
+
+(defun dired-find-file-other-frame ()
+  "In Dired, visit this file or directory in another window."
+  (interactive)
+  (find-file-other-frame (dired-get-file-for-visit)))
+(eval-after-load "dired"
+  '(define-key dired-mode-map "F" 'dired-find-file-other-frame))
+
 ;; try to kill emacs in most straightforward way possible
 (defadvice save-buffers-kill-emacs (around no-query-kill-emacs activate)
   "Prevent annoying Active processes exist query when you quit Emacs."
@@ -159,10 +169,12 @@
 
 (require 'social-conf)
 
-;; Server, Browser
+;; Server, Browser, Shell
 
 (unless (fboundp 'server-running-p)
   (server-start))
+
+(shell)
 
 ;; because I'm lazy to reformat these
 
