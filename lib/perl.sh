@@ -27,8 +27,6 @@ function cpam {
          cpanm $module
 }
 
-# todo: check for -M stuff to add modules
-
 function perlm {
 	params=( "$@" )
 
@@ -64,7 +62,7 @@ function cpanupdate {
        	fi
     done
 
-    if [ ${#errors[@]} -ne 0 ]; then
+    if [ ${#modules[@]} -ne 0 ]; then
         cpanm $modules
     fi
 }
