@@ -11,10 +11,15 @@ function same_mversion {
 	module=${input%-*}
 	module=${module//-/::}
 
-	output=$(echo $(mversion $module) '<' ${input##*-} | bc -l)
-	echo $output
+        version=$(mversion $module)
+
+        if [ -z $version ]; then
+	    output=$(echo $version '<' ${input##*-} | bc -l)
+	    echo $output
+        fi
 }
 
+alias perldoc='cpandoc'
 alias cpan='cpanm'
 
 # Copy module file name from "Can't locate Hop/Scotch.pm in @INC"
