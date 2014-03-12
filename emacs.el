@@ -19,6 +19,9 @@
 (setq inhibit-default-init nil)
 (setq inhibit-startup-screen t)
 
+;; recent files
+(recentf-mode 1)
+
 ;; highlight current line
 (global-hl-line-mode t)
 
@@ -173,6 +176,8 @@
 
 (unless (fboundp 'server-running-p)
   (server-start))
+
+(require 'w3m-load)
 
 (shell)
 

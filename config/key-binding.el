@@ -20,4 +20,7 @@
   (ispell-minor-mode) (flyspell-mode)))
 (global-set-key "\C-z" 'ispell-check-mode)
 
+(keyboard-translate ?\C-x ?\C-u)
+(keyboard-translate ?\C-u ?\C-x)
+
 (provide 'key-binding)
