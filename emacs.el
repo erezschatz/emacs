@@ -168,7 +168,9 @@
 ;; org-mode
 (require 'org-mode-conf)
 
-;; IRC, IM
+;; IRC, IM, Mail
+
+(require 'vm-conf)
 
 (require 'social-conf)
 

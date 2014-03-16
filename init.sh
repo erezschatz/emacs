@@ -7,6 +7,7 @@
 # LaTeX
 # autoconf
 # bitlbee
+# bzr
 
 mkdir site-lisp
 cd site-lisp
@@ -43,3 +44,16 @@ git clone https://github.com/illusori/emacs-flymake.git
 # twitter
 
 git clone https://github.com/hayamiz/twittering-mode.git
+
+# vm
+
+bzr branch lp:vm
+
+# bbdb
+
+git clone git://git.savannah.nongnu.org/bbdb.git
+
+cd vm
+autoconf
+./configure
+make
