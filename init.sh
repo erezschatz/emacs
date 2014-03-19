@@ -1,16 +1,14 @@
 #!/bin/sh
 
-# TODO: make sure all prerequisite are installed:
-# wget
-# git
-# sbcl
-# LaTeX
-# autoconf
-# bitlbee
-# bzr
-
 mkdir site-lisp
 cd site-lisp
+
+for i in wget git sbcl texlive-core autoconf bitlbee bzr
+do
+    if [ ! $(which $i) ]; then
+        sudo pacman -Syu $i
+    fi
+done
 
 #fit-frame
 wget http://www.emacswiki.org/emacs-en/download/fit-frame.el
@@ -49,11 +47,19 @@ git clone https://github.com/hayamiz/twittering-mode.git
 
 bzr branch lp:vm
 
-# bbdb
-
-git clone git://git.savannah.nongnu.org/bbdb.git
-
 cd vm
 autoconf
 ./configure
 make
+
+cd ..
+
+# bbdb
+
+git clone git://git.savannah.nongnu.org/bbdb.git
+
+cd bbdb
+./autogen.sh
+./configure
+make
+cd ..

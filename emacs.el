@@ -19,8 +19,8 @@
 (setq inhibit-default-init nil)
 (setq inhibit-startup-screen t)
 
-;; recent files
-(recentf-mode 1)
+;; save emacs session
+(desktop-save-mode 1)
 
 ;; highlight current line
 (global-hl-line-mode t)
