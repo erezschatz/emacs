@@ -12,11 +12,8 @@ function same_mversion {
 	module=${module//-/::}
 
         version=$(mversion $module)
-
-        if [ -z $version ]; then
-	    output=$(echo $version '<' ${input##*-} | bc -l)
-	    echo $output
-        fi
+	output=$(echo $version '<' ${input##*-} | bc -l)
+	echo $output
 }
 
 alias perldoc='cpandoc'
