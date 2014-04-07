@@ -10,12 +10,9 @@
 ;;prevent suspend-frame
 (global-unset-key (kbd "C-z"))
 
-(defun ispell-check-mode ()
-  (lambda ()
-  (ispell-minor-mode) (flyspell-mode)))
-(global-set-key "\C-z" 'ispell-check-mode)
-
 (keyboard-translate ?\C-x ?\C-u)
 (keyboard-translate ?\C-u ?\C-x)
+
+(global-set-key (kbd "M-s") 'lookup-word-definition)
 
 (provide 'key-binding)
