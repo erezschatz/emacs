@@ -151,6 +151,11 @@
 (load "auctex.el" nil t t)
 (load "preview-latex.el" nil t t)
 
+;; scriptwriter
+
+(require 'screenwriter)
+(setq auto-mode-alist (cons '("\\.scp" . screenwriter-mode) auto-mode-alist))
+(setq auto-mode-alist (cons '("\\.screenplay" . screenwriter-mode) auto-mode-alist))
 ;; assembly
 (require 'gas-mode)
 (add-to-list 'auto-mode-alist '("\\.a?[sS]\\'" . gas-mode))

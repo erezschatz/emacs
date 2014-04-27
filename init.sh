@@ -43,23 +43,10 @@ git clone https://github.com/illusori/emacs-flymake.git
 
 git clone https://github.com/hayamiz/twittering-mode.git
 
-# vm
+# screenwriter
 
-bzr branch lp:vm
+wget http://nongnu.org/screenwriter/download/screenwriter-1.6.6.tar.gz
 
-cd vm
-autoconf
-./configure
-make
+tar -xvf screenwriter-1.6.6.tar.gz
 
-cd ..
-
-# bbdb
-
-git clone git://git.savannah.nongnu.org/bbdb.git
-
-cd bbdb
-./autogen.sh
-./configure
-make
-cd ..
+mv screenwriter-1.6.6 screenwriter
