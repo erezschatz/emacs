@@ -179,14 +179,15 @@
 
 (require 'social-conf)
 
-;; Server, Browser, Shell
-
+;; Server, Browser
 (unless (fboundp 'server-running-p)
   (server-start))
 
 (require 'w3m-load)
 
-(shell)
+;; finally
+
+(ibuffer)
 
 ;; because I'm lazy to reformat these
 
