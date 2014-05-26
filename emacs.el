@@ -15,6 +15,7 @@
                           :background "black"
                           :foreground "white")
       (set-face-attribute 'tooltip nil :font "Terminus" :height 80)))
+
 ;; don't display the intro page
 (setq inhibit-default-init nil)
 (setq inhibit-startup-screen t)
@@ -184,17 +185,3 @@
   (server-start))
 
 (require 'w3m-load)
-
-;; finally
-
-(ibuffer)
-
-;; because I'm lazy to reformat these
-
-(custom-set-variables)
-
-(custom-set-faces
- '(cperl-hash-face
-   ((t (:background "navy" :foreground "Red" :weight bold))))
- '(hl-line
-((t (:inverse-video t)))))

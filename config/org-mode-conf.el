@@ -27,4 +27,6 @@
                     "\\documentclass{article}"
                     ("\\section{%s}" . "\\section*{%s}")))))
 
+(require 'org-trello)
+
 (provide 'org-mode-conf)
