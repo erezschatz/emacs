@@ -32,5 +32,7 @@
 ;; make cperl-mode always highlight scalar variables
 (setq cperl-highlight-variables-indiscriminately t)
 
+;; Use the system temporary directory for temp files
+(setq flymake-run-in-place nil)
 
 (provide 'cperl-conf)
