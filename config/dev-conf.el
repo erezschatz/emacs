@@ -35,3 +35,5 @@
 
 ;; git
 (require 'magit-conf)
+
+(provide 'dev-conf)
