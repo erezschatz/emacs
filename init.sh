@@ -50,7 +50,3 @@ wget http://nongnu.org/screenwriter/download/screenwriter-1.6.6.tar.gz
 tar -xvf screenwriter-1.6.6.tar.gz
 
 mv screenwriter-1.6.6 screenwriter
-
-# org-trello
-
-git clone http://github.com/org-trello/org-trello.git
