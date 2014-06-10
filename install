@@ -1,7 +1,23 @@
 #!/bin/bash
 
-for i in $(ls -a); do 
-	if [[ -f $i && $i =~ ^\.[^\.] ]]; then 
-		mv $i ~/ && ln ~/$i; 
-	fi; 
+for i in $(ls -a); do
+	if [[ -f $i && $i =~ ^\.[^\.] ]]; then
+		mv $i $HOME && ln ${HOME}${i};
+	fi;
 done
+
+download=$(curl http://api.metacpan.org/v0/release/local-lib | grep download)
+download=$(echo $download | perl -p -e 's/^.+"([^"]+)",$/$1/');
+
+wget $download
+file=${download##*/}
+tar -xvzf $file
+cd ${file%.tar.gz}
+perl Makefile.PL --bootstrap=$HOME/.perl5
+make test && make install
+
+source $HOME/.bashrc
+
+curl -L http://cpanmin.us | perl - App::cpanminus
+
+cpanm App::cpanoutdated App::GitGot App::pmuninstall App::ack
