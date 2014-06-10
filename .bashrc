@@ -44,6 +44,23 @@ if ! shopt -oq posix; then
   fi
 fi
 
+# if command not found, attempt to install it
+
+command_not_found_handle () {
+    local pkgs cmd=$1
+    local FUNCNEST=10
+
+    set +o verbose
+
+    if pkginstall $cmd; then
+        $cmd
+        return 0
+    else
+        printf "bash: %s: command not found\n" "$cmd" >&2
+        return 127
+    fi
+}
+
 # perl stuff
 
 eval $(perl -I$HOME/.perl5/lib/perl5 -Mlocal::lib=$HOME/.perl5)
