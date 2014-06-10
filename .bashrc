@@ -50,10 +50,10 @@ eval $(perl -I$HOME/.perl5/lib/perl5 -Mlocal::lib=$HOME/.perl5)
 
 # plan9 stuff
 
-PLAN9=$HOME/plan9 
+PLAN9=$HOME/plan9
 PATH=$PATH:$PLAN9/bin
 
-GS_FONTPATH=$PLAN9/postscript/font 
+GS_FONTPATH=$PLAN9/postscript/font
 
 # Default font for Plan 9 programs.
 font=$PLAN9/font/fixed/unicode.6x13.font
@@ -67,5 +67,7 @@ fi
 
 BROWSER=firefox
 EDITOR=nano
+
+alias upall='upgrade; cpanupdate; got update; upplan9'
 
 export EDITOR BROWSER font GS_FONTPATH PLAN9 PATH

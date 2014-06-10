@@ -11,52 +11,32 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
-# packages maintenance commands
-
-function upgrade {
-	name=$(uname -a)
-	if [[ $name =~ Ubuntu ]]; then
-		sudo apt-get update && sudo apt-get dist-upgrade
-	elif [[ $name =~ ARCH ]]; then
-		sudo pacman -Syu
-	else 
-		echo "Unknown operating system uname $name"
-	fi
-}
-
-function upplan9 {
-	current=$(pwd)
-	cd $PLAN9
-	hg pull -u
-	cd $current
-	echo
-}
-
-alias upall='upgrade; cpanupdate; got update; upplan9'
-
-function delete {
-	sudo apt-get purge $1
-	sudo apt-get autoremove --purge
-#	while; do		
-#		sudo apt-get remove --purge $(deborphan)
-#	done
-}
-
 # common linux tools
 
 function les {
-	for i in $@; do
-		if   [ -d "${i}" ]; then
-			ll $i
-		elif [ -f "${i}" ]; then		
-			less $i
-		else 
-			echo "${i} is not valid"
-		fi
-	done
+    if [ !$@ ]; then
+        ll
+    fi
+
+    for i in $@; do
+	if   [ -d "${i}" ]; then
+	    ll $i
+	elif [ -f "${i}" ]; then
+	    less $i
+	else
+	    echo "${i} is not valid"
+	fi
+    done
 }
 
 alias ll='ls -alhF --color'
+
+function greps {
+    char=${1:0:1}
+    headless=${1:1}
+    term="[$char]$headless"
+    ps -ef | grep "[${1:0:1}]${1:1}"
+}
 
 # tools
 
@@ -89,8 +69,6 @@ alias Sam='nohup /home/erez/plan9/bin/sam .samcmds > /dev/null 2>&1 &'
 
 alias dentro='firefox -app /home/erez/dev/dentro/application.ini &'
 
-source $HOME/dev/dotfiles/lib/perl.sh
-
 # git
 
 function gpull {
@@ -114,3 +92,10 @@ function pull_master_from {
 	fi
 }
 
+# perl and cparm commands
+
+source $HOME/dev/dotfiles/lib/perl.sh
+
+# packages maintenance commands
+
+source $HOME/dev/dotfiles/lib/package.sh
