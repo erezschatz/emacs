@@ -35,4 +35,12 @@
 ;; Use the system temporary directory for temp files
 (setq flymake-run-in-place nil)
 
+(autoload 'tt-mode "tt-mode")
+(setq auto-mode-alist
+      (append '(("\\.tt2*$" . tt-mode)) auto-mode-alist ))
+
+(require 'template)
+(template-initialize)
+(require 'perlnow)
+
 (provide 'cperl-conf)

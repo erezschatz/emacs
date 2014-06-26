@@ -115,19 +115,11 @@
 ;; highlight 80th column
 (require 'fill-column-indicator)
 
-;; LaTeX
-
-;; auctex
-(load "auctex.el" nil t t)
-(load "preview-latex.el" nil t t)
-
-;; scriptwriter
-(require 'screenwriter)
-(setq auto-mode-alist (cons '("\\.scp" . screenwriter-mode) auto-mode-alist))
-(setq auto-mode-alist (cons '("\\.screenplay" . screenwriter-mode) auto-mode-alist))
-
 ;; org-mode
 (require 'org-mode-conf)
+
+;; dev stuff
+(require 'dev-conf)
 
 ;; IRC, IM, Mail
 
@@ -138,3 +130,5 @@
   (server-start))
 
 (require 'w3m-load)
+
+(require 'malyon)

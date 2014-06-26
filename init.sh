@@ -3,7 +3,7 @@
 mkdir site-lisp
 cd site-lisp
 
-for i in wget git sbcl texlive-core autoconf bitlbee bzr
+for i in wget git autoconf bitlbee bzr
 do
     if [ ! $(which $i) ]; then
         sudo pacman -Syu $i
@@ -16,15 +16,6 @@ wget http://www.emacswiki.org/emacs-en/download/fit-frame.el
 git clone https://github.com/alpaker/Fill-Column-Indicator.git
 git clone git://git.savannah.gnu.org/tramp.git
 git clone git://orgmode.org/org-mode.git
-git clone https://github.com/slime/slime.git
-
-# auctex
-git clone git://git.savannah.gnu.org/auctex.git
-cd auctex
-./autogen.sh
-./configure
-make
-cd ..
 
 # magit
 git clone https://github.com/magit/git-modes.git
@@ -43,10 +34,13 @@ git clone https://github.com/illusori/emacs-flymake.git
 
 git clone https://github.com/hayamiz/twittering-mode.git
 
-# screenwriter
+# tt-mode
 
-wget http://nongnu.org/screenwriter/download/screenwriter-1.6.6.tar.gz
+git clone https://github.com/davorg/tt-mode.git
 
-tar -xvf screenwriter-1.6.6.tar.gz
+# js2-mode
 
-mv screenwriter-1.6.6 screenwriter
+git clone https://github.com/mooz/js2-mode.git
+
+# circe
+ https://github.com/jorgenschaefer/circe.git
