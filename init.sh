@@ -42,5 +42,21 @@ git clone https://github.com/davorg/tt-mode.git
 
 git clone https://github.com/mooz/js2-mode.git
 
-# circe
- https://github.com/jorgenschaefer/circe.git
+# xs-mode
+wget http://www.emacswiki.org/emacs/download/xs-mode.el
+
+# perlnow
+wget http://obsidianrook.com/perlnow/code/perlnow.el
+wget http://downloads.sourceforge.net/project/emacs-template/template/3.1c/template-3.1c.tar.gz
+tar -xvzf template-3.1c.tar.gz
+mv template-3.1.tar.gz template
+
+mkdir $HOME/.templates
+here=$(pwd)
+cd $HOME/.templates
+
+for i in perlnow-pl perlnow-pm perlnow-object-pm perlnow-pm-t perlnow-pl-t pl pm t; do
+    wget http://obsidianrook.com/perlnow/code/templates/standard/TEMPLATE.$i.tpl
+done
+
+cd $here
