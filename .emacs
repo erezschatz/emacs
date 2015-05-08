@@ -1,5 +1,5 @@
-(let ((default-directory "~/emacs/"))
+(let ((default-directory "~/dev/emacs/"))
 	(normal-top-level-add-to-load-path '("."))
 	(normal-top-level-add-subdirs-to-load-path))
 
-(load "~/emacs/emacs.el")
+(load "~/dev/emacs/emacs.el")

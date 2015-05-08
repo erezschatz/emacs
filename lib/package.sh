@@ -36,7 +36,7 @@ function upgrade {
 function upplan9 {
     current=$(pwd)
     cd $PLAN9
-    hg pull -u
+    git pull -u
     cd $current
     echo
 }

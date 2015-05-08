@@ -15,12 +15,12 @@ fi
 
 function les {
     if [ !$@ ]; then
-        ll
+        ls -alhF --color
     fi
 
     for i in $@; do
 	if   [ -d "${i}" ]; then
-	    ll $i
+	    ls -alhF --color $i
 	elif [ -f "${i}" ]; then
 	    less $i
 	else
@@ -37,10 +37,6 @@ function greps {
     term="[$char]$headless"
     ps -ef | grep "[${1:0:1}]${1:1}"
 }
-
-# tools
-
-alias btsync="$HOME/btsync/btsync"
 
 # possible fonts
 
@@ -92,7 +88,7 @@ function pull_master_from {
 	fi
 }
 
-# perl and cparm commands
+# perl and cpanm commands
 
 source $HOME/dev/dotfiles/lib/perl.sh
 
