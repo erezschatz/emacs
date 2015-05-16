@@ -24,10 +24,10 @@
 (setq js2-basic-offset 4)
 
 ;; slime
-(setq inferior-lisp-program "/usr/bin/sbcl")
+;;(setq inferior-lisp-program "/usr/bin/sbcl")
 
-(require 'slime)
-(slime-setup)
+;;(require 'slime)
+;;(slime-setup)
 
 ;; assembly
 (require 'gas-mode)

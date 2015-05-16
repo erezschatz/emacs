@@ -39,4 +39,7 @@
 
 (define-key magit-status-mode-map (kbd "W") 'magit-toggle-whitespace)
 
+;; for some reason.
+(setq magit-last-seen-setup-instructions "1.4.0")
+
 (provide 'magit-conf)
