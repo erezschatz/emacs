@@ -27,4 +27,13 @@
                     "\\documentclass{article}"
                     ("\\section{%s}" . "\\section*{%s}")))))
 
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((perl . t)
+   (emacs-lisp . t)
+   (latex . t)
+   (sh . t)
+   (sql . t)
+   (sqlite . t)))
+
 (provide 'org-mode-conf)
