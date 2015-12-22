@@ -5,16 +5,26 @@
 (if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
 (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
 
-;; X system only
-(if window-system
-    (progn
-      ;; set default font
-      (set-face-attribute 'default nil
-                          :font "Terminus"
-                          :height 80
-                          :background "black"
-                          :foreground "white")
-      (set-face-attribute 'tooltip nil :font "Terminus" :height 80)))
+(if (eq system-type 'windows-nt)
+        (progn
+          ;; set default font
+          (set-face-attribute 'default nil
+                              :font "Consolas"
+                              :height 80
+                              :background "black"
+                              :foreground "white")
+          (set-face-attribute 'tooltip nil :font "Consolas" :height 80))
+  (eq system-type 'gnu/linux)
+  ;;X system only
+  (if window-system
+      (progn
+        ;; set default font
+        (set-face-attribute 'default nil
+                            :font "Terminus"
+                            :height 80
+                            :background "black"
+                            :foreground "white")
+        (set-face-attribute 'tooltip nil :font "Terminus" :height 80))))
 
 ;; don't display the intro page
 (setq inhibit-default-init nil)

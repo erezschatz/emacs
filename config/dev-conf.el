@@ -30,8 +30,8 @@
 ;;(slime-setup)
 
 ;; assembly
-(require 'gas-mode)
-(add-to-list 'auto-mode-alist '("\\.a?[sS]\\'" . gas-mode))
+;;(require 'gas-mode)
+;;(add-to-list 'auto-mode-alist '("\\.a?[sS]\\'" . gas-mode))
 
 ;; git
 (require 'magit-conf)
