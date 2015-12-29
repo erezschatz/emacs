@@ -10,8 +10,8 @@
 ;;prevent suspend-frame
 (global-unset-key (kbd "C-z"))
 
-(keyboard-translate ?\C-x ?\C-u)
-(keyboard-translate ?\C-u ?\C-x)
+;;(keyboard-translate ?\C-x ?\C-u)
+;;(keyboard-translate ?\C-u ?\C-x)
 
 (global-set-key (kbd "M-s") 'lookup-word-definition)
 

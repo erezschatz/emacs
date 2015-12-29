@@ -20,6 +20,7 @@ git clone git://orgmode.org/org-mode.git
 # magit
 git clone https://github.com/magit/git-modes.git
 git clone git://github.com/magit/magit.git
+git clone https://github.com/magnars/dash.el.git dash
 
 # gas-mode
 wget http://www.hczim.de/software/gas-mode.el-1.10.gz

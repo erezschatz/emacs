@@ -3,9 +3,9 @@
 
 (eval-after-load "erc"
 '(progn
-   (setq erc-autojoin-channels-alist
-         '(("freenode.net" "#emacs")
-           ("gnome.net" "#gnome-shell")))
+;;   (setq erc-autojoin-channels-alist
+;;         '(("freenode.net" "#emacs")
+;;           ("gnome.net" "#gnome-shell")))
 
    (erc-log-mode)
    (setq erc-log-channels-directory "~/.logs/")
@@ -28,6 +28,6 @@
 ;;           (lambda ()
 ;;             (ispell-minor-mode) (flyspell-mode)))
 
-(twit)
+;;(twit)
 
 (provide 'social-conf)
