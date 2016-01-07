@@ -141,7 +141,7 @@
 
 ;; IRC, IM, Mail
 
-;;(require 'social-conf)
+(require 'social-conf)
 
 ;; Server, Browser
 (unless (fboundp 'server-running-p)
