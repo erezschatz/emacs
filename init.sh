@@ -10,14 +10,28 @@ do
     fi
 done
 
-#fit-frame
-wget http://www.emacswiki.org/emacs-en/download/fit-frame.el
+# one-in-one
+mkdir one-on-one
+cd one-on-one
 
-git clone https://github.com/alpaker/Fill-Column-Indicator.git
+wget http://www.emacswiki.org/emacs-en/download/fit-frame.el
+wget http://www.emacswiki.org/emacs/download/frame-cmds.el
+wget http://www.emacswiki.org/emacs/download/frame-fns.el
+wget http://www.emacswiki.org/emacs/download/misc-cmds.el
+
+cd ..
+
+# gnus
+git clone http://git.gnus.org/gnus.git
+
+# tramp
 git clone git://git.savannah.gnu.org/tramp.git
+
+# org-mode
 git clone git://orgmode.org/org-mode.git
 
 # magit
+git clone https://github.com/magnars/dash.el.git
 git clone https://github.com/magit/git-modes.git
 git clone git://github.com/magit/magit.git
 
@@ -45,18 +59,6 @@ git clone https://github.com/mooz/js2-mode.git
 # xs-mode
 wget http://www.emacswiki.org/emacs/download/xs-mode.el
 
-# perlnow
-wget http://obsidianrook.com/perlnow/code/perlnow.el
-wget http://downloads.sourceforge.net/project/emacs-template/template/3.1c/template-3.1c.tar.gz
-tar -xvzf template-3.1c.tar.gz
-mv template-3.1.tar.gz template
-
-mkdir $HOME/.templates
-here=$(pwd)
-cd $HOME/.templates
-
-for i in perlnow-pl perlnow-pm perlnow-object-pm perlnow-pm-t perlnow-pl-t pl pm t; do
-    wget http://obsidianrook.com/perlnow/code/templates/standard/TEMPLATE.$i.tpl
-done
+#
 
 cd $here

@@ -61,8 +61,8 @@
       `((".*" . ,temporary-file-directory)))
 (setq auto-save-file-name-`((".*" ,temporary-file-directory t)))
 
-;; set emerge to ignore whitespace diff
-(setq emerge-diff-options "--ignore-all-space")
+;;
+(setq ediff-split-window-function 'split-window-horizontally)
 
 (setq tab-stop-list
       '(2 4 6 8 10 12 14 16 18 20 22 24 26 28 30 32 34 36 38 40))
@@ -121,6 +121,14 @@
   (call-interactively command)
   (fit-frame))
 (global-set-key "\C-x5\M-x" 'run-command-other-frame)
+
+(require 'frame-cmds)
+(require 'misc-cmds)
+(substitute-key-definition 'kill-buffer
+                           'kill-buffer-and-its-windows
+                           global-map)
+
+
 
 ;; highlight 80th column
 (require 'fill-column-indicator)
