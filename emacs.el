@@ -128,11 +128,6 @@
                            'kill-buffer-and-its-windows
                            global-map)
 
-
-
-;; highlight 80th column
-(require 'fill-column-indicator)
-
 ;; org-mode
 (require 'org-mode-conf)
 
