@@ -141,7 +141,3 @@
 ;; Server, Browser
 (unless (fboundp 'server-running-p)
   (server-start))
-
-;;(require 'w3m-load)
-
-;;(require 'malyon)

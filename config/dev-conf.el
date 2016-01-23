@@ -30,10 +30,19 @@
 ;;(slime-setup)
 
 ;; assembly
-;;(require 'gas-mode)
-;;(add-to-list 'auto-mode-alist '("\\.a?[sS]\\'" . gas-mode))
+
+(if (eq system-type 'gnu/linux)
+    (progn
+      (require 'gas-mode)
+      (add-to-list 'auto-mode-alist '("\\.a?[sS]\\'" . gas-mode))))
 
 ;; git
 (require 'magit-conf)
+
+;; auctex
+
+(load "auctex.el" nil t t)
+(load "preview-latex.el" nil t t)
+
 
 (provide 'dev-conf)
