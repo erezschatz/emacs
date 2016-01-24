@@ -32,8 +32,8 @@
 ;; make cperl-mode always highlight scalar variables
 (setq cperl-highlight-variables-indiscriminately t)
 
-;; Use the system temporary directory for temp files
-(setq flymake-run-in-place nil)
+;; set @INC to include local::lib directory
+(setq flycheck-perl-include-path '("/home/erez/.perl5/lib/perl5"))
 
 (autoload 'tt-mode "tt-mode")
 (setq auto-mode-alist

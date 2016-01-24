@@ -44,5 +44,7 @@
 (load "auctex.el" nil t t)
 (load "preview-latex.el" nil t t)
 
+;; flycheck
+(add-hook 'after-init-hook #'global-flycheck-mode)
 
 (provide 'dev-conf)
