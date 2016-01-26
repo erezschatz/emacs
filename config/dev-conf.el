@@ -45,6 +45,8 @@
 (load "preview-latex.el" nil t t)
 
 ;; flycheck
+(require 'let-alist)
+(require 'flycheck)
 (add-hook 'after-init-hook #'global-flycheck-mode)
 
 (provide 'dev-conf)

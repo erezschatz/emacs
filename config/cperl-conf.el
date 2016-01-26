@@ -1,4 +1,9 @@
+;;; Package --- Summary
+;;; Commentary:
 ;; map perl editing to cperl-mode
+
+;;; Code:
+
 (mapc
  (lambda (pair)
    (if (eq (cdr pair) 'perl-mode)
@@ -35,8 +40,19 @@
 ;; set @INC to include local::lib directory
 (setq flycheck-perl-include-path '("/home/erez/.perl5/lib/perl5"))
 
+;; tt-mode
+
 (autoload 'tt-mode "tt-mode")
 (setq auto-mode-alist
       (append '(("\\.tt2*$" . tt-mode)) auto-mode-alist ))
 
+;; pod stuff
+
+(autoload 'pod-mode "pod-mode"
+  "Mode for editing POD files" t)
+
+(autoload 'perl-pod-preview "perl-pod-preview" nil t)
+
 (provide 'cperl-conf)
+
+;;; cperl-conf.el ends here
