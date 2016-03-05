@@ -1,5 +1,9 @@
-;; Language modules
+;;; Package: --- summary
+;;; Language modules
 
+;;; Commentary:
+
+;;; Code:
 ;; c
 (setq c-basic-offset 8)
 
@@ -49,4 +53,13 @@
 (require 'flycheck)
 (add-hook 'after-init-hook #'global-flycheck-mode)
 
+;; erlang
+
+(add-to-list 'load-path "/usr/lib/erlang/lib/tools-2.8.2/emacs/")
+(setq erlang-root-dir "/usr/local/erlang")
+(setq exec-path (cons "/usr/local/otp/erlang" exec-path))
+(require 'erlang-start)
+
+
 (provide 'dev-conf)
+;;; dev-conf ends here

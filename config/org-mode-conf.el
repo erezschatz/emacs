@@ -1,3 +1,9 @@
+;;; Package: --- summary
+
+;;; Commentary:
+
+;;; Code:
+
 (eval-after-load "org-install"
   '(progn
      (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
@@ -36,4 +42,11 @@
    (sql . t)
    (sqlite . t)))
 
+(setq org-link-frame-setup
+      (quote
+       ((gnus . org-gnus-no-new-news)
+        (file . find-file-other-frame)
+        (wl . wl-other-frame))))
+
 (provide 'org-mode-conf)
+;;; org-mode-conf ends here

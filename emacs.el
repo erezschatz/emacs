@@ -1,3 +1,9 @@
+;;; Package: --- summary
+
+;;; Commentary:
+
+;;; Code:
+
 (require 'cl-lib)
 
 ;; no tool bar, no menu bar, no scrollbar
@@ -5,9 +11,9 @@
 (if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
 (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
 
+;; set default font
 (if (eq system-type 'windows-nt)
         (progn
-          ;; set default font
           (set-face-attribute 'default nil
                               :font "Consolas"
                               :height 80
@@ -15,10 +21,8 @@
                               :foreground "white")
           (set-face-attribute 'tooltip nil :font "Consolas" :height 80))
   (eq system-type 'gnu/linux)
-  ;;X system only
-  (if window-system
+  (if window-system   ;;X system only
       (progn
-        ;; set default font
         (set-face-attribute 'default nil
                             :font "Terminus"
                             :height 80
@@ -61,11 +65,9 @@
       `((".*" . ,temporary-file-directory)))
 (setq auto-save-file-name-`((".*" ,temporary-file-directory t)))
 
-;;
+;; ediff
 (setq ediff-split-window-function 'split-window-horizontally)
 
-(setq tab-stop-list
-      '(2 4 6 8 10 12 14 16 18 20 22 24 26 28 30 32 34 36 38 40))
 ;; delete trailing whitespaces
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
@@ -128,6 +130,12 @@
                            'kill-buffer-and-its-windows
                            global-map)
 
+;; ledger mode
+(autoload 'ledger-mode "ledger-mode" "A major mode for Ledger" t)
+(add-to-list 'load-path
+             (expand-file-name "/path/to/ledger/source/lisp/"))
+(add-to-list 'auto-mode-alist '("\\.ledger$" . ledger-mode))
+
 ;; org-mode
 (require 'org-mode-conf)
 
@@ -141,3 +149,5 @@
 ;; Server, Browser
 (unless (fboundp 'server-running-p)
   (server-start))
+
+;;; emacs.el ends here
