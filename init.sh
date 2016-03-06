@@ -3,10 +3,10 @@
 mkdir site-lisp
 cd site-lisp
 
-for i in wget git autoconf bitlbee bzr
+for i in wget git autoconf bitlbee bzr erlang ledger
 do
     if [ ! $(which $i) ]; then
-        sudo pacman -Syu $i
+        sudo yaourt -Syua $i
     fi
 done
 

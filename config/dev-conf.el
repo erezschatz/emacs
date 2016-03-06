@@ -4,6 +4,7 @@
 ;;; Code:
 
 ;; c
+(defvar c-basic-offset)
 (setq c-basic-offset 8)
 
 ;; perl
