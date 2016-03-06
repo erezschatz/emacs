@@ -1,5 +1,10 @@
+;;; package --- Summary
+
+;;; Commentary:
 
 ;; IRC
+
+;;; Code:
 
 (eval-after-load "erc"
 '(progn
@@ -8,7 +13,7 @@
 ;;           ("gnome.net" "#gnome-shell")))
 
    (erc-log-mode)
-   (setq erc-log-channels-directory "~/.logs/")
+   (setq erc-log-channels-directory "~/.log/erc")
    (setq erc-save-buffer-on-part t)))
 
 (defun bitlbee ()
@@ -18,11 +23,11 @@
 
 ;; twitter
 
-(require 'twittering-mode)
-(setq twittering-use-master-password t)
+;;(require 'twittering-mode)
+;;(setq twittering-use-master-password t)
 
-(setq twittering-initial-timeline-spec-string
-      '(":replies"))
+;;(setq twittering-initial-timeline-spec-string
+;;      '(":replies"))
 
 ;; (add-hook 'twittering-edit-mode-hook
 ;;           (lambda ()
@@ -31,3 +36,5 @@
 ;;(twit)
 
 (provide 'social-conf)
+
+;;; social-conf.el ends here

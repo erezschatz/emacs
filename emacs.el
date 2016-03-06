@@ -9,9 +9,9 @@
 (if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
 (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
 
+;; set default font
 (if (eq system-type 'windows-nt)
         (progn
-          ;; set default font
           (set-face-attribute 'default nil
                               :font "Consolas"
                               :height 80
@@ -22,7 +22,6 @@
   ;;X system only
   (if window-system
       (progn
-        ;; set default font
         (set-face-attribute 'default nil
                             :font "Terminus"
                             :height 80
@@ -66,6 +65,7 @@
 (defvar auto-save-file-name-)
 (setq auto-save-file-name-`((".*" ,temporary-file-directory t)))
 
+;; ediff
 (defvar ediff-split-window-function)
 (setq ediff-split-window-function 'split-window-horizontally)
 
@@ -130,6 +130,12 @@
 (substitute-key-definition 'kill-buffer
                            'kill-buffer-and-its-windows
                            global-map)
+
+;; ledger mode
+(autoload 'ledger-mode "ledger-mode" "A major mode for Ledger" t)
+(add-to-list 'load-path
+             (expand-file-name "/path/to/ledger/source/lisp/"))
+(add-to-list 'auto-mode-alist '("\\.ledger$" . ledger-mode))
 
 ;; org-mode
 (require 'org-mode-conf)

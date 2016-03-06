@@ -48,6 +48,7 @@
 (load "preview-latex.el" nil t t)
 
 ;; flycheck
+(require 'let-alist)
 (require 'flycheck)
 (add-hook 'after-init-hook #'global-flycheck-mode)
 
@@ -57,6 +58,13 @@
 ;; web-mode
 (require 'web-mode)
 (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+
+;; erlang
+
+(add-to-list 'load-path "/usr/lib/erlang/lib/tools-2.8.2/emacs/")
+(setq erlang-root-dir "/usr/local/erlang")
+(setq exec-path (cons "/usr/local/otp/erlang" exec-path))
+(require 'erlang-start)
 
 ;; restclient
 (require 'restclient)
