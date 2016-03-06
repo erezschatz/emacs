@@ -1,3 +1,7 @@
+;;; emacs.el --- Summary
+;;; Commentary:
+;;; Code:
+
 (require 'cl-lib)
 
 ;; no tool bar, no menu bar, no scrollbar
@@ -59,9 +63,10 @@
 ;; save all backups in the temp folder
 (setq backup-directory-alist
       `((".*" . ,temporary-file-directory)))
+(defvar auto-save-file-name-)
 (setq auto-save-file-name-`((".*" ,temporary-file-directory t)))
 
-;;
+(defvar ediff-split-window-function)
 (setq ediff-split-window-function 'split-window-horizontally)
 
 (setq tab-stop-list
@@ -72,9 +77,6 @@
 ;; automatically revert buffer
 (global-auto-revert-mode t)
 
-;; Also auto refresh dired, but be quiet about it
-(setq global-auto-revert-non-file-buffers t)
-(setq auto-revert-verbose nil)
 
 (autoload 'ibuffer "ibuffer" "List buffers." t)
 
@@ -85,6 +87,7 @@
   "In Dired, visit this file or directory in another window."
   (interactive)
   (find-file-other-frame (dired-get-file-for-visit)))
+  (defvar dired-mode-map)
 (eval-after-load "dired"
   '(define-key dired-mode-map "F" 'dired-find-file-other-frame))
 
@@ -139,5 +142,7 @@
 (require 'social-conf)
 
 ;; Server, Browser
-(unless (fboundp 'server-running-p)
-  (server-start))
+(server-start)
+
+(provide 'emacs)
+;;; emacs.el ends here

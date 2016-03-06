@@ -1,4 +1,7 @@
+;;; dev-conf.el --- Summary
 ;; Language modules
+;;; Commentary:
+;;; Code:
 
 ;; c
 (setq c-basic-offset 8)
@@ -24,10 +27,10 @@
 (setq js2-basic-offset 4)
 
 ;; slime
-;;(setq inferior-lisp-program "/usr/bin/sbcl")
+(setq inferior-lisp-program "/usr/bin/sbcl")
 
-;;(require 'slime)
-;;(slime-setup)
+(require 'slime)
+(slime-setup)
 
 ;; assembly
 
@@ -45,8 +48,18 @@
 (load "preview-latex.el" nil t t)
 
 ;; flycheck
-(require 'let-alist)
 (require 'flycheck)
 (add-hook 'after-init-hook #'global-flycheck-mode)
 
+;; php
+(require 'php-mode)
+
+;; web-mode
+(require 'web-mode)
+(add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+
+;; restclient
+(require 'restclient)
+
 (provide 'dev-conf)
+;;; dev-conf ends here
