@@ -26,12 +26,12 @@ git clone http://git.gnus.org/gnus.git
 
 # tramp
 git clone git://git.savannah.gnu.org/tramp.git
+git clone https://github.com/emacs-pe/docker-tramp.el.git docker-tramp
 
 # org-mode
 git clone git://orgmode.org/org-mode.git
 
 # magit
-git clone https://github.com/magnars/dash.el.git
 git clone https://github.com/magit/git-modes.git
 git clone https://github.com/magit/magit.git
 git clone https://github.com/magnars/dash.el.git dash

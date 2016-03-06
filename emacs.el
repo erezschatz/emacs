@@ -109,6 +109,7 @@
 
 ;;tramp - Transparent Remote (file) Access, Multiple Protocol
 (require 'tramp)
+(require 'docker-tramp)
 
 ;; frame commands
 
@@ -133,8 +134,6 @@
 
 ;; ledger mode
 (autoload 'ledger-mode "ledger-mode" "A major mode for Ledger" t)
-(add-to-list 'load-path
-             (expand-file-name "/path/to/ledger/source/lisp/"))
 (add-to-list 'auto-mode-alist '("\\.ledger$" . ledger-mode))
 
 ;; org-mode
