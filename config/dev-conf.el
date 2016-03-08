@@ -55,6 +55,7 @@
 
 ;; php
 (require 'php-mode)
+(add-hook 'php-mode-hook 'php-enable-psr2-coding-style)
 
 ;; web-mode
 (require 'web-mode)
@@ -69,6 +70,9 @@
 
 ;; restclient
 (require 'restclient)
+
+;; R
+(require 'ess-site)
 
 (provide 'dev-conf)
 ;;; dev-conf ends here

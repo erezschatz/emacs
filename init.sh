@@ -89,4 +89,8 @@ git clone https://github.com/fxbois/web-mode.git
 
 git clone https://github.com/pashky/restclient.el.git restclient
 
+# ess
+
+git clone https://github.com/emacs-ess/ESS.git
+
 cd $here
