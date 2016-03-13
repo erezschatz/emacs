@@ -1,7 +1,5 @@
-;;; Package: --- summary
-
+;;; emacs.el --- Summary
 ;;; Commentary:
-
 ;;; Code:
 
 (require 'cl-lib)
@@ -21,7 +19,8 @@
                               :foreground "white")
           (set-face-attribute 'tooltip nil :font "Consolas" :height 80))
   (eq system-type 'gnu/linux)
-  (if window-system   ;;X system only
+  ;;X system only
+  (if window-system
       (progn
         (set-face-attribute 'default nil
                             :font "Terminus"
@@ -63,20 +62,21 @@
 ;; save all backups in the temp folder
 (setq backup-directory-alist
       `((".*" . ,temporary-file-directory)))
+(defvar auto-save-file-name-)
 (setq auto-save-file-name-`((".*" ,temporary-file-directory t)))
 
 ;; ediff
+(defvar ediff-split-window-function)
 (setq ediff-split-window-function 'split-window-horizontally)
 
+(setq tab-stop-list
+      '(2 4 6 8 10 12 14 16 18 20 22 24 26 28 30 32 34 36 38 40))
 ;; delete trailing whitespaces
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 ;; automatically revert buffer
 (global-auto-revert-mode t)
 
-;; Also auto refresh dired, but be quiet about it
-(setq global-auto-revert-non-file-buffers t)
-(setq auto-revert-verbose nil)
 
 (autoload 'ibuffer "ibuffer" "List buffers." t)
 
@@ -87,6 +87,7 @@
   "In Dired, visit this file or directory in another window."
   (interactive)
   (find-file-other-frame (dired-get-file-for-visit)))
+  (defvar dired-mode-map)
 (eval-after-load "dired"
   '(define-key dired-mode-map "F" 'dired-find-file-other-frame))
 
@@ -108,6 +109,7 @@
 
 ;;tramp - Transparent Remote (file) Access, Multiple Protocol
 (require 'tramp)
+(require 'docker-tramp)
 
 ;; frame commands
 
@@ -132,8 +134,6 @@
 
 ;; ledger mode
 (autoload 'ledger-mode "ledger-mode" "A major mode for Ledger" t)
-(add-to-list 'load-path
-             (expand-file-name "/path/to/ledger/source/lisp/"))
 (add-to-list 'auto-mode-alist '("\\.ledger$" . ledger-mode))
 
 ;; org-mode
@@ -147,7 +147,7 @@
 (require 'social-conf)
 
 ;; Server, Browser
-(unless (fboundp 'server-running-p)
-  (server-start))
+(server-start)
 
+(provide 'emacs)
 ;;; emacs.el ends here
