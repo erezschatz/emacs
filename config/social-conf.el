@@ -6,6 +6,11 @@
 
 ;;; Code:
 
+(defvar erc-log-channels-directory)
+(defvar erc-save-buffer-on-part)
+(defvar smtpmail-smtp-service)
+(defvar smtpmail-smtp-server)
+
 (eval-after-load "erc"
 '(progn
 ;;   (setq erc-autojoin-channels-alist
@@ -34,6 +39,12 @@
 ;;             (ispell-minor-mode) (flyspell-mode)))
 
 ;;(twit)
+
+;; GNUS
+
+(setq send-mail-function (quote smtpmail-send-it))
+(setq smtpmail-smtp-server "smtp.googlemail.com")
+(setq smtpmail-smtp-service 587)
 
 (provide 'social-conf)
 
