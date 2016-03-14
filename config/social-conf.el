@@ -6,6 +6,9 @@
 
 ;;; Code:
 
+(defvar erc-log-channels-directory)
+(defvar erc-save-buffer-on-part)
+
 (eval-after-load "erc"
 '(progn
 ;;   (setq erc-autojoin-channels-alist
@@ -34,6 +37,26 @@
 ;;             (ispell-minor-mode) (flyspell-mode)))
 
 ;;(twit)
+
+;; GNUS
+
+(defvar smtpmail-smtp-service)
+(defvar smtpmail-smtp-server)
+(defvar gnus-ignored-newsgroups)
+(defvar gnus-select-method)
+
+(setq send-mail-function (quote smtpmail-send-it))
+(setq smtpmail-smtp-server "smtp.googlemail.com")
+(setq smtpmail-smtp-service 587)
+
+(setq gnus-select-method
+      '(nnimap "gmail"
+	       (nnimap-address "imap.gmail.com")
+	       (nnimap-server-port "imaps")
+	       (nnimap-stream ssl)))
+
+(setq smtpmail-smtp-service 587
+      gnus-ignored-newsgroups "^to\\.\\|^[0-9. ]+\\( \\|$\\)\\|^[\"]\"[#'()]")
 
 (provide 'social-conf)
 
