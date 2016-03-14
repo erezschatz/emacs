@@ -55,7 +55,10 @@
 
 ;; php
 (require 'php-mode)
-(add-hook 'php-mode-hook 'php-enable-psr2-coding-style)
+(add-hook 'php-mode-hook 'php-enable-psr2-coding-style`)
+(add-hook 'php-mode-hook
+          (lambda()
+            (linum-mode t)))
 
 ;; web-mode
 (require 'web-mode)
