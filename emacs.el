@@ -109,7 +109,6 @@
 
 ;;tramp - Transparent Remote (file) Access, Multiple Protocol
 (require 'tramp)
-(require 'docker-tramp)
 
 ;; frame commands
 
@@ -148,6 +147,11 @@
 
 ;; Server, Browser
 (server-start)
+
+(require 'w3m-load)
+(setq mm-text-html-renderer 'w3m)
+(setq w3m-use-cookies t)
+
 
 (provide 'emacs)
 ;;; emacs.el ends here

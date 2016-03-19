@@ -3,12 +3,17 @@
 mkdir site-lisp
 cd site-lisp
 
-for i in wget git autoconf bitlbee bzr erlang ledger
+for i in wget git autoconf bitlbee bzr erlang ledger w3m cvs sbcl
 do
     if [ ! $(which $i) ]; then
         sudo yaourt -Syua $i
     fi
 done
+
+# APEL
+
+git clone http://git.chise.org/git/elisp/apel.git
+
 
 # one-in-one
 mkdir one-on-one
@@ -36,7 +41,6 @@ git clone https://github.com/magit/git-modes.git
 git clone https://github.com/magit/magit.git
 git clone https://github.com/magnars/dash.el.git dash
 git clone https://github.com/magit/with-editor.git
-
 
 # gas-mode
 wget http://www.hczim.de/software/gas-mode.el-1.10.gz
@@ -78,9 +82,15 @@ cd ..
 
 # slime
 git clone https://github.com/slime/slime.git
+cd slime
+make
+cd ..
 
 # php
 git clone https://github.com/ejmr/php-mode.git
+cd php-mode
+make
+cd ..
 
 # web-mode
 git clone https://github.com/fxbois/web-mode.git
@@ -89,8 +99,22 @@ git clone https://github.com/fxbois/web-mode.git
 
 git clone https://github.com/pashky/restclient.el.git restclient
 
-# ess
+# gnus
 
-git clone https://github.com/emacs-ess/ESS.git
+git clone http://git.gnus.org/gnus.git
+./configure
+make
+
+# w3m
+
+cvs -d :pserver:anonymous@cvs.namazu.org:/storage/cvsroot login
+# need to hit enter here
+cvs -d :pserver:anonymous@cvs.namazu.org:/storage/cvsroot co emacs-w3m
+cd emacs-w3m
+autoconf
+./configure --with-addpath=../gnus/lisp
+make
+wget http://web.mit.edu/nelhage/Public/dot-elisp/apel/calist.el
+cd ..
 
 cd $here
